@@ -54,6 +54,10 @@ export default {
 
     const chats = ref([])
 
+    if (!route.query || !route.query.user) {
+      router.push({ name: 'home' })
+    }
+    
     const loggedUser = ref(route.query.user)
     const selectedUser = ref()
 
