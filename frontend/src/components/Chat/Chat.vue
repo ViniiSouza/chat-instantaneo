@@ -111,6 +111,17 @@
   height: 240px;
   flex-direction: column-reverse;
   padding: 0 10px;
+  overflow: auto;
+}
+
+.chat-messages-placer::-webkit-scrollbar {
+  width: 5px;
+}
+
+
+.chat-messages-placer::-webkit-scrollbar-thumb {
+  background-color: rgb(255,193,7);
+  border-radius: 20px;
 }
 
 .chat-messages--message {
