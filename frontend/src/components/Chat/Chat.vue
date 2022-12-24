@@ -15,9 +15,10 @@
       <div class="chat-messages">
         <div class="chat-messages-placer">
           <div
-            v-for="message in messages"
+            v-for="(message, index) in messages"
             :key="message.id"
           >
+            <p v-if="!messages[index + 1] || messages[index + 1] && message.time !== messages[index + 1].time" class="chat-messages-time">{{ message.time }}</p>
             <div
               v-if="message.sender"
               class="chat-messages--message chat-messages--message_sent"
@@ -124,6 +125,13 @@
   border-radius: 20px;
 }
 
+.chat-messages-time {
+  font-size: 12px;
+  text-align: center;
+  color: grey;
+  margin: 5px 0;
+}
+
 .chat-messages--message {
   margin: 0 0 5px 0;
   padding: 0 5px;
@@ -176,23 +184,27 @@ export default {
   setup (props, {emit}) {
     const sendMessage = () => {
       if (inputText.value) {
+        const date = new Date()
+        const formattedDate = `${date.getHours()}:${date.getMinutes()}`
         messages.value.unshift({
           id: 123,
           user: 'Você',
           content: inputText.value,
-          sender: true
+          sender: true,
+          time: formattedDate,
         })
-        connection.invoke('SendMessage', props.loggedUser, inputText.value, props.receiverUser, 'id(implementar uso)')
+        connection.invoke('SendMessage', props.loggedUser, inputText.value, props.receiverUser, formattedDate)
         inputText.value = ''
       }
     }
 
-    const receiveMessage = (user, message, receiver) => {
+    const receiveMessage = (user, message, receiver, time) => {
       if (user == props.receiverUser && receiver == props.loggedUser) {
         messages.value.unshift({
           id: 123,
           user: user,
-          content: message
+          content: message,
+          time: time
         })
       }
     }
@@ -207,7 +219,7 @@ export default {
 
     let startedPromise = null
     function start () {
-      startedPromise = connection.start().then(() => console.log('abriu'))
+      startedPromise = connection.start().then()
         .catch(err => {
           console.error('Failed to connect with hub', err)
           return new Promise((resolve, reject) =>
@@ -216,16 +228,14 @@ export default {
       return startedPromise
     }
 
-    connection.on('ReceiveMessage', (user, message, receiver) => {
-      receiveMessage(user, message, receiver)
+    connection.on('ReceiveMessage', (user, message, receiver, time) => {
+      receiveMessage(user, message, receiver, time)
     })
     start()
 
     onBeforeUnmount(() => {
       connection.stop().then(() => {
         setTimeout(() => {
-          console.log(connection)
-          // connection.connection.connectionState == 2 = off
         }, 2000)
       })
     })
@@ -247,4 +257,3 @@ export default {
   }
 }
 </script>
-// fechar conexão

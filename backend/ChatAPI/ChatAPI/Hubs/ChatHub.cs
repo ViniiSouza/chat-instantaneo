@@ -6,9 +6,17 @@ namespace ChatAPI.Hubs
     {
         public string GetConnectionId() => Context.ConnectionId;
 
-        public async Task SendMessage(string usuarioEnvio, string mensagem, string usuarioDestino, string connectionId)
+        /// <summary>
+        /// Invoked when a user send a message. Invoke a "ReceiveMessage" that send all the informations to reproduce it
+        /// </summary>
+        /// <param name="usuarioEnvio">Sender</param>
+        /// <param name="mensagem">Message content</param>
+        /// <param name="usuarioDestino">Receiver</param>
+        /// <param name="time">Hours and minutes the message was sent</param>
+        public async Task SendMessage(string usuarioEnvio, string mensagem, string usuarioDestino, string time)
         {
-            await Clients.All.SendAsync("ReceiveMessage", usuarioEnvio, mensagem, usuarioDestino, connectionId);
+            var data = DateTime.Now;
+            await Clients.All.SendAsync("ReceiveMessage", usuarioEnvio, mensagem, usuarioDestino, time);
         }
     }
 }
