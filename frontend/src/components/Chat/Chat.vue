@@ -185,7 +185,7 @@ export default {
     const sendMessage = () => {
       if (inputText.value) {
         const date = new Date()
-        const formattedDate = `${date.getHours()}:${date.getMinutes()}`
+        const formattedDate = `${date.getHours()}:${(date.getMinutes()<10?'0':'') + date.getMinutes()}`
         messages.value.unshift({
           id: 123,
           user: 'Você',

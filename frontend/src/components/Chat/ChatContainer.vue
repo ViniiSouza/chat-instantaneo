@@ -9,6 +9,7 @@
           >Voltar ao menu principal</button>
         </div>
         <div class="text-center">
+          <h3 class="text-center mt-2">Olá {{ loggedUser }}!</h3>
           <p>Selecione um usuário para iniciar uma conversa:</p>
           <select
             id="usuario-select"
@@ -77,7 +78,7 @@ export default {
       } else if (loggedUser.value == selectedUser.value) {
         Swal.fire({
           title: 'Erro',
-          text: 'Você não pode convesar com você mesmo',
+          text: 'Você não pode conversar com você mesmo',
           timer: 2000,
           timerProgressBar: true,
           icon: 'error'
