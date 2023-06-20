@@ -9,14 +9,14 @@ namespace ChatAPI.Hubs
         /// <summary>
         /// Invoked when a user send a message. Invoke a "ReceiveMessage" that send all the informations to reproduce it
         /// </summary>
-        /// <param name="usuarioEnvio">Sender</param>
-        /// <param name="mensagem">Message content</param>
-        /// <param name="usuarioDestino">Receiver</param>
+        /// <param name="sender">Sender</param>
+        /// <param name="message">Message content</param>
+        /// <param name="receiver">Receiver</param>
         /// <param name="time">Hours and minutes the message was sent</param>
-        public async Task SendMessage(string usuarioEnvio, string mensagem, string usuarioDestino, string time)
+        public async Task SendMessage(string sender, string message, string receiver, string time)
         {
             var data = DateTime.Now;
-            await Clients.All.SendAsync("ReceiveMessage", usuarioEnvio, mensagem, usuarioDestino, time);
+            await Clients.All.SendAsync("ReceiveMessage", sender, message, receiver, time);
         }
     }
 }
