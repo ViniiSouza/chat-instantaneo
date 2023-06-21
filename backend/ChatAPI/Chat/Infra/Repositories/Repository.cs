@@ -13,29 +13,29 @@ namespace Chat.Infra.Repositories
             _context = context;
         }
 
-        public void Create(T entity)
+        public virtual void Create(T entity)
         {
             _context.Add(entity);
             _context.SaveChanges();
         }
 
-        public void Delete(T entity)
+        public virtual void Delete(T entity)
         {
             _context.Remove(entity);
             _context.SaveChanges();
         }
 
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             return _context.Set<T>().ToList();
         }
 
-        public T GetById(int id)
+        public virtual T GetById(int id)
         {
             return _context.Set<T>().FirstOrDefault(find => find.Id == id);
         }
 
-        public void Update(T entity)
+        public virtual void Update(T entity)
         {
             _context.Update(entity);
             _context.SaveChanges();
