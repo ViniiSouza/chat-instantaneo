@@ -1,8 +1,17 @@
+using Chat.Domain.Models;
+using Chat.Infra.Contexts;
 using ChatAPI.Hubs;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddDbContext<ChatDbContext>(opts =>
+{
+    opts.UseSqlServer(builder.Configuration.GetConnectionString("UserConnection"));
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
