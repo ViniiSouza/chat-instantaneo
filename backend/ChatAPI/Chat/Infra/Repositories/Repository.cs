@@ -6,7 +6,7 @@ namespace Chat.Infra.Repositories
 {
     public class Repository<T> : IRepository<T> where T : EntityBase
     {
-        private readonly ChatDbContext _context;
+        protected readonly ChatDbContext _context;
 
         public Repository(ChatDbContext context)
         {
@@ -15,6 +15,7 @@ namespace Chat.Infra.Repositories
 
         public virtual void Create(T entity)
         {
+            entity.DataCriacao = DateTime.Now;
             _context.Add(entity);
             _context.SaveChanges();
         }
@@ -30,7 +31,7 @@ namespace Chat.Infra.Repositories
             return _context.Set<T>().ToList();
         }
 
-        public virtual T GetById(int id)
+        public virtual T? GetById(int id)
         {
             return _context.Set<T>().FirstOrDefault(find => find.Id == id);
         }

@@ -6,8 +6,8 @@ namespace Chat.Application.Services
 {
     public class BaseAppService<TDto, TEntity> : IBaseAppService<TDto, TEntity>
     {
-        private readonly IMapper _mapper;
-        private readonly IRepository<TEntity> _repository;
+        protected readonly IMapper _mapper;
+        protected readonly IRepository<TEntity> _repository;
 
         public BaseAppService(IMapper mapper, IRepository<TEntity> repository)
         {
