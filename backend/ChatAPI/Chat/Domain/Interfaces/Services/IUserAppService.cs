@@ -5,5 +5,8 @@ namespace Chat.Domain.Interfaces.Services
 {
     public interface IUserAppService : IBaseAppService<UserDTO, User>
     {
+        string? Create(CreateUserDTO dto);
+
+        string? Login(UserLoginDTO dto);
     }
 }
