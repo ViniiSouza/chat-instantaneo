@@ -24,7 +24,6 @@ namespace Chat.Infra.Repositories
             var entity = new MessageRequest(requesterId, receiverId, message);
             entity.CreationDate = DateTime.Now;
             _context.Set<MessageRequest>().Add(entity);
-            _context.SaveChanges();
         }
     }
 }

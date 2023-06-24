@@ -17,13 +17,11 @@ namespace Chat.Infra.Repositories
         {
             entity.CreationDate = DateTime.Now;
             _context.Add(entity);
-            _context.SaveChanges();
         }
 
         public virtual void Delete(T entity)
         {
             _context.Remove(entity);
-            _context.SaveChanges();
         }
 
         public virtual IEnumerable<T> GetAll()
@@ -39,7 +37,6 @@ namespace Chat.Infra.Repositories
         public virtual void Update(T entity)
         {
             _context.Update(entity);
-            _context.SaveChanges();
         }
     }
 }

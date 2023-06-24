@@ -11,5 +11,7 @@
         public List<MessageRequest> RequestsSolicited { get; set; }
 
         public List<MessageRequest> RequestsReceived { get; set; }
+
+        public DateTime LastLogin { get; set; }
     }
 }

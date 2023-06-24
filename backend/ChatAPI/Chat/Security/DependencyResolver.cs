@@ -1,6 +1,7 @@
 ﻿using Chat.Application.Services;
 using Chat.Domain.Interfaces.Repositories;
 using Chat.Domain.Interfaces.Services;
+using Chat.Infra.Data;
 using Chat.Infra.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +11,8 @@ namespace Chat.Security
     {
         public static void AddDependencies(this IServiceCollection service)
         {
+            service.AddScoped<UnitOfWork>();
+
             // repositories
             service.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             service.AddTransient(typeof(IUserRepository), typeof(UserRepository));

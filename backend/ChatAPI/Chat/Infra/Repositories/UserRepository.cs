@@ -37,6 +37,12 @@ namespace Chat.Infra.Repositories
             }).FirstOrDefault(find => find.Id == id); ;
         }
 
+        public override void Create(User entity)
+        {
+            entity.LastLogin = DateTime.Now;
+            base.Create(entity);
+        }
+
         public User? GetByUserName(string username)
         {
             return _context.Set<User>().Select(select => new User()
@@ -46,6 +52,14 @@ namespace Chat.Infra.Repositories
                 UserName = select.UserName,
                 CreationDate = select.CreationDate
             }).FirstOrDefault(find => find.UserName == username);
+        }
+
+        public void SetLastLogin(string username)
+        {
+            var entity = GetByUserName(username);
+            entity.LastLogin = DateTime.Now;
+            _context.Attach(entity);
+            _context.Entry(entity).Property(p => p.LastLogin).IsModified = true;
         }
     }
 }
