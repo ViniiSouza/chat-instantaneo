@@ -61,7 +61,7 @@ settingsName = "appsettings.json";
 // AutoMapper profiles injection
 var assembly = Assembly.LoadFrom(profilesPath);
 var profileTypes = assembly.GetTypes()
-    .Where(type => typeof(Profile).IsAssignableFrom(type) && type != typeof(Profile))
+    .Where(type => type.Name.EndsWith("Profile") && typeof(Profile).IsAssignableFrom(type) && type != typeof(Profile))
     .ToArray();
 if (profileTypes != null && profileTypes.Length > 0)
     builder.Services.AddAutoMapper(profileTypes);

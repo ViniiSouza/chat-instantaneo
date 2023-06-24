@@ -11,6 +11,14 @@ namespace Chat.Infra.Mappings
             builder.HasKey(prop => prop.Id);
             builder.Property(prop => prop.Name).HasMaxLength(40);
             builder.Property(prop => prop.UserName).HasMaxLength(15);
+
+            builder.HasMany(prop => prop.RequestsReceived)
+                .WithOne(prop => prop.Receiver)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasMany(prop => prop.RequestsSolicited)
+                .WithOne(prop => prop.Requester)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
