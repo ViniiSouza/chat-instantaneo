@@ -13,6 +13,7 @@ namespace Chat.Security
             // repositories
             service.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             service.AddTransient(typeof(IUserRepository), typeof(UserRepository));
+            service.AddTransient(typeof(IMessageRequestRepository), typeof(MessageRequestRepository));
 
             // app services
             service.AddTransient(typeof(IBaseAppService<,>), typeof(BaseAppService<,>));

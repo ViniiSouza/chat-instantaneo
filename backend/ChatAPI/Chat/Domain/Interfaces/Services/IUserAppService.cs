@@ -8,5 +8,7 @@ namespace Chat.Domain.Interfaces.Services
         string? Create(CreateUserDTO dto);
 
         string? Login(UserLoginDTO dto);
+
+        string? RequestMessage(string requesterUsername, string receiverUsername, string message);
     }
 }

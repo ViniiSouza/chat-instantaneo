@@ -15,7 +15,7 @@ namespace Chat.Infra.Repositories
 
         public virtual void Create(T entity)
         {
-            entity.DataCriacao = DateTime.Now;
+            entity.CreationDate = DateTime.Now;
             _context.Add(entity);
             _context.SaveChanges();
         }

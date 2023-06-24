@@ -10,8 +10,10 @@ namespace Chat.Application.Services
 {
     public class UserAppService : BaseAppService<UserDTO, User>, IUserAppService
     {
-        public UserAppService(IMapper mapper, IUserRepository repository) : base(mapper, repository)
+        private readonly IMessageRequestRepository _messageRepository;
+        public UserAppService(IMapper mapper, IUserRepository repository, IMessageRequestRepository messageRepository) : base(mapper, repository)
         {
+            _messageRepository = messageRepository;
         }
 
         public string? Create(CreateUserDTO dto)
@@ -32,6 +34,19 @@ namespace Chat.Application.Services
             var entity = _mapper.Map<User>(dto);
 
             return TokenService.GenerateToken(entity);
+        }
+
+        public string? RequestMessage(string requesterUsername, string receiverUsername, string message)
+        {
+            var requester = (_repository as IUserRepository).GetByUserName(requesterUsername);
+            var receiver = (_repository as IUserRepository).GetByUserName(receiverUsername);
+            if (_messageRepository.ExistsRequest(requester.Id, receiver.Id))
+            {
+                return "A message request already exists for this user!";
+            }
+
+            _messageRepository.CreateRequest(requester.Id, receiver.Id, message);
+            return null;
         }
     }
 }

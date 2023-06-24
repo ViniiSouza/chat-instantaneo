@@ -17,6 +17,19 @@ namespace ChatAPI.Controllers
             _appService = appService;
         }
 
+        #region Creation/Login
+        [AllowAnonymous]
+        [HttpPost("new")]
+        public IActionResult Create([FromBody] CreateUserDTO dto)
+        {
+            var token = _appService.Create(dto);
+            if (token == null)
+            {
+                return StatusCode(500, "Something went wrong. Please try again!");
+            }
+            return StatusCode(201, token);
+        }
+
         [AllowAnonymous]
         [HttpGet("login")]
         public IActionResult Login([FromQuery]string username, [FromQuery] string password)
@@ -24,10 +37,11 @@ namespace ChatAPI.Controllers
             var token = _appService.Login(new UserLoginDTO(username, password));
             if (token == null)
             {
-                return NotFound("Wrong username or password!");
+                return NotFound("Invalid data!");
             }
             return Ok(token);
         }
+        #endregion
 
         [HttpGet]
         public IActionResult GetAll()
@@ -51,16 +65,21 @@ namespace ChatAPI.Controllers
             return Ok(result);
         }
 
-        [AllowAnonymous]
-        [HttpPost("new")]
-        public IActionResult Create([FromBody] CreateUserDTO dto)
+        #region Message request
+        [HttpPost("request")]
+        public IActionResult RequestMessage([FromQuery] string requester, [FromQuery] string receiver, [FromQuery] string message)
         {
-            var token = _appService.Create(dto);
-            if (token== null)
+            var response = _appService.RequestMessage(requester, receiver, message);
+            if (response != null)
             {
-                return StatusCode(500, "Something went wrong. Please try again!");
+                return Conflict(response);
             }
-            return StatusCode(201, token);
+
+            return StatusCode(201);
         }
+
+        #endregion
+
+
     }
 }

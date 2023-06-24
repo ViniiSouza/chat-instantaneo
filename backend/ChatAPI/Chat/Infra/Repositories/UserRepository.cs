@@ -22,7 +22,7 @@ namespace Chat.Infra.Repositories
                 Id= select.Id,
                 Name = select.Name,
                 UserName = select.UserName,
-                DataCriacao= select.DataCriacao
+                CreationDate= select.CreationDate
             }).ToList();
         }
 
@@ -33,8 +33,19 @@ namespace Chat.Infra.Repositories
                 Id= select.Id,
                 Name = select.Name,
                 UserName = select.UserName,
-                DataCriacao = select.DataCriacao
+                CreationDate = select.CreationDate
             }).FirstOrDefault(find => find.Id == id); ;
+        }
+
+        public User? GetByUserName(string username)
+        {
+            return _context.Set<User>().Select(select => new User()
+            {
+                Id = select.Id,
+                Name = select.Name,
+                UserName = select.UserName,
+                CreationDate = select.CreationDate
+            }).FirstOrDefault(find => find.UserName == username);
         }
     }
 }

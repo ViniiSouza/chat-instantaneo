@@ -2,6 +2,13 @@
 {
     public class MessageRequest : EntityBase
     {
+        public MessageRequest(int requesterId, int receiverId, string? customInvite = null)
+        {
+            RequesterId = requesterId;
+            ReceiverId = receiverId;
+            CustomInvite = customInvite;
+        }
+
         public User Requester { get; set; }
 
         public int RequesterId { get; set; }
