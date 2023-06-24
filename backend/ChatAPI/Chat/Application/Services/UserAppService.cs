@@ -16,6 +16,10 @@ namespace Chat.Application.Services
 
         public string? Create(CreateUserDTO dto)
         {
+            if (_unitOfWork.UserRepository.GetByUserName(dto.UserName) != null)
+            {
+                return null;
+            }
             var entity = _mapper.Map<User>(dto);
             entity.Password = entity.Password.ToShaHash();
             _unitOfWork.UserRepository.Create(entity);

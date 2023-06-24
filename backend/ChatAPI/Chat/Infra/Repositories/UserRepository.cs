@@ -12,7 +12,7 @@ namespace Chat.Infra.Repositories
 
         public bool IsUserValid(string username, string password)
         {
-            return _context.Set<User>().Any(where => where.UserName.ToLower() == username.ToLower() && where.Password == password);
+            return _context.Set<User>().Any(where => where.UserName == username.ToLower() && where.Password == password);
         }
 
         public override IEnumerable<User> GetAll()
@@ -52,7 +52,7 @@ namespace Chat.Infra.Repositories
                 Name = select.Name,
                 UserName = select.UserName,
                 CreationDate = select.CreationDate
-            }).FirstOrDefault(find => find.UserName == username);
+            }).FirstOrDefault(find => find.UserName == username.ToLower());
         }
 
         public void SetLastLogin(string username)

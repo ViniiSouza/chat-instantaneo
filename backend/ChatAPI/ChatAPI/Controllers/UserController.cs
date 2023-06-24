@@ -22,12 +22,19 @@ namespace ChatAPI.Controllers
         [HttpPost("new")]
         public IActionResult Create([FromBody] CreateUserDTO dto)
         {
-            var token = _appService.Create(dto);
-            if (token == null)
+            try
+            {
+                var token = _appService.Create(dto);
+                if (token == null)
+                {
+                    return Conflict("A user with this username already exists!");
+                }
+                return StatusCode(201, token);
+            }
+            catch (Exception)
             {
                 return StatusCode(500, "Something went wrong. Please try again!");
             }
-            return StatusCode(201, token);
         }
 
         [AllowAnonymous]
