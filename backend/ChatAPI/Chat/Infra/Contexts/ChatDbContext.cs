@@ -35,5 +35,11 @@ namespace Chat.Infra.Contexts
         }
 
         public virtual DbSet<User> User { get; set; }
+
+        public virtual DbSet<MessageRequest> MessageRequest { get; set; }
+
+        public virtual DbSet<Message> Message { get; set; }
+
+        public virtual DbSet<Conversation> Conversation { get; set; }
     }
 }
