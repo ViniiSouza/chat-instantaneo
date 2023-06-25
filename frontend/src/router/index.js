@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../components/Home.vue'
+import Login from '../components/login/Login.vue'
 import ChatContainer from '../components/Chat/ChatContainer.vue'
 
 const router = createRouter({
@@ -15,6 +16,11 @@ const router = createRouter({
       name: 'chat',
       component: ChatContainer
     },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
+    }
   ]
 })
 
