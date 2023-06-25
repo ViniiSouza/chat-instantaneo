@@ -1,30 +1,31 @@
 <template>
   <FormComponent>
-        <div class="login__form-group">
-          <label class="login__form--label" for="username">Username:</label>
-          <input
-            class="login__form--input"
-            type="text"
-            id="username"
-            v-model="username"
-            placeholder="Enter your username"
-          />
-        </div>
-        <div class="login__form-group">
-          <label class="login__form--label" for="password">Password:</label>
-          <input
-            class="login__form--input"
-            type="password"
-            id="password"
-            v-model="password"
-            placeholder="Enter your password"
-          />
-        </div>
-        <button id="login__form--sign-in" @click="signIn">Sign in</button>
-        <p>
-          Don't have an account?
-          <a href="#" class="login__form--sign-up" @click="toSignUp">Sign up</a>
-        </p>
+    <div class="login__form-group">
+      <label class="login__form--label" for="username">Username:</label>
+      <input
+        class="login__form--input"
+        type="text"
+        id="username"
+        maxlength="15"
+        v-model="user.userName"
+        placeholder="Enter your username"
+      />
+    </div>
+    <div class="login__form-group">
+      <label class="login__form--label" for="password">Password:</label>
+      <input
+        class="login__form--input"
+        type="password"
+        id="password"
+        v-model="user.password"
+        placeholder="Enter your password"
+      />
+    </div>
+    <button id="login__form--sign-in" @click="signIn">Sign in</button>
+    <p>
+      Don't have an account?
+      <a href="#" class="login__form--sign-up" @click="toSignUp">Sign up</a>
+    </p>
   </FormComponent>
 </template>
 
@@ -35,7 +36,12 @@ import './shared/style.css'
 
 export default {
   data() {
-    return {}
+    return {
+      user: {
+        userName: '',
+        password: '',
+      },
+    }
   },
   components: {
     FormComponent,
@@ -45,8 +51,8 @@ export default {
       //
     },
     toSignUp() {
-      this.$router.push({name: 'register'})
-    }
-  }
+      this.$router.push({ name: 'register' })
+    },
+  },
 }
 </script>

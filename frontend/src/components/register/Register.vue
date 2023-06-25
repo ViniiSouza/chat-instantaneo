@@ -3,21 +3,23 @@
     <div class="register__form-group">
       <label class="register__form--label" for="username">Username:</label>
       <input
+        id="username"
         class="register__form--input"
         type="text"
-        id="username"
-        v-model="username"
+        v-model="user.userName"
         placeholder="Enter your username"
+        maxlength="15"
       />
     </div>
     <div class="register__form-group">
       <label class="register__form--label" for="username">Name:</label>
       <input
+        id="name"
         class="register__form--input"
         type="text"
-        id="name"
-        v-model="name"
+        v-model="user.name"
         placeholder="Enter your name"
+        maxlength="40"
       />
     </div>
     <div class="register__form-group">
@@ -26,17 +28,19 @@
         class="register__form--input"
         type="password"
         id="password"
-        v-model="password"
+        v-model="user.password"
         placeholder="Enter your password"
       />
     </div>
     <div class="register__form-group">
-      <label class="register__form--label" for="password">Confirm Password:</label>
+      <label class="register__form--label" for="password"
+        >Confirm Password:</label
+      >
       <input
         class="register__form--input"
         type="password"
         id="confirm-password"
-        v-model="confirmPassword"
+        v-model="user.passwordConfirm"
         placeholder="Confirm your password"
       />
     </div>
@@ -54,18 +58,23 @@ import FormComponent from '../shared/form-section/FormComponent.vue'
 
 export default {
   data() {
-    return {}
+    return {
+      user: {
+        userName: '',
+        name: '',
+        password: '',
+        passwordConfirm: '',
+      },
+    }
   },
   components: {
     FormComponent,
   },
   methods: {
-    signUp() {
-
-    },
+    signUp() {},
     toSignIn() {
       this.$router.push({ name: 'login' })
-    }
-  }
+    },
+  },
 }
 </script>
