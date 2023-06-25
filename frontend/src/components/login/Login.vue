@@ -23,7 +23,7 @@
         <button id="login__form--sign-in" @click="signIn">Sign in</button>
         <p>
           Don't have an account?
-          <a href="#" class="login__form--sign-up">Sign up</a>
+          <a href="#" class="login__form--sign-up" @click="toSignUp">Sign up</a>
         </p>
   </FormComponent>
 </template>
@@ -43,6 +43,9 @@ export default {
   methods: {
     signIn() {
       //
+    },
+    toSignUp() {
+      this.$router.push({name: 'register'})
     }
   }
 }
