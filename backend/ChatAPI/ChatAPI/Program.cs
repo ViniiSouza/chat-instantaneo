@@ -49,7 +49,7 @@ builder.Services.AddSwaggerGen(option =>
 builder.Services.AddDependencies();
 
 string profilesPath = String.Empty;
-string settingsName = String.Empty; 
+string settingsName = String.Empty;
 #if DEBUG
 profilesPath = @"..\Chat\bin\Debug\net6.0\Chat.dll";
 settingsName = "appsettings.Development.json";
@@ -80,6 +80,11 @@ builder.Services.AuthenticationConfigure(key);
 builder.Services.AddSignalR();
 
 var app = builder.Build();
+
+app.UseCors(builder => builder
+.AllowAnyOrigin()
+.AllowAnyMethod()
+.AllowAnyHeader());
 
 app.MapHub<ChatHub>("/chat");
 
