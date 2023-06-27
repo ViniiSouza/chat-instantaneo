@@ -38,10 +38,10 @@ namespace ChatAPI.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("login")]
-        public IActionResult Login([FromQuery]string username, [FromQuery] string password)
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] UserLoginDTO dto)
         {
-            var token = _appService.Login(new UserLoginDTO(username, password));
+            var token = _appService.Login(dto);
             if (token == null)
             {
                 return NotFound("Invalid data!");

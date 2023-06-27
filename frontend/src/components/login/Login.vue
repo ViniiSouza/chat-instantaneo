@@ -70,7 +70,7 @@ export default {
   methods: {
     signIn() {
       if (this.validate()) {
-        api.signIn(this.user.userName, this.user.password).then(response => {
+        api.signIn(this.user).then(response => {
           if (response.status == 200) {
             localStorage.setItem('token', response.data)
             this.$router.push({name: 'home'})
