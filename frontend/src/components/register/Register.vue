@@ -116,6 +116,13 @@ export default {
             localStorage.setItem('token', response.data)
             this.$router.push({name: 'home'})
           }
+        }).catch(err => {
+          this.$toast.error(err.response.data)
+          this.validator.userName.valid = false
+          this.validator.name.valid = false
+          this.validator.password.valid = false
+          this.validator.passwordConfirm.valid = false
+          this.validator.passwordConfirm.message = err.response.data
         })
       }
     },

@@ -33,7 +33,7 @@ namespace ChatAPI.Controllers
             }
             catch (Exception)
             {
-                return StatusCode(500, "Something went wrong. Please try again!");
+                return StatusCode(500, "Something went wrong. Please try again later!");
             }
         }
 
@@ -44,7 +44,7 @@ namespace ChatAPI.Controllers
             var token = _appService.Login(dto);
             if (token == null)
             {
-                return NotFound("Invalid data!");
+                return NotFound("Wrong username or password!");
             }
             return Ok(token);
         }

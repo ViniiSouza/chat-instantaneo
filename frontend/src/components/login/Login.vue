@@ -41,8 +41,8 @@
 
 
 <script>
-import FormComponent from '../shared/form-section/FormComponent.vue'
 import './shared/style.css'
+import FormComponent from '../shared/form-section/FormComponent.vue'
 import api from './shared/api.js'
 
 export default {
@@ -75,6 +75,11 @@ export default {
             localStorage.setItem('token', response.data)
             this.$router.push({name: 'home'})
           }
+        }).catch(err => {
+          this.$toast.error(err.response.data)
+          this.validator.password.valid = false
+          this.validator.password.message = err.response.data
+          this.validator.userName.valid = false
         })
       }
     },
