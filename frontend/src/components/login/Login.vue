@@ -43,6 +43,7 @@
 <script>
 import FormComponent from '../shared/form-section/FormComponent.vue'
 import './shared/style.css'
+import api from './shared/api.js'
 
 export default {
   data() {
@@ -69,7 +70,12 @@ export default {
   methods: {
     signIn() {
       if (this.validate()) {
-        // sign in
+        api.signIn(this.user.userName, this.user.password).then(response => {
+          if (response.status == 200) {
+            localStorage.setItem('token', response.data)
+            this.$router.push({name: 'home'})
+          }
+        })
       }
     },
     toSignUp() {
