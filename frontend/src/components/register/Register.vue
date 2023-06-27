@@ -73,8 +73,8 @@
 </template>
 <script>
 import './shared/style.css'
-
 import FormComponent from '../shared/form-section/FormComponent.vue'
+import api from './shared/api.js'
 
 export default {
   data() {
@@ -111,7 +111,12 @@ export default {
   methods: {
     signUp() {
       if (this.validate()) {
-        // sign up
+        api.signUp(this.user).then(response => {
+          if (response.status == 201) {
+            localStorage.setItem('token', response.data)
+            this.$router.push({name: 'home'})
+          }
+        })
       }
     },
     toSignIn() {
