@@ -39,87 +39,91 @@
   </FormComponent>
 </template>
 
-
-<script>
+<script setup>
 import './shared/style.css'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import FormComponent from '../shared/form-section/FormComponent.vue'
 import api from './shared/api.js'
+import { useToast } from 'vue-toastification'
 
-export default {
-  data() {
-    return {
-      user: {
-        userName: '',
-        password: '',
-      },
-      validator: {
-        userName: {
-          message: '',
-          valid: true,
-        },
-        password: {
-          message: '',
-          valid: true,
-        },
-      },
-    }
-  },
-  components: {
-    FormComponent,
-  },
-  methods: {
-    signIn() {
-      if (this.validate()) {
-        api.signIn(this.user).then(response => {
-          if (response.status == 200) {
-            localStorage.setItem('token', response.data)
-            this.$router.push({name: 'home'})
-          }
-        }).catch(err => {
-          this.$toast.error(err.response.data)
-          this.validator.password.valid = false
-          this.validator.password.message = err.response.data
-          this.validator.userName.valid = false
-        })
-      }
-    },
-    toSignUp() {
-      this.$router.push({ name: 'register' })
-    },
-    validate() {
-      let valid = true
-      if (!this.validateUser())
-        valid = false
-      if (!this.validatePassword())
-        valid = false
-      return valid
-    },
-    validateUser() {
-      let valid = true
-      if (!this.user.userName || this.user.userName.length == 0) {
-        this.validator.userName.valid = false
-        this.validator.userName.message = 'Invalid username'
-        valid = false
-      }
-      else {
-        this.validator.userName.valid = true
-      }
+const toast = useToast()
+const router = useRouter()
 
-      return valid
-    },
-    validatePassword() {
-      let valid = true
-      if (!this.user.password || this.user.password.length == 0) {
-        this.validator.password.valid = false
-        this.validator.password.message = 'Invalid password'
-        valid = false
-      }
-      else {
-        this.validator.password.valid = true
-      }
+const user = ref({
+  userName: '',
+  password: '',
+})
 
-      return valid
-    }
+const validator = ref({
+  userName: {
+    message: '',
+    valid: true,
   },
+  password: {
+    message: '',
+    valid: true,
+  },
+})
+
+const validateUser = () => {
+  let valid = true
+  if (!user.value.userName || user.value.userName.length == 0) {
+    validator.value.userName.valid = false
+    validator.value.userName.message = 'Invalid username'
+    valid = false
+  } else {
+    validator.value.userName.valid = true
+  }
+
+  return valid
 }
+
+const validatePassword = () => {
+  let valid = true
+  if (!user.value.password || user.value.password.length == 0) {
+    validator.value.password.valid = false
+    validator.value.password.message = 'Invalid password'
+    valid = false
+  } else {
+    validator.value.password.valid = true
+  }
+
+  return valid
+}
+
+const validate = () => {
+  let valid = true
+  if (!validateUser()) valid = false
+  if (!validatePassword()) valid = false
+  return valid
+}
+
+const signIn = () => {
+  if (validate()) {
+    api
+      .signIn(user.value)
+      .then((response) => {
+        if (response.status == 200) {
+          localStorage.setItem('token', response.data)
+          router.push({ name: 'home' })
+        }
+      })
+      .catch((err) => {
+        if (err.response && err.response.data) {
+          toast.error(err.response.data)
+          validator.value.password.message = err.response.data
+        }
+        else {
+          const errorMsg = 'Something went wrong. Try again later.'
+          toast.error(errorMsg)
+          validator.value.password.message = errorMsg
+        }
+        validator.value.password.valid = false
+        validator.value.userName.valid = false
+      })
+  }
+}
+
+const toSignUp = () => router.push({ name: 'register' })
 </script>
