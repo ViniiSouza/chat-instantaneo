@@ -71,132 +71,128 @@
     </p>
   </FormComponent>
 </template>
-<script>
+<script setup>
 import './shared/style.css'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import FormComponent from '../shared/form-section/FormComponent.vue'
 import api from './shared/api.js'
+import { useToast } from 'vue-toastification'
 
-export default {
-  data() {
-    return {
-      user: {
-        userName: '',
-        name: '',
-        password: '',
-        passwordConfirm: '',
-      },
-      validator: {
-        userName: {
-          message: '',
-          valid: true,
-        },
-        name: {
-          message: '',
-          valid: true,
-        },
-        password: {
-          message: '',
-          valid: true,
-        },
-        passwordConfirm: {
-          message: '',
-          valid: true,
-        },
-      },
-    }
+const toast = useToast()
+const router = useRouter()
+
+const user = ref({
+  userName: '',
+  name: '',
+  password: '',
+  passwordConfirm: '',
+})
+
+const validator = ref({
+  userName: {
+    message: '',
+    valid: true,
   },
-  components: {
-    FormComponent,
+  name: {
+    message: '',
+    valid: true,
   },
-  methods: {
-    signUp() {
-      if (this.validate()) {
-        api.signUp(this.user).then(response => {
-          if (response.status == 201) {
-            localStorage.setItem('token', response.data)
-            this.$router.push({name: 'home'})
-          }
-        }).catch(err => {
-          this.$toast.error(err.response.data)
-          this.validator.userName.valid = false
-          this.validator.name.valid = false
-          this.validator.password.valid = false
-          this.validator.passwordConfirm.valid = false
-          this.validator.passwordConfirm.message = err.response.data
-        })
-      }
-    },
-    toSignIn() {
-      this.$router.push({ name: 'login' })
-    },
-    validate() {
-      let valid = true
-      if (!this.validateUsername())
-        valid = false
-      if (!this.validateName())
-        valid = false
-      if (!this.validatePassword())
-        valid = false
-      if (!this.validatePasswordConfirm())
-        valid = false
-      return valid
-    },
-    validateUsername() {
-      let valid = true
-      if (!this.user.userName || this.user.userName.length == 0) {
-        this.validator.userName.valid = false
-        this.validator.userName.message = 'Invalid username'
-        valid = false
-      }
-      else {
-        this.validator.userName.valid = true
-      }
-
-      return valid
-    },
-    validateName() {
-      let valid = true
-      if (!this.user.name || this.user.name.length == 0) {
-        this.validator.name.valid = false
-        this.validator.name.message = 'Invalid name'
-        valid = false
-      }
-      else {
-        this.validator.name.valid = true
-      }
-
-      return valid
-    },
-    validatePassword() {
-      let valid = true
-      if (!this.user.password || this.user.password.length == 0) {
-        this.validator.password.valid = false
-        this.validator.password.message = 'Invalid password'
-        valid = false
-      }
-      else {
-        this.validator.password.valid = true
-      }
-
-      return valid
-    },
-    validatePasswordConfirm() {
-      let valid = true
-      if (!this.user.passwordConfirm || this.user.passwordConfirm.length == 0) {
-        this.validator.passwordConfirm.valid = false
-        this.validator.passwordConfirm.message = 'Invalid password confirmation'
-        valid = false
-      }
-      else if (this.user.password != this.user.passwordConfirm) {
-        this.validator.passwordConfirm.valid = false
-        this.validator.passwordConfirm.message = 'Passwords do not match'
-      }
-      else {
-        this.validator.passwordConfirm.valid = true
-      }
-
-      return valid
-    },
+  password: {
+    message: '',
+    valid: true,
   },
+  passwordConfirm: {
+    message: '',
+    valid: true,
+  },
+})
+
+const validateUsername = () => {
+  let valid = true
+  if (!user.value.userName || user.value.userName.length == 0) {
+    validator.value.userName.valid = false
+    validator.value.userName.message = 'Invalid username'
+    valid = false
+  } else {
+    validator.value.userName.valid = true
+  }
+
+  return valid
 }
+
+const validateName = () => {
+  let valid = true
+  if (!user.value.name || user.value.name.length == 0) {
+    validator.value.name.valid = false
+    validator.value.name.message = 'Invalid name'
+    valid = false
+  } else {
+    validator.value.name.valid = true
+  }
+
+  return valid
+}
+
+const validatePassword = () => {
+  let valid = true
+  if (!user.value.password || user.value.password.length == 0) {
+    validator.value.password.valid = false
+    validator.value.password.message = 'Invalid password'
+    valid = false
+  } else {
+    validator.value.password.valid = true
+  }
+
+  return valid
+}
+
+const validatePasswordConfirm = () => {
+  let valid = true
+  if (!user.value.passwordConfirm || user.value.passwordConfirm.length == 0) {
+    validator.value.passwordConfirm.valid = false
+    validator.value.passwordConfirm.message = 'Invalid passwordConfirm'
+    valid = false
+  } else if (user.value.password != user.value.passwordConfirm) {
+    validator.value.passwordConfirm.valid = false
+    validator.value.passwordConfirm.message = 'Passwords do not match'
+  } else {
+    validator.value.passwordConfirm.valid = true
+  }
+
+  return valid
+}
+
+const validate = () => {
+  let valid = true
+  if (!validateUsername()) valid = false
+  if (!validateName()) valid = false
+  if (!validatePassword()) valid = false
+  if (!validatePasswordConfirm()) valid = false
+  return valid
+}
+
+const signUp = () => {
+  if (validate()) {
+    api
+      .signUp(user.value)
+      .then((response) => {
+        if (response.status == 201) {
+          localStorage.setItem('token', response.data)
+          router.push({ name: 'home' })
+          toast
+        }
+      })
+      .catch((err) => {
+        toast.error(err.response.data)
+        validator.value.userName.valid = false
+        validator.value.name.valid = false
+        validator.value.password.valid = false
+        validator.value.passwordConfirm.valid = false
+        validator.value.passwordConfirm.message = err.response.data
+      })
+  }
+}
+
+const toSignIn = () => router.push({ name: 'login' })
 </script>
