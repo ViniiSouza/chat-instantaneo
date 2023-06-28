@@ -74,6 +74,7 @@ const validateUser = () => {
     valid = false
   } else {
     validator.value.userName.valid = true
+    validator.value.userName.message = ''
   }
 
   return valid
@@ -87,6 +88,7 @@ const validatePassword = () => {
     valid = false
   } else {
     validator.value.password.valid = true
+    validator.value.password.message = ''
   }
 
   return valid

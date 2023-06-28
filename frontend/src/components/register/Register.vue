@@ -116,6 +116,7 @@ const validateUsername = () => {
     valid = false
   } else {
     validator.value.userName.valid = true
+    validator.value.userName.message = ''
   }
 
   return valid
@@ -129,6 +130,7 @@ const validateName = () => {
     valid = false
   } else {
     validator.value.name.valid = true
+    validator.value.name.message = ''
   }
 
   return valid
@@ -142,6 +144,7 @@ const validatePassword = () => {
     valid = false
   } else {
     validator.value.password.valid = true
+    validator.value.password.message = ''
   }
 
   return valid
@@ -158,6 +161,7 @@ const validatePasswordConfirm = () => {
     validator.value.passwordConfirm.message = 'Passwords do not match'
   } else {
     validator.value.passwordConfirm.valid = true
+    validator.value.passwordConfirm.message = ''
   }
 
   return valid
@@ -184,12 +188,19 @@ const signUp = () => {
         }
       })
       .catch((err) => {
-        toast.error(err.response.data)
+        if (err.response && err.response.data) {
+          toast.error(err.response.data)
+          validator.value.passwordConfirm.message = err.response.data
+        }
+        else {
+          const errorMsg = 'Something went wrong. Try again later.'
+          toast.error(errorMsg)
+          validator.value.passwordConfirm.message = errorMsg
+        }
         validator.value.userName.valid = false
         validator.value.name.valid = false
         validator.value.password.valid = false
         validator.value.passwordConfirm.valid = false
-        validator.value.passwordConfirm.message = err.response.data
       })
   }
 }
