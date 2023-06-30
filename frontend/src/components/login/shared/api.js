@@ -1,6 +1,6 @@
 import axios from '@/services/axios.js'
 
-const BASE_ROUTE = 'user/'
+const BASE_ROUTE = 'authentication/'
 
 export default {
   signIn(user) {

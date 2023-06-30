@@ -14,34 +14,6 @@ namespace Chat.Application.Services
         {
         }
 
-        public string? Create(CreateUserDTO dto)
-        {
-            if (_unitOfWork.UserRepository.GetByUserName(dto.UserName) != null)
-            {
-                return null;
-            }
-            var entity = _mapper.Map<User>(dto);
-            entity.Password = entity.Password.ToShaHash();
-            _unitOfWork.UserRepository.Create(entity);
-            _unitOfWork.Save();
-            _unitOfWork.FreeInstance(entity);
-            return Login(new(dto.UserName, dto.Password));
-        }
-
-        public string? Login(UserLoginDTO dto)
-        {
-            dto.Password = dto.Password.ToShaHash();
-            if (!_unitOfWork.UserRepository.IsUserValid(dto.UserName, dto.Password))
-            {
-                return null;
-            }
-            var entity = _mapper.Map<User>(dto);
-
-            _unitOfWork.UserRepository.SetLastLogin(dto.UserName);
-            _unitOfWork.Save();
-            return TokenService.GenerateToken(entity);
-        }
-
         public string? RequestMessage(string requesterUsername, string receiverUsername, string message)
         {
             var requester = _unitOfWork.UserRepository.GetByUserName(requesterUsername);

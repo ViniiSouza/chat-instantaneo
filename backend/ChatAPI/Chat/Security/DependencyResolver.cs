@@ -21,6 +21,7 @@ namespace Chat.Security
             // app services
             service.AddTransient(typeof(IBaseAppService<,>), typeof(BaseAppService<,>));
             service.AddTransient(typeof(IUserAppService), typeof(UserAppService));
+            service.AddTransient(typeof(IAuthenticationAppService), typeof(AuthenticationAppService));
         }
     }
 }
