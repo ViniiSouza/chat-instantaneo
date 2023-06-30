@@ -183,7 +183,7 @@ const signUp = () => {
       .then((response) => {
         if (response.status == 201) {
           localStorage.setItem('token', response.data)
-          router.push({ name: 'home' })
+          router.push({ name: 'chat' })
           toast
         }
       })
