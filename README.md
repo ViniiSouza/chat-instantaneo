@@ -1,2 +1,4 @@
-# signalR-aspnetcore
-obs: tive um conflito de repositórios enquanto estava fazendo parte do frontend. Por esse motivo, parte do frontend foi commitado de uma só vez.
+# chit-chat-frontend
+Working on improvements - frontend part of a chit chat app
+
+Backend repository: https://github.com/ViniiSouza/ChitChatBackend
