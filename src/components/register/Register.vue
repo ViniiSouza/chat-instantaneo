@@ -64,6 +64,18 @@
         validator.passwordConfirm.message
       }}</span>
     </div>
+    <div class="register__form-group">
+      <label>Public profile&nbsp;</label>
+      <Tooltip>
+        <template v-slot:component>
+           <font-awesome-icon icon="fa-regular fa-circle-question" />
+        </template>
+        <template v-slot:content>
+          <p style="font-weight: 500; margin: 0;">When this option is on, any user can send you messages. If not, they will have to send you a request.</p>
+        </template>
+      </Tooltip>
+      <ToogleButton style="position: absolute; right: 0; display: absolute" v-model="user.isPublicProfile" :value="user.isPublicProfile" @setCheckboxVal="setPublicProfileVal"/>
+    </div>
     <button id="register__form--sign-in" @click="signUp">Sign up</button>
     <p>
       Already have an account?
@@ -76,6 +88,8 @@ import './shared/style.css'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import FormComponent from '../shared/form-section/FormComponent.vue'
+import ToogleButton from '../shared/toogle-button/ToggleButton.vue'
+import Tooltip from '../shared/tooltip/Tooltip.vue'
 import api from './shared/api.js'
 import { useToast } from 'vue-toastification'
 
@@ -87,6 +101,7 @@ const user = ref({
   name: '',
   password: '',
   passwordConfirm: '',
+  isPublicProfile: true
 })
 
 const validator = ref({
