@@ -1,0 +1,29 @@
+.tooltip__container {
+  position: relative;
+  display: inline-block;
+  padding-right: 10px;
+}
+
+.tooltip__content {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  left: 100%;
+  padding: 5px;
+  color: #f07c3a;
+  font-weight: 900;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 500;
+  width: fit-content;
+  height: fit-content;
+  min-width: 8vw;
+  line-height: 100%;
+}
+
+.tooltip__container:hover .tooltip__content {
+  display: block;
+}
