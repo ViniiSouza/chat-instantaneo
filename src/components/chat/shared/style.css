@@ -17,6 +17,7 @@
 
 .chat__conversations__header h2 {
   margin: 0 20px 40px 20px;
+  width: fit-content;
 }
 
 .chat__conversations__header input {

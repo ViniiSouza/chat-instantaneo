@@ -8,10 +8,12 @@
         <input type="text" v-model="newMessage" placeholder="Search" />
       </div>
       <ul class="chat__conversations__list">
-        <li class="chat__conversations__item">
-          <p class="chat__conversations__item--time">xx:xx</p>
-          <p class="chat__conversations__item--name">*User*</p>
-          *last message*
+        <li v-for="conversation in conversations" :key="conversation.id" class="chat__conversations__item">
+          <p class="chat__conversations__item--time">{{ getTime(conversation.lastMessage?.sendingTime) }}</p>
+          <p class="chat__conversations__item--name">{{ conversation.title }}</p>
+          <span v-if="conversation.lastMessage">
+            <b>{{ conversation.lastMessage?.senderName }}: </b>{{ conversation.lastMessage?.content }}
+          </span>
         </li>
       </ul>
     </div>
@@ -50,4 +52,28 @@
 
 <script setup>
 import './shared/style.css'
+import { ref } from 'vue'
+import api from './shared/api.js'
+
+const conversations = ref([])
+
+api.loadAll().then(response => {
+  if (response.status == 200) {
+    conversations.value = response.data
+  }
+})
+
+const formatDate = date => {
+  return date.toString().padStart(2, '0')
+}
+
+const getTime = (time) => {
+  if (time == null) return ""
+  const date = new Date(time)
+  const today = new Date()
+  if (date.toDateString() == today.toDateString()) {
+    return `${formatDate(date.getHours())}:${formatDate(date.getMinutes())}`
+  }
+  return `${formatDate(date.getDate())}/${formatDate(date.getMonth())}/${date.getFullYear()}`
+}
 </script>
