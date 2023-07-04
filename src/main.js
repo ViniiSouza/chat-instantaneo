@@ -6,7 +6,7 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { faUserPlus, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -17,6 +17,7 @@ const app = createApp(App)
 
 library.add(faUserPlus)
 library.add(faCircleQuestion)
+library.add(faCheck)
 
 app.component("font-awesome-icon", FontAwesomeIcon)
 
