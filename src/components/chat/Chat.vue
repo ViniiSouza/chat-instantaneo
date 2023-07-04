@@ -4,6 +4,17 @@
   <div class="chat__container">
     <div class="chat__conversations__container">
       <div class="chat__conversations__header">
+        <div class="chat__conversations__header__options">
+          <span class="chat__conversations__header__icon">
+            <font-awesome-icon icon="fa-solid fa-pen-to-square" />
+          </span>
+          <span class="chat__conversations__header__icon"> 
+            <font-awesome-icon icon="fa-solid fa-user-plus" />
+          </span>
+          <span class="chat__conversations__header__icon">
+            <font-awesome-icon icon="fa-solid fa-gear" />
+          </span>
+        </div>
         <h2>Conversations</h2>
         <input type="text" v-model="newMessage" placeholder="Search" />
       </div>
@@ -62,6 +73,7 @@ api.loadAll().then(response => {
     conversations.value = response.data
   }
 })
+// INCLUIR CATCH COM TOAST DE ERRO
 
 const formatDate = date => {
   return date.toString().padStart(2, '0')
