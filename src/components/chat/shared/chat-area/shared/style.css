@@ -1,7 +1,40 @@
 .chat__messages__container {
   flex: 2;
+}
+
+.chat__messages__container__chat {
   display: flex;
   flex-direction: column;
+  height: 100%;
+}
+
+.chat__empty__container {
+  background-color: #FFE2C3;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  font-size: 20px;
+}
+
+.chat__empty__container > div {
+  top: 30%
+}
+
+.chat__empty__container__image {
+  width: 250px;
+}
+
+.chat__empty__container__button {
+  border: 2px solid #f07c3a;
+  border-radius: 5px;
+  font-size: 24px;
+  padding: 5px 20px;
+  transition: 0.1s;
+}
+
+.chat__empty__container__button:hover {
+  background: #f07c3a;
 }
 
 .chat__messages__header {

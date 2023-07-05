@@ -15,10 +15,7 @@ import { useToast } from 'vue-toastification'
 
 const toast = useToast()
 
-const currentChat = ref({
-  title: 'Loading',
-  messages: []
-})
+const currentChat = ref(null)
 
 const loadConversation = conversation => {
   api.getConversation(conversation.id).then(payload => {

@@ -1,18 +1,41 @@
 <template>
   <div class="chat__messages__container">
+    <div v-if="!chatInfo" class="chat__empty__container">
+      <div>
+        <img
+          class="chat__empty__container__image"
+          src="https://i.imgur.com/zBJnlSa.png"
+        />
+        <p>Select a conversation</p>
+        <p>or</p>
+        <button class="chat__empty__container__button">Start a new</button>
+      </div>
+    </div>
+    <div v-else class="chat__messages__container__chat">
       <div class="chat__messages__header">
         <div class="chat__messages__name">{{ chatInfo.title }}</div>
         <div class="chat__messages__info">Available</div>
       </div>
       <div class="chat__messages__area">
-        <div class="chat__messages__message chat__messages__message--normal"
+        <div
+          class="chat__messages__message chat__messages__message--normal"
           v-for="message in chatInfo.messages"
           :key="message.id"
-          :class="message.ownMessage ? 'chat__messages__message--sent' : 'chat__messages__message--received'"
-          >
-          <div class="chat__messages__message__time">{{ getTime(message.sendingTime) }}</div>
-          <div class="chat__messages__message__name">{{ message.ownMessage ? 'You' : getFirstName(message.senderName) }}</div>
-          <div class="chat__messages__message--content">{{ message.content }}</div>
+          :class="
+            message.ownMessage
+              ? 'chat__messages__message--sent'
+              : 'chat__messages__message--received'
+          "
+        >
+          <div class="chat__messages__message__time">
+            {{ getTime(message.sendingTime) }}
+          </div>
+          <div class="chat__messages__message__name">
+            {{ message.ownMessage ? 'You' : getFirstName(message.senderName) }}
+          </div>
+          <div class="chat__messages__message--content">
+            {{ message.content }}
+          </div>
         </div>
         <div
           class="chat__messages__message chat__messages__message--received chat__messages__message--large"
@@ -38,17 +61,14 @@
         <button>Send</button>
       </div>
     </div>
+  </div>
 </template>
 <script setup>
 import './shared/style.css'
 const props = defineProps({
   chatInfo: {
     type: Object,
-    default: {
-      title: 'Loading',
-      messages: []
-    }
-  }
+  },
 })
 
 const formatDate = (date) => {
