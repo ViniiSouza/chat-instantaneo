@@ -6,7 +6,7 @@
 </template>
 <script setup>
 import './shared/style.css'
-import { defineProps, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 
 const checkbox = ref(false)
 
