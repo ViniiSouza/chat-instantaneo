@@ -16,9 +16,9 @@
         <input type="text" v-model="newMessage" placeholder="Search" />
       </div>
       <ul class="chat__conversations__list">
-        <li v-for="conversation in conversations" :key="conversation.id" class="chat__conversations__item">
-          <p class="chat__conversations__item--time">{{ getTime(conversation.lastMessage?.sendingTime) }}</p>
-          <p class="chat__conversations__item--name">{{ conversation.title }}</p>
+        <li v-for="conversation in conversations" :key="conversation.id" class="chat__conversations__item" :class="selectedConversation == conversation.id && 'chat__conversations__item--selected'" @click="selectConversation(conversation)">
+          <p class="chat__conversations__item__time">{{ getTime(conversation.lastMessage?.sendingTime) }}</p>
+          <p class="chat__conversations__item__name">{{ conversation.title }}</p>
           <span v-if="conversation.lastMessage && conversation.type == 1">
             <b v-if="conversation.lastMessage?.ownMessage">You: </b> {{ conversation.lastMessage?.content }}
           </span>
@@ -32,9 +32,13 @@ import { ref } from 'vue'
 import api from '../api.js'
 import { useToast } from 'vue-toastification'
 
+const emit = defineEmits(['conversationSelected'])
+
 const toast = useToast()
 
 const conversations = ref([])
+
+const selectedConversation = ref(null)
 
 api
   .loadAll()
@@ -66,5 +70,12 @@ const getTime = (time) => {
   return `${formatDate(date.getDate())}/${formatDate(
     date.getMonth()
   )}/${date.getFullYear()}`
+}
+
+const selectConversation = (conversation) => {
+  if (selectedConversation.value != conversation.id) {
+    selectedConversation.value = conversation.id
+    emit('conversationSelected', conversation)
+  }
 }
 </script>

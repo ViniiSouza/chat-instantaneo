@@ -56,7 +56,26 @@
   overflow: hidden;
 }
 
-.chat__conversations__item--name {
+.chat__conversations__item {
+  background-color: whitesmoke;
+  border-radius: 7px;
+  padding: 5px 20px;
+  margin: 5px 20px;
+  height: 4.5rem;
+  overflow: hidden;
+  transition: 0.1s;
+  cursor: pointer;
+}
+
+.chat__conversations__item:hover {
+  background-color: rgb(206, 206, 206);
+}
+
+.chat__conversations__item--selected {
+  background-color: rgb(175, 175, 175);
+}
+
+.chat__conversations__item__name {
   text-align: left;
   font-weight: bold;
   margin: 0;
@@ -64,7 +83,7 @@
   width: fit-content;
 }
 
-.chat__conversations__item--time {
+.chat__conversations__item__time {
   position: absolute;
   right: 10px;
   font-size: small;
