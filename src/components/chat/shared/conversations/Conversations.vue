@@ -20,7 +20,7 @@
           <p class="chat__conversations__item--time">{{ getTime(conversation.lastMessage?.sendingTime) }}</p>
           <p class="chat__conversations__item--name">{{ conversation.title }}</p>
           <span v-if="conversation.lastMessage && conversation.type == 1">
-            <font-awesome-icon v-if="conversation.lastMessage?.ownMessage" icon="fa-solid fa-check" /> {{ conversation.lastMessage?.content }}
+            <b v-if="conversation.lastMessage?.ownMessage">You: </b> {{ conversation.lastMessage?.content }}
           </span>
         </li>
       </ul>
