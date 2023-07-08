@@ -1,7 +1,7 @@
 <template>
   <transition name="modal">
     <div class="modal__mask">
-      <div class="modal__wrapper">
+      <div class="modal__wrapper" @click="closeModal($event, false)">
         <div class="modal__container">
           <div class="modal__header">
             <slot name="header">
@@ -34,9 +34,21 @@ import './shared/style.css'
 const props = defineProps({
   title: {
     type: String,
-    default: 'Modal Title'
-  }
+    default: 'Modal Title',
+  },
 })
 
 const emit = defineEmits(['close'])
+
+document.addEventListener('click', (event) => {
+  if (event.target.matches('.modal__wrapper')) {
+    emit('close')
+  }
+})
+
+document.addEventListener('keydown', (event) => {
+  if (event.key == 'Escape') {
+    emit('close')
+  }
+})
 </script>
