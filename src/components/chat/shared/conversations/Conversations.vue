@@ -2,13 +2,13 @@
   <div class="chat__conversations__container">
       <div class="chat__conversations__header">
         <div class="chat__conversations__header__options">
-          <span class="chat__conversations__header__icon">
+          <span class="chat__conversations__header__icon" @click="selectOption(1)">
             <font-awesome-icon icon="fa-solid fa-pen-to-square" />
           </span>
-          <span class="chat__conversations__header__icon"> 
+          <span class="chat__conversations__header__icon"  @click="selectOption(2)"> 
             <font-awesome-icon icon="fa-solid fa-user-plus" />
           </span>
-          <span class="chat__conversations__header__icon">
+          <span class="chat__conversations__header__icon"  @click="selectOption(3)">
             <font-awesome-icon icon="fa-solid fa-gear" />
           </span>
         </div>
@@ -32,13 +32,17 @@ import { ref } from 'vue'
 import api from '../api.js'
 import { useToast } from 'vue-toastification'
 
-const emit = defineEmits(['conversationSelected'])
+const emit = defineEmits(['conversationSelected', 'menuOption'])
 
 const toast = useToast()
 
 const conversations = ref([])
 
 const selectedConversation = ref(null)
+
+const selectOption = optionNumber => {
+  emit('menuOption', optionNumber)
+}
 
 api
   .loadAll()
