@@ -5,7 +5,7 @@
       <div class="contacts__item" v-for="contact in contacts" :key="contact.id">
         <p class="contacts__item__name">{{ contact.userName }}</p>
         <div class="contacts__item__options">
-          <font-awesome-icon class="contacts__icon contacts__icon--remove" icon="fa-regular fa-square-minus" />
+          <font-awesome-icon class="contacts__icon contacts__icon--remove" icon="fa-regular fa-square-minus" @click="removeContact(contact)"/>
           <font-awesome-icon class="contacts__icon contacts__icon--send" icon="fa-regular fa-paper-plane" />
         </div>
       </div>
@@ -16,6 +16,8 @@
 import './shared/style.css'
 import { ref } from 'vue'
 import api from '../api'
+import Swal from 'sweetalert2'
+import swalConfig from '../../../shared/sweetalert/globalConfig'
 
 import { useToast } from 'vue-toastification'
 
@@ -38,4 +40,15 @@ api
       toast.error(errorMsg)
     }
   })
+
+  const removeContact = contact => {
+    Swal.fire({
+      ...swalConfig,
+      title: `Attention`,
+      html: `Do you really want to remove <b>${contact.userName}</b> from your contacts?`,
+      showDenyButton: true,
+      confirmButtonText: 'Yes',
+      denyButtonText: 'No',
+    })
+  }
 </script>

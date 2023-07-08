@@ -7,3 +7,76 @@
   background-color: #f07c3a;
   border-radius: 4px;
 }
+
+/* Sweet Alert custom classes */
+
+.sw__container {
+  background-color: #1e4377;
+}
+.sw__popup {
+
+}
+.sw__header {
+
+}
+.sw__title {
+
+}
+.sw__close-button {
+  border: 1px solid #1e4377;
+  background-color: #fff;
+}
+.sw__icon {
+
+}
+.sw__image {
+
+}
+.sw__html-container {
+  color: black !important;
+}
+.sw__input {
+
+}
+.sw__input-label {
+
+}
+.sw__validation-message {
+
+}
+.sw__actions {
+
+}
+.sw__confirm-button {
+  border: 1px solid #f07c3a;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #f07c3a;
+  font-weight: bold;
+  padding: 5px 10px;
+  margin: 0 10px;
+}
+.sw__confirm-button:hover {
+  background-color: #f07d3a48;
+}
+.sw__deny-button, .sw__cancel-button {
+  border: 1px solid #1e4377;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #1e4377;
+  font-weight: bold;
+  padding: 5px 10px;
+  margin: 0 10px;
+}
+.sw__deny-button:hover, .sw__cancel-button:hover {
+  background-color: #1e437718;
+}
+.sw__loader {
+
+}
+.sw__footer {
+
+}
+.sw__timer-progress-bar {
+
+}
