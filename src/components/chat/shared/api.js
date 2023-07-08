@@ -8,5 +8,8 @@ export default {
   },
   getConversation(id) {
     return axios.get(`${BASE_ROUTE}chat/${id}`)
+  },
+  getContacts() {
+    return axios.get(`${BASE_ROUTE}contacts`)
   }
 }

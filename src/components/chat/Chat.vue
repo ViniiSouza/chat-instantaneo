@@ -4,7 +4,15 @@
     <ChatArea :chat-info="currentChat" />
     <modal v-if="showModal" @close="showModal = false">
       <template #body>
-        content
+        <div v-if="currentModal == 1">
+          <Contacts/>
+        </div>
+        <div v-else-if="currentModal == 2">
+          Add a user
+        </div>
+        <div v-else-if="currentModal == 3">
+          Configurations
+        </div>
       </template>
     </modal>
   </div>
@@ -16,6 +24,7 @@ import { ref } from 'vue'
 import Conversations from './shared/conversations/Conversations.vue'
 import ChatArea from './shared/chat-area/ChatArea.vue'
 import Modal from '../shared/modal/Modal.vue'
+import Contacts from './shared/contacts/Contacts.vue'
 import api from './shared/api'
 import { useToast } from 'vue-toastification'
 
@@ -25,8 +34,11 @@ const currentChat = ref(null)
 
 const showModal = ref(false)
 
+const currentModal = ref(0)
+
 const openMenuOption = optionValue => {
   showModal.value = true
+  currentModal.value = optionValue
 }
 
 const loadConversation = conversation => {

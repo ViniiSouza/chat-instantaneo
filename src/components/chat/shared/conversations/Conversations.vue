@@ -13,7 +13,7 @@
           </span>
         </div>
         <h2>Conversations</h2>
-        <input type="text" v-model="newMessage" placeholder="Search" />
+        <input type="search" v-model="newMessage" placeholder="Search" />
       </div>
       <ul class="chat__conversations__list">
         <li v-for="conversation in conversations" :key="conversation.id" class="chat__conversations__item" :class="selectedConversation == conversation.id && 'chat__conversations__item--selected'" @click="selectConversation(conversation)">
