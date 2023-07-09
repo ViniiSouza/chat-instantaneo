@@ -54,4 +54,9 @@
   border-radius: 5px;
   padding: 5px 10px;
   color: white;
+  cursor: pointer;
+}
+
+.invite__search__button:hover, .invite__action-button:hover {
+  background-color: #388a3a;
 }

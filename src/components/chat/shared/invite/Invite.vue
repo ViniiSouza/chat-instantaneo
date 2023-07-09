@@ -36,6 +36,11 @@
           Send request &nbsp;
           <font-awesome-icon icon="fa-solid fa-user-plus" />
         </div>
+        <div v-else-if="searchedUser.type == 4" class="invite__action-button"
+        @click="openPrivateChat(searchedUser.userName)">
+          Open chat &nbsp;
+          <font-awesome-icon icon="fa-solid fa-arrow-up-right-from-square" />
+        </div>
       </div>
     </div>
   </div>
@@ -44,6 +49,8 @@
 import './shared/style.css'
 import { ref } from 'vue'
 import api from '../../../chat/shared/api'
+
+const emit = defineEmits(['openPrivateChat'])
 
 const userName = ref('')
 
@@ -60,6 +67,8 @@ const getTextByType = (type) => {
       return 'This user has a private profile. Do you want to send a message request?'
     case 3:
       return 'You have permission to send a message to this user.'
+    case 4:
+      return 'You already have a chat with this user. Do you want to open it?'
     default:
       return ''
   }
@@ -73,8 +82,11 @@ const sendInvite = user => {
   // do something
 }
 
+const openPrivateChat = userName => {
+  emit('openPrivateChat', userName)
+}
+
 const validateUsername = () => {
-  console.log(userName.value)
   if (userName.value) {
     invalidMessage.value = ''
     return true

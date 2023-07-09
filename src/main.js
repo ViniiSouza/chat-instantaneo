@@ -6,7 +6,7 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faUserPlus, faGear, faPenToSquare, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faUserPlus, faGear, faPenToSquare, faMagnifyingGlass, faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
 import { faCircleQuestion, faPaperPlane, faSquareMinus } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
@@ -22,6 +22,7 @@ library.add(faCircleQuestion)
 library.add(faPaperPlane)
 library.add(faSquareMinus)
 library.add(faMagnifyingGlass)
+library.add(faArrowUpRightFromSquare)
 
 app.component("font-awesome-icon", FontAwesomeIcon)
 

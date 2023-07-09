@@ -8,7 +8,7 @@ export default {
     return axios.get(`${CHAT_BASE_ROUTE}load-all`)
   },
   getConversation(id) {
-    return axios.get(`${CHAT_BASE_ROUTE}chat/${id}`)
+    return axios.get(`${CHAT_BASE_ROUTE}${id}`)
   },
   getContacts() {
     return axios.get(`${USER_BASE_ROUTE}contacts`)
@@ -18,5 +18,8 @@ export default {
   },
   searchUser(username) {
     return axios.get(`${USER_BASE_ROUTE}search?username=${username}`)
+  },
+  findPrivateConversation(targetUserName) {
+    return axios.get(`${CHAT_BASE_ROUTE}simple/${targetUserName}`)
   }
 }

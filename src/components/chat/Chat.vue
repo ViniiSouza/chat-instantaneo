@@ -8,7 +8,7 @@
           <Contacts/>
         </div>
         <div v-else-if="currentModal == 2">
-          <Invite />
+          <Invite @open-private-chat="openPrivateChat"/>
         </div>
         <div v-else-if="currentModal == 3">
           Configurations
@@ -56,4 +56,14 @@ const loadConversation = conversation => {
     }
   })
 }
+
+const openPrivateChat = targetUserName => {
+  api.findPrivateConversation(targetUserName).then(payload => {
+    if (payload.status == 200) {
+      loadConversation(payload.data)
+      showModal.value = false
+    }
+  })
+}
+
 </script>
