@@ -1,0 +1,57 @@
+.invite__container {
+  
+}
+
+.invite__search {
+  display: flex;
+  align-items: center;
+}
+
+.invite__search__input {
+  flex: 1;
+  width: max-content;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+}
+
+.invite__search__button {
+  color: white;
+  background-color: #4caf50;
+  border: 1px solid #4caf50;
+  padding: 10px 5px;
+  border-radius: 0 5px 5px 0;
+  width: 10%;
+  cursor: pointer;
+}
+
+.invite__user__container {
+  margin: 10px 0;
+}
+
+.invite__user__status {
+  margin: 0;
+  text-align: start;
+  font-size: 14px;
+}
+
+.invite__user__card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  display: flex;
+  padding: 20px 10px;
+}
+
+.invite__user__name {
+  text-align: start;
+  margin: 0;
+  font-weight: bold;
+  flex: 1;
+}
+
+.invite__action-button {
+  background-color: #4caf50;
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: white;
+}

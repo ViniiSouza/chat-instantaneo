@@ -7,7 +7,7 @@
         :class="!validator.userName.valid ? 'invalid-input' : ''"
         type="text"
         v-model="user.userName"
-        placeholder="Enter your username"
+        placeholder="Enter your unique username"
         maxlength="15"
         @blur="validateUsername"
         @input="validateUsername"

@@ -8,7 +8,7 @@
           <Contacts/>
         </div>
         <div v-else-if="currentModal == 2">
-          Add a user
+          <Invite />
         </div>
         <div v-else-if="currentModal == 3">
           Configurations
@@ -25,6 +25,7 @@ import Conversations from './shared/conversations/Conversations.vue'
 import ChatArea from './shared/chat-area/ChatArea.vue'
 import Modal from '../shared/modal/Modal.vue'
 import Contacts from './shared/contacts/Contacts.vue'
+import Invite from './shared/invite/Invite.vue'
 import api from './shared/api'
 import { useToast } from 'vue-toastification'
 

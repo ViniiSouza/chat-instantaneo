@@ -15,5 +15,8 @@ export default {
   },
   removeContact(targetId) {
     return axios.delete(`${USER_BASE_ROUTE}contacts/${targetId}`)
+  },
+  searchUser(username) {
+    return axios.get(`${USER_BASE_ROUTE}search?username=${username}`)
   }
 }
