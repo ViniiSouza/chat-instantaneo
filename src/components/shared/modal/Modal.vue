@@ -1,7 +1,7 @@
 <template>
   <transition name="modal">
     <div class="modal__mask">
-      <div class="modal__wrapper" @click="closeModal($event, false)">
+      <div class="modal__wrapper">
         <div class="modal__container">
           <div class="modal__header">
             <slot name="header">
