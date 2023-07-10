@@ -26,7 +26,7 @@
         <div
           v-if="searchedUser.type == 1 || searchedUser.type == 3"
           class="invite__action-button"
-          @click="sendMessage(searchedUser.id)"
+          @click="sendMessage(searchedUser)"
         >
           Send message &nbsp;
           <font-awesome-icon icon="fa-regular fa-paper-plane" />
@@ -49,8 +49,11 @@
 import './shared/style.css'
 import { ref } from 'vue'
 import api from '../../../chat/shared/api'
+import { useToast } from 'vue-toastification'
 
-const emit = defineEmits(['openPrivateChat'])
+const toast = useToast()
+
+const emit = defineEmits(['openPrivateChat', 'createTempChat'])
 
 const userName = ref('')
 
@@ -74,8 +77,8 @@ const getTextByType = (type) => {
   }
 }
 
-const sendMessage = id => {
-  // do something
+const sendMessage = user => {
+  emit('createTempChat', user)
 }
 
 const sendInvite = user => {
@@ -104,6 +107,9 @@ const findUser = () => {
     }).catch((err) => {
       if (err.response && err.response.data) {
         invalidMessage.value = err.response.data
+      } else {
+        const errorMsg = 'Something went wrong. Try again later.'
+        toast.error(errorMsg)
       }
     })
   }

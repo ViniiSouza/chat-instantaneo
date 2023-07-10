@@ -1,30 +1,56 @@
 <template>
   <div class="chat__conversations__container">
-      <div class="chat__conversations__header">
-        <div class="chat__conversations__header__options">
-          <span class="chat__conversations__header__icon" @click="selectOption(1)">
-            <font-awesome-icon icon="fa-solid fa-pen-to-square" />
-          </span>
-          <span class="chat__conversations__header__icon"  @click="selectOption(2)"> 
-            <font-awesome-icon icon="fa-solid fa-user-plus" />
-          </span>
-          <span class="chat__conversations__header__icon"  @click="selectOption(3)">
-            <font-awesome-icon icon="fa-solid fa-gear" />
-          </span>
-        </div>
-        <h2>Conversations</h2>
-        <input type="search" v-model="newMessage" placeholder="Search" />
+    <div class="chat__conversations__header">
+      <div class="chat__conversations__header__options">
+        <span
+          class="chat__conversations__header__icon"
+          @click="selectOption(1)"
+        >
+          <font-awesome-icon icon="fa-solid fa-pen-to-square" />
+        </span>
+        <span
+          class="chat__conversations__header__icon"
+          @click="selectOption(2)"
+        >
+          <font-awesome-icon icon="fa-solid fa-user-plus" />
+        </span>
+        <span
+          class="chat__conversations__header__icon"
+          @click="selectOption(3)"
+        >
+          <font-awesome-icon icon="fa-solid fa-gear" />
+        </span>
       </div>
-      <ul class="chat__conversations__list">
-        <li v-for="conversation in conversations" :key="conversation.id" class="chat__conversations__item" :class="selectedConversation == conversation.id && 'chat__conversations__item--selected'" @click="selectConversation(conversation)">
-          <p class="chat__conversations__item__time">{{ getTime(conversation.lastMessage?.sendingTime) }}</p>
-          <p class="chat__conversations__item__name">{{ conversation.title }}</p>
-          <span v-if="conversation.lastMessage && conversation.type == 1">
-            <b v-if="conversation.lastMessage?.ownMessage">You: </b> {{ conversation.lastMessage?.content }}
-          </span>
-        </li>
-      </ul>
+      <h2>Conversations</h2>
+      <input type="search" v-model="newMessage" placeholder="Search" />
     </div>
+    <ul class="chat__conversations__list">
+      <li
+        v-for="conversation in conversations"
+        :key="conversation.id"
+        class="chat__conversations__item"
+        :class="
+          selectedConversation == conversation.id ||
+          (conversation.id == -1 && 'chat__conversations__item--selected')
+        "
+        @click="selectConversation(conversation)"
+      >
+        <p class="chat__conversations__item__time">
+          {{ getTime(conversation.lastMessage?.sendingTime) }}
+        </p>
+        <p class="chat__conversations__item__name">{{ conversation.title }}</p>
+        <span
+          v-if="conversation.lastMessage && conversation.type == 1"
+          :class="
+            conversation.draft && 'chat__conversations__item__name--italic'
+          "
+        >
+          <b v-if="conversation.lastMessage?.ownMessage">You: </b>
+          {{ conversation.lastMessage?.content }}
+        </span>
+      </li>
+    </ul>
+  </div>
 </template>
 <script setup>
 import './shared/style.css'
@@ -35,13 +61,13 @@ const emit = defineEmits(['conversationSelected', 'menuOption'])
 const props = defineProps({
   conversations: {
     type: Array,
-    default: []
-  }
+    default: [],
+  },
 })
 
 const selectedConversation = ref(null)
 
-const selectOption = optionNumber => {
+const selectOption = (optionNumber) => {
   emit('menuOption', optionNumber)
 }
 

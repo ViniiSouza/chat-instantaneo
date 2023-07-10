@@ -1,18 +1,23 @@
 <template>
   <div class="chat__container">
-    <Conversations :conversations="conversations" @conversation-selected="loadConversation" @menu-option="openMenuOption" />
+    <Conversations
+      :conversations="conversations"
+      @conversation-selected="loadConversation"
+      @menu-option="openMenuOption"
+    />
     <ChatArea :chat-info="currentChat" />
     <modal v-if="showModal" @close="showModal = false">
       <template #body>
         <div v-if="currentModal == 1">
-          <Contacts/>
+          <Contacts />
         </div>
         <div v-else-if="currentModal == 2">
-          <Invite @open-private-chat="openPrivateChat"/>
+          <Invite
+            @open-private-chat="openPrivateChat"
+            @create-temp-chat="createTempChat"
+          />
         </div>
-        <div v-else-if="currentModal == 3">
-          Configurations
-        </div>
+        <div v-else-if="currentModal == 3">Configurations</div>
       </template>
     </modal>
   </div>
@@ -32,6 +37,7 @@ import { useToast } from 'vue-toastification'
 const toast = useToast()
 
 const currentChat = ref(null)
+const hasDraft = ref(false)
 
 const conversations = ref([])
 
@@ -39,60 +45,100 @@ const showModal = ref(false)
 
 const currentModal = ref(0)
 
-const openMenuOption = optionValue => {
+const openMenuOption = (optionValue) => {
   showModal.value = true
   currentModal.value = optionValue
 }
 
 const loadAllConversations = () => {
   api
-  .loadAll()
-  .then((response) => {
-    if (response.status == 200) {
-      conversations.value = response.data
-    }
-  })
-  .catch((err) => {
-    if (err.response && err.response.data) {
-      toast.error(err.response.data)
-    } else {
-      const errorMsg = 'Unable to load your conversations. Try again later.'
-      toast.error(errorMsg)
-    }
-  })
+    .loadAll()
+    .then((response) => {
+      if (response.status == 200) {
+        conversations.value = response.data
+      }
+    })
+    .catch((err) => {
+      if (err.response && err.response.data) {
+        toast.error(err.response.data)
+      } else {
+        const errorMsg = 'Unable to load your conversations. Try again later.'
+        toast.error(errorMsg)
+      }
+    })
 }
 
+// on each first load
 loadAllConversations()
 
-const loadConversation = conversation => {
-  api.getConversation(conversation.id).then(payload => {
-    let result = payload.data
-    if (!result.title) result.title = conversation.title
-    currentChat.value = result
-  }).catch((err) => {
-    if (err.response && err.response.data) {
-      toast.error(err.response.data)
-    } else {
-      const errorMsg = 'Unable to load this conversation. Try again later.'
-      toast.error(errorMsg)
-    }
-  })
+const removeDraft = () => {
+  if (hasDraft.value) {
+    conversations.value.shift()
+    hasDraft.value = false
+  }
 }
 
-const openPrivateChat = targetUserName => {
-  api.findPrivateConversation(targetUserName).then(payload => {
-    if (payload.status == 200) {
-      loadConversation(payload.data)
-      showModal.value = false
+const loadConversation = (conversation) => {
+  removeDraft()
+  if (conversation.draft) {
+    currentChat.value = {
+      messages: [],
+      title: conversation.title,
+      type: 1,
     }
-  }).catch((err) => {
-    if (err.response && err.response.data) {
-      toast.error(err.response.data)
-    } else {
-      const errorMsg = 'Unable to find this conversation. Try again later.'
-      toast.error(errorMsg)
-    }
-  })
+  } else {
+    api
+      .getConversation(conversation.id)
+      .then((payload) => {
+        let result = payload.data
+        if (!result.title) result.title = conversation.title
+        currentChat.value = result
+      })
+      .catch((err) => {
+        if (err.response && err.response.data) {
+          toast.error(err.response.data)
+        } else {
+          const errorMsg = 'Unable to load this conversation. Try again later.'
+          toast.error(errorMsg)
+        }
+      })
+  }
 }
 
+const openPrivateChat = (targetUserName) => {
+  api
+    .findPrivateConversation(targetUserName)
+    .then((payload) => {
+      if (payload.status == 200) {
+        loadConversation(payload.data)
+        showModal.value = false
+      }
+    })
+    .catch((err) => {
+      if (err.response && err.response.data) {
+        toast.error(err.response.data)
+      } else {
+        const errorMsg = 'Unable to find this conversation. Try again later.'
+        toast.error(errorMsg)
+      }
+    })
+}
+
+const createTempChat = (user) => {
+  removeDraft()
+  const tempChat = {
+    id: -1,
+    lastMessage: {
+      content: 'Draft',
+      ownMessage: false,
+    },
+    title: user.name,
+    type: 1,
+    draft: true,
+  }
+  conversations.value.unshift(tempChat)
+  loadConversation(conversations.value[0])
+  hasDraft.value = true
+  showModal.value = false
+}
 </script>

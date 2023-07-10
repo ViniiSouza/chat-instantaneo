@@ -83,6 +83,10 @@
   width: fit-content;
 }
 
+.chat__conversations__item__name--italic {
+  font-style: italic;
+}
+
 .chat__conversations__item__time {
   position: absolute;
   right: 10px;
