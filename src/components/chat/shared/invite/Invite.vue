@@ -113,6 +113,8 @@ const getTextByType = (type) => {
       return 'You have permission to send a message to this user.'
     case 4:
       return 'You already have a chat with this user. Do you want to open it?'
+    case 5:
+      return 'You already sent a message request to this user. You need to wait for the user to accept it.'
     default:
       return ''
   }
