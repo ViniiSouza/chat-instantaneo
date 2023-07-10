@@ -3,22 +3,25 @@
     <div class="chat__conversations__header">
       <div class="chat__conversations__header__options">
         <span
-          class="chat__conversations__header__icon"
+          class="chat__conversations__header__icon tooltip-container"
           @click="selectOption(1)"
         >
           <font-awesome-icon icon="fa-solid fa-pen-to-square" />
+          <span class="tooltip-component tooltip--bottom">Contacts</span>
         </span>
         <span
-          class="chat__conversations__header__icon"
+          class="chat__conversations__header__icon tooltip-container"
           @click="selectOption(2)"
         >
           <font-awesome-icon icon="fa-solid fa-user-plus" />
+          <span class="tooltip-component tooltip--bottom">Invite user</span>
         </span>
         <span
-          class="chat__conversations__header__icon"
+          class="chat__conversations__header__icon tooltip-container"
           @click="selectOption(3)"
         >
           <font-awesome-icon icon="fa-solid fa-gear" />
+          <span class="tooltip-component tooltip--bottom">Configurations</span>
         </span>
       </div>
       <h2>Conversations</h2>
@@ -30,8 +33,8 @@
         :key="conversation.id"
         class="chat__conversations__item"
         :class="
-          (selectedConversation == conversation.id ||
-          conversation.id == -1) && 'chat__conversations__item--selected'
+          (selectedConversation == conversation.id || conversation.id == -1) &&
+          'chat__conversations__item--selected'
         "
         @click="selectConversation(conversation)"
       >

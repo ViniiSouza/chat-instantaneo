@@ -6,18 +6,28 @@
       placeholder="Search for a contact name"
     />
     <div class="contacts__list">
-      <div class="contacts__item" v-for="(contact, index) in contacts" :key="contact.id">
+      <div
+        class="contacts__item"
+        v-for="(contact, index) in contacts"
+        :key="contact.id"
+      >
         <p class="contacts__item__name">{{ contact.userName }}</p>
         <div class="contacts__item__options">
-          <font-awesome-icon
-            class="contacts__icon contacts__icon--remove"
-            icon="fa-regular fa-square-minus"
-            @click="removeContact(contact, index)"
-          />
-          <font-awesome-icon
-            class="contacts__icon contacts__icon--send"
-            icon="fa-regular fa-paper-plane"
-          />
+          <div class="tooltip-container">
+            <font-awesome-icon
+              class="contacts__icon contacts__icon--remove"
+              icon="fa-regular fa-square-minus"
+              @click="removeContact(contact, index)"
+            />
+            <span class="tooltip-component tooltip--bottom">Remove contact</span>
+          </div>
+          <div class="tooltip-container">
+            <font-awesome-icon
+              class="contacts__icon contacts__icon--send"
+              icon="fa-regular fa-paper-plane"
+            />
+            <span class="tooltip-component tooltip--bottom">Send message</span>
+          </div>
         </div>
       </div>
     </div>
