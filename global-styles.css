@@ -8,6 +8,30 @@
   border-radius: 4px;
 }
 
+/* tooltip */
+
+.my-tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.my-tooltip .my-tooltip-content {
+  visibility: hidden;
+  width: 120px;
+  background-color: whitesmoke;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  color: #f07c3a;
+  text-align: center;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 2000;
+}
+
+.my-tooltip:hover .my-tooltip-content {
+  visibility: visible;
+}
+
 /* Sweet Alert custom classes */
 
 .sw__container {
