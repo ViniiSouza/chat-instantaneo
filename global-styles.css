@@ -10,12 +10,12 @@
 
 /* tooltip */
 
-.my-tooltip {
+.tooltip-container {
   position: relative;
   display: inline-block;
 }
 
-.my-tooltip .my-tooltip-content {
+.tooltip-container .tooltip-component {
   visibility: hidden;
   width: 120px;
   background-color: whitesmoke;
@@ -28,7 +28,31 @@
   z-index: 2000;
 }
 
-.my-tooltip:hover .my-tooltip-content {
+.tooltip--top {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tooltip--bottom {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tooltip--left {
+  top: 50%;
+  right: 100%;
+  transform: translateY(-50%);
+}
+
+.tooltip--right {
+  top: 50%;
+  left: 100%;
+  transform: translateY(-50%);
+}
+
+.tooltip-container:hover .tooltip-component {
   visibility: visible;
 }
 
