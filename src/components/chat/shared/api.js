@@ -21,5 +21,8 @@ export default {
   },
   findPrivateConversation(targetUserName) {
     return axios.get(`${CHAT_BASE_ROUTE}simple/${targetUserName}`)
+  },
+  sendMessageRequest(messageInfo) {
+    return axios.post(`${USER_BASE_ROUTE}request`, messageInfo)
   }
 }

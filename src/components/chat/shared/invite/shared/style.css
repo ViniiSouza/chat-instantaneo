@@ -1,6 +1,4 @@
-.invite__container {
-  
-}
+.invite__container {}
 
 .invite__search {
   display: flex;
@@ -57,6 +55,52 @@
   cursor: pointer;
 }
 
-.invite__search__button:hover, .invite__action-button:hover {
+
+.invite-message__box {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 10px;
+  bottom: 0;
+  margin: auto;
+  border-radius: 10px;
+  border: 2px solid #f07c3a;
+  background-color: #FFE2C3;
+  padding: 30px 10px;
+  height: fit-content;
+  z-index: 1055;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
+}
+
+.invite-message__message__container {
+  display: flex;
+}
+
+.invite-message__message__close-button {
+  float: right;
+  color: #f07c3a;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.invite-message__box__input {
+  display: block;
+  height: 100px;
+  width: 80%;
+  border-radius: 5px 0 0 5px;
+  border: 1px solid #f07c3a;
+  resize: none;
+}
+
+.invite-message__send-button {
+  background-color: #4caf50;
+  border: 1px solid grey;
+  border-radius: 0 5px 5px 0;
+  width: 20%;
+  color: white;
+}
+
+
+.invite__search__button:hover, .invite__action-button:hover, .invite-message__send-button:hover {
   background-color: #388a3a;
 }

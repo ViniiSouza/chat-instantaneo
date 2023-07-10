@@ -1,46 +1,75 @@
 <template>
-  <div class="invite__container">
-    <div class="invite__search">
-      <input
-        class="invite__search__input"
-        type="search"
-        placeholder="Search for a user"
-        v-model="userName"
-        @input="validateUsername"
-      />
-      <font-awesome-icon
-        class="invite__search__button"
-        icon="fa-solid fa-magnifying-glass"
-        @click="findUser"
-      />
-    </div>
-    <small v-if="invalidMessage" class="invalid-message">{{
-      invalidMessage
-    }}</small>
-    <div v-if="searchedUser" class="invite__user__container">
-      <p class="invite__user__status">{{ getTextByType(searchedUser.type) }}</p>
-      <div class="invite__user__card">
-        <p class="invite__user__name">
-          {{ searchedUser.name }}&nbsp;<i>({{ searchedUser.userName }})</i>
+  <div>
+    <div class="invite__container">
+      <div class="invite__search">
+        <input
+          class="invite__search__input"
+          type="search"
+          placeholder="Search for a user"
+          v-model="userName"
+          @input="validateUsername"
+        />
+        <font-awesome-icon
+          class="invite__search__button"
+          icon="fa-solid fa-magnifying-glass"
+          @click="findUser"
+        />
+      </div>
+      <small v-if="invalidMessage" class="invalid-message">{{
+        invalidMessage
+      }}</small>
+      <div v-if="searchedUser" class="invite__user__container">
+        <p class="invite__user__status">
+          {{ getTextByType(searchedUser.type) }}
         </p>
-        <div
-          v-if="searchedUser.type == 1 || searchedUser.type == 3"
-          class="invite__action-button"
-          @click="sendMessage(searchedUser)"
-        >
-          Send message &nbsp;
+        <div class="invite__user__card">
+          <p class="invite__user__name">
+            {{ searchedUser.name }}&nbsp;<i>({{ searchedUser.userName }})</i>
+          </p>
+          <div
+            v-if="searchedUser.type == 1 || searchedUser.type == 3"
+            class="invite__action-button"
+            @click="sendMessage(searchedUser)"
+          >
+            Send message &nbsp;
+            <font-awesome-icon icon="fa-regular fa-paper-plane" />
+          </div>
+          <div
+            v-else-if="searchedUser.type == 2"
+            class="invite__action-button"
+            @click="openInviteBox(searchedUser.userName)"
+          >
+            Send request &nbsp;
+            <font-awesome-icon icon="fa-solid fa-user-plus" />
+          </div>
+          <div
+            v-else-if="searchedUser.type == 4"
+            class="invite__action-button"
+            @click="openPrivateChat(searchedUser.userName)"
+          >
+            Open chat &nbsp;
+            <font-awesome-icon icon="fa-solid fa-arrow-up-right-from-square" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div v-if="showMessageBox" class="invite-message__box">
+      Send a custom message request:
+      <font-awesome-icon
+        class="invite-message__message__close-button"
+        icon="fa-solid fa-xmark"
+        @click="showMessageBox = false"
+      />
+      <div class="invite-message__message__container">
+        <textarea
+          maxlength="80"
+          class="invite-message__box__input"
+          type="textarea"
+          v-model="customRequest"
+        ></textarea>
+        <button class="invite-message__send-button" @click="sendInvite">
           <font-awesome-icon icon="fa-regular fa-paper-plane" />
-        </div>
-        <div v-else-if="searchedUser.type == 2" class="invite__action-button"
-        @click="sendInvite(searchedUser)">
-          Send request &nbsp;
-          <font-awesome-icon icon="fa-solid fa-user-plus" />
-        </div>
-        <div v-else-if="searchedUser.type == 4" class="invite__action-button"
-        @click="openPrivateChat(searchedUser.userName)">
-          Open chat &nbsp;
-          <font-awesome-icon icon="fa-solid fa-arrow-up-right-from-square" />
-        </div>
+        </button>
       </div>
     </div>
   </div>
@@ -56,9 +85,21 @@ const toast = useToast()
 const emit = defineEmits(['openPrivateChat', 'createTempChat'])
 
 const userName = ref('')
+const lastValidUser = ref('')
 
+const showMessageBox = ref(false)
 const searchedUser = ref(null)
 const invalidMessage = ref('')
+const customRequest = ref('Hi! Could you accept my message request?')
+
+document.addEventListener('click', (event) => {
+  if (
+    showMessageBox.value == true &&
+    event.target.matches('.modal__container')
+  ) {
+    showMessageBox.value = false
+  }
+})
 
 const getTextByType = (type) => {
   switch (type) {
@@ -77,15 +118,38 @@ const getTextByType = (type) => {
   }
 }
 
-const sendMessage = user => {
+const sendMessage = (user) => {
   emit('createTempChat', user)
 }
 
-const sendInvite = user => {
-  // do something
+const openInviteBox = (userName) => {
+  showMessageBox.value = true
+  lastValidUser.value = userName
 }
 
-const openPrivateChat = userName => {
+const sendInvite = () => {
+  const messageInfo = {
+    receiver: lastValidUser.value,
+    message: customRequest.value,
+  }
+  api
+    .sendMessageRequest(messageInfo)
+    .then((payload) => {
+      if (payload.status == 201) {
+        toast.success('Message request sent!')
+      }
+    })
+    .catch((err) => {
+      if (err.response && err.response.data) {
+        toast.error(err.response.data)
+      } else {
+        const errorMsg = 'Something went wrong. Try again later.'
+        toast.error(errorMsg)
+      }
+    })
+}
+
+const openPrivateChat = (userName) => {
   emit('openPrivateChat', userName)
 }
 
@@ -100,18 +164,21 @@ const validateUsername = () => {
 
 const findUser = () => {
   if (validateUsername()) {
-    api.searchUser(userName.value).then((payload) => {
-      if (payload.status == 200) {
-        searchedUser.value = payload.data
-      }
-    }).catch((err) => {
-      if (err.response && err.response.data) {
-        invalidMessage.value = err.response.data
-      } else {
-        const errorMsg = 'Something went wrong. Try again later.'
-        toast.error(errorMsg)
-      }
-    })
+    api
+      .searchUser(userName.value)
+      .then((payload) => {
+        if (payload.status == 200) {
+          searchedUser.value = payload.data
+        }
+      })
+      .catch((err) => {
+        if (err.response && err.response.data) {
+          invalidMessage.value = err.response.data
+        } else {
+          const errorMsg = 'Something went wrong. Try again later.'
+          toast.error(errorMsg)
+        }
+      })
   }
 }
 </script>
