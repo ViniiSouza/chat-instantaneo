@@ -11,17 +11,18 @@
         v-for="(contact, index) in contacts"
         :key="contact.id"
       >
-        <p class="contacts__item__name">{{ contact.userName }}</p>
+        <p class="contacts__item__name">{{ contact.name }}</p>
         <div class="contacts__item__options">
-          <div class="tooltip-container">
+          <div class="tooltip-container" @click="removeContact(contact, index)">
             <font-awesome-icon
               class="contacts__icon contacts__icon--remove"
               icon="fa-regular fa-square-minus"
-              @click="removeContact(contact, index)"
             />
-            <span class="tooltip-component tooltip--bottom">Remove contact</span>
+            <span class="tooltip-component tooltip--bottom"
+              >Remove contact</span
+            >
           </div>
-          <div class="tooltip-container">
+          <div class="tooltip-container" @click="sendMessage(contact)">
             <font-awesome-icon
               class="contacts__icon contacts__icon--send"
               icon="fa-regular fa-paper-plane"
@@ -42,25 +43,35 @@ import swalConfig from '../../../shared/sweetalert/globalConfig'
 
 import { useToast } from 'vue-toastification'
 
+const emit = defineEmits(['sendMessageToContact'])
+
 const toast = useToast()
 
 const contacts = ref([])
 
-api
-  .getContacts()
-  .then((payload) => {
-    if (payload.status == 200) {
-      contacts.value = payload.data
-    }
-  })
-  .catch((err) => {
-    if (err.response && err.response.data) {
-      toast.error(err.response.data)
-    } else {
-      const errorMsg = 'Unable to load your contacts. Try again later.'
-      toast.error(errorMsg)
-    }
-  })
+const sendMessage = (contact) => {
+  emit('sendMessageToContact', contact)
+}
+
+const getContacts = () => {
+  api
+    .getContacts()
+    .then((payload) => {
+      if (payload.status == 200) {
+        contacts.value = payload.data
+      }
+    })
+    .catch((err) => {
+      if (err.response && err.response.data) {
+        toast.error(err.response.data)
+      } else {
+        const errorMsg = 'Unable to load your contacts. Try again later.'
+        toast.error(errorMsg)
+      }
+    })
+}
+
+getContacts()
 
 const removeContact = (contact, index) => {
   Swal.fire({

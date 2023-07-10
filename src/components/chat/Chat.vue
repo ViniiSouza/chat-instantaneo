@@ -10,7 +10,7 @@
     <modal v-if="showModal" :title="modalTitle" @close="showModal = false">
       <template #body>
         <div v-if="currentModal == 1">
-          <Contacts />
+          <Contacts @send-message-to-contact="sendMessageToContact" />
         </div>
         <div v-else-if="currentModal == 2">
           <Invite
@@ -88,6 +88,24 @@ const loadAllConversations = () => {
 // on each first load
 loadAllConversations()
 
+const createTempChat = (user) => {
+  removeDraft()
+  const tempChat = {
+    id: -1,
+    lastMessage: {
+      content: 'Draft',
+      ownMessage: false,
+    },
+    title: user.name,
+    type: 1,
+    draft: true,
+  }
+  conversations.value.unshift(tempChat)
+  loadConversation(conversations.value[0])
+  hasDraft.value = true
+  showModal.value = false
+}
+
 const removeDraft = () => {
   if (hasDraft.value) {
     conversations.value.shift()
@@ -123,6 +141,22 @@ const loadConversation = (conversation) => {
   }
 }
 
+const sendMessageToContact = target => {
+  api.findPrivateConversation(target.userName).then(payload => {
+    if (payload.status == 200) {
+      loadConversation(payload.data)
+        showModal.value = false
+    }
+  }).catch(err => {
+    if (err.response.status == 404) {
+      createTempChat(target)
+    } else {
+      const errorMsg = 'Something went wrong. Try again later.'
+      toast.error(errorMsg)
+    }
+  })
+}
+
 const openPrivateChat = (targetUserName) => {
   api
     .findPrivateConversation(targetUserName)
@@ -140,23 +174,5 @@ const openPrivateChat = (targetUserName) => {
         toast.error(errorMsg)
       }
     })
-}
-
-const createTempChat = (user) => {
-  removeDraft()
-  const tempChat = {
-    id: -1,
-    lastMessage: {
-      content: 'Draft',
-      ownMessage: false,
-    },
-    title: user.name,
-    type: 1,
-    draft: true,
-  }
-  conversations.value.unshift(tempChat)
-  loadConversation(conversations.value[0])
-  hasDraft.value = true
-  showModal.value = false
 }
 </script>
