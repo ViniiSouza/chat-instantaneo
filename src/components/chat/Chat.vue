@@ -7,7 +7,7 @@
       @menu-option="openMenuOption"
     />
     <ChatArea :chat-info="currentChat" />
-    <modal v-if="showModal" @close="showModal = false">
+    <modal v-if="showModal" :title="modalTitle" @close="showModal = false">
       <template #body>
         <div v-if="currentModal == 1">
           <Contacts />
@@ -43,6 +43,7 @@ const hasDraft = ref(false)
 
 const conversations = ref([])
 
+const modalTitle = ref('')
 const showModal = ref(false)
 
 const currentModal = ref(0)
@@ -50,6 +51,14 @@ const currentModal = ref(0)
 const openMenuOption = (optionValue) => {
   showModal.value = true
   currentModal.value = optionValue
+  switch (optionValue) {
+    case 1:
+      modalTitle.value = 'Contacts'
+      break
+    case 2:
+      modalTitle.value = 'Invite user'
+      break
+  }
 }
 
 const conversationSelected = (conversation) => {
