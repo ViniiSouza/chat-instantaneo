@@ -1,6 +1,6 @@
 <template>
   <div class="chat__container">
-    <Conversations @conversation-selected="loadConversation" @menu-option="openMenuOption" />
+    <Conversations :conversations="conversations" @conversation-selected="loadConversation" @menu-option="openMenuOption" />
     <ChatArea :chat-info="currentChat" />
     <modal v-if="showModal" @close="showModal = false">
       <template #body>
@@ -33,6 +33,8 @@ const toast = useToast()
 
 const currentChat = ref(null)
 
+const conversations = ref([])
+
 const showModal = ref(false)
 
 const currentModal = ref(0)
@@ -41,6 +43,26 @@ const openMenuOption = optionValue => {
   showModal.value = true
   currentModal.value = optionValue
 }
+
+const loadAllConversations = () => {
+  api
+  .loadAll()
+  .then((response) => {
+    if (response.status == 200) {
+      conversations.value = response.data
+    }
+  })
+  .catch((err) => {
+    if (err.response && err.response.data) {
+      toast.error(err.response.data)
+    } else {
+      const errorMsg = 'Unable to load your conversations. Try again later.'
+      toast.error(errorMsg)
+    }
+  })
+}
+
+loadAllConversations()
 
 const loadConversation = conversation => {
   api.getConversation(conversation.id).then(payload => {
@@ -62,6 +84,13 @@ const openPrivateChat = targetUserName => {
     if (payload.status == 200) {
       loadConversation(payload.data)
       showModal.value = false
+    }
+  }).catch((err) => {
+    if (err.response && err.response.data) {
+      toast.error(err.response.data)
+    } else {
+      const errorMsg = 'Unable to find this conversation. Try again later.'
+      toast.error(errorMsg)
     }
   })
 }

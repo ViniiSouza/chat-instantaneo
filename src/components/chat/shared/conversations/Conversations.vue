@@ -29,36 +29,21 @@
 <script setup>
 import './shared/style.css'
 import { ref } from 'vue'
-import api from '../api.js'
-import { useToast } from 'vue-toastification'
 
 const emit = defineEmits(['conversationSelected', 'menuOption'])
 
-const toast = useToast()
-
-const conversations = ref([])
+const props = defineProps({
+  conversations: {
+    type: Array,
+    default: []
+  }
+})
 
 const selectedConversation = ref(null)
 
 const selectOption = optionNumber => {
   emit('menuOption', optionNumber)
 }
-
-api
-  .loadAll()
-  .then((response) => {
-    if (response.status == 200) {
-      conversations.value = response.data
-    }
-  })
-  .catch((err) => {
-    if (err.response && err.response.data) {
-      toast.error(err.response.data)
-    } else {
-      const errorMsg = 'Unable to load your conversations. Try again later.'
-      toast.error(errorMsg)
-    }
-  })
 
 const formatDate = (date) => {
   return date.toString().padStart(2, '0')
