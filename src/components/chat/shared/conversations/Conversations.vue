@@ -22,7 +22,7 @@
         </span>
       </div>
       <h2>Conversations</h2>
-      <input type="search" v-model="newMessage" placeholder="Search" />
+      <input type="search" v-model="searchValue" placeholder="Search" />
     </div>
     <ul class="chat__conversations__list">
       <li
@@ -30,8 +30,8 @@
         :key="conversation.id"
         class="chat__conversations__item"
         :class="
-          selectedConversation == conversation.id ||
-          (conversation.id == -1 && 'chat__conversations__item--selected')
+          (selectedConversation == conversation.id ||
+          conversation.id == -1) && 'chat__conversations__item--selected'
         "
         @click="selectConversation(conversation)"
       >
@@ -63,9 +63,13 @@ const props = defineProps({
     type: Array,
     default: [],
   },
+  selectedConversation: {
+    type: Number,
+    default: null,
+  },
 })
 
-const selectedConversation = ref(null)
+const searchValue = ref('')
 
 const selectOption = (optionNumber) => {
   emit('menuOption', optionNumber)
@@ -88,9 +92,6 @@ const getTime = (time) => {
 }
 
 const selectConversation = (conversation) => {
-  if (selectedConversation.value != conversation.id) {
-    selectedConversation.value = conversation.id
-    emit('conversationSelected', conversation)
-  }
+  emit('conversationSelected', conversation)
 }
 </script>

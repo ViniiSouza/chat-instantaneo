@@ -51,11 +51,15 @@
 </template>
 <script setup>
 import './shared/style.css'
+import { ref } from 'vue'
+
 const props = defineProps({
   chatInfo: {
     type: Object,
   },
 })
+
+const newMessage = ref('')
 
 const formatDate = (date) => {
   return date.toString().padStart(2, '0')

@@ -2,6 +2,7 @@
   <div class="chat__container">
     <Conversations
       :conversations="conversations"
+      :selected-conversation="selectedConversation"
       @conversation-selected="loadConversation"
       @menu-option="openMenuOption"
     />
@@ -37,6 +38,7 @@ import { useToast } from 'vue-toastification'
 const toast = useToast()
 
 const currentChat = ref(null)
+const selectedConversation = ref(null)
 const hasDraft = ref(false)
 
 const conversations = ref([])
@@ -48,6 +50,12 @@ const currentModal = ref(0)
 const openMenuOption = (optionValue) => {
   showModal.value = true
   currentModal.value = optionValue
+}
+
+const conversationSelected = (conversation) => {
+  if (selectedConversation.value != conversation.id) {
+    selectedConversation.value = conversation.id
+  }
 }
 
 const loadAllConversations = () => {
@@ -79,6 +87,7 @@ const removeDraft = () => {
 }
 
 const loadConversation = (conversation) => {
+  conversationSelected(conversation)
   removeDraft()
   if (conversation.draft) {
     currentChat.value = {
