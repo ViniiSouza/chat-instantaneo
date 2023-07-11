@@ -4,7 +4,7 @@
 }
 
 .chat__conversations__header {
-  background-color: #f07c3a;
+  background-color: var(--primary);
   height: 15vh;
   padding: 20px 10px;
 }
@@ -14,7 +14,7 @@
   right: 10px;
   padding: 0 10px;
   font-size: 1.4rem;
-  background-color: rgb(255, 226, 195);
+  background-color: var(--secondary);
   border-radius: 20px;
 }
 
@@ -37,7 +37,7 @@
   text-align: start;
   padding-left: 10px;
   border-radius: 5px;
-  border: 1px solid grey;
+  border: 1px solid var(--grey);
 }
 
 .chat__conversations__list {
@@ -48,7 +48,7 @@
 }
 
 .chat__conversations__item {
-  background-color: whitesmoke;
+  background-color: var(--white);
   border-radius: 7px;
   padding: 5px 20px;
   margin: 5px 20px;
@@ -57,7 +57,7 @@
 }
 
 .chat__conversations__item {
-  background-color: whitesmoke;
+  background-color: var(--white);
   border-radius: 7px;
   padding: 5px 20px;
   margin: 5px 20px;
@@ -68,11 +68,11 @@
 }
 
 .chat__conversations__item:hover {
-  background-color: rgb(206, 206, 206);
+  background-color: var(--grey-hover);
 }
 
 .chat__conversations__item--selected {
-  background-color: rgb(175, 175, 175);
+  background-color: var(--darker-grey);
 }
 
 .chat__conversations__item__name {
@@ -97,7 +97,7 @@
   position: absolute;
   right: 5px;
   transform: translateY(5px);
-  background-color: #f9f9f9;
+  background-color: var(--white);
   min-width: 120px;
   border-radius: 5px;
   z-index: 1050;
@@ -106,12 +106,12 @@
 .chat__config__item {
   font-size: 16px;
   margin-bottom: 5px;
-  color: #333;
+  color: var(--dark);
   display: block;
   padding: 5px 12px;
   cursor: pointer;
 }
 
 .chat__config__item:hover {
-  background-color: #aaa;
+  background-color: var(--grey);
 }

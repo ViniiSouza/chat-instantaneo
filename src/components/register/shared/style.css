@@ -10,23 +10,23 @@
 .register__form--input {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--grey);
   border-radius: 4px;
 }
 
 #register__form--sign-in {
   width: 100%;
   padding: 10px;
-  background-color: #f07c3a;
+  background-color: var(--primary);
   border: none;
-  color: #fff;
+  color: var(--white);
   font-weight: bold;
   border-radius: 4px;
   cursor: pointer;
 }
 
 #register__form--sign-in:hover {
-  background-color: #c05e26;
+  background-color: var(--primary-hover);
 }
 
 p {
@@ -34,7 +34,7 @@ p {
 }
 
 .register__form--sign-up {
-  color: #f07c3a;
+  color: var(--primary);
   text-decoration: none;
 }
 

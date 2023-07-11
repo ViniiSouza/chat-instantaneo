@@ -18,14 +18,14 @@
   width: 400px; /* control width */
   margin: 0px auto;
   padding: 20px 30px;
-  background-color: #fff;
+  background-color: var(--white);
   border-radius: 5px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .modal__header h3 {
   margin-top: 0;
-  color: #f07c3a;
+  color: var(--primary);
 }
 
 .modal__body {
@@ -42,14 +42,14 @@
 }
 
 .modal__default-button {
-  border: 2px solid #f07c3a;
+  border: 2px solid var(--primary);
   border-radius: 5px;
-  background-color: white;
+  background-color: var(--white);
   font-weight: bold;
   padding: 5x 10px;
   margin: 0 5px;
 }
 
 .modal__default-button:hover {
-  background-color: #fad5c0;
+  background-color: var(--primary-light);
 }

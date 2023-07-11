@@ -1,10 +1,31 @@
+/* color variables */
+
+:root {
+  --primary: #f07c3a;
+  --primary-light: #fad5c0;
+  --primary-hover: #c05e26;
+  --secondary: #ffe2C3;
+  --contrast: #1e4377;
+  --contrast-bg: #19345a18;
+  --grey: #ccc;
+  --grey-hover: #cecece;
+  --darker-grey: #afafaf;
+  --dark: #333;
+  --white: whitesmoke;
+  --success: #4caf50;
+  --success-hover: #388a3a;
+  --info: #2196f3;
+}
+
+/* scrollbar */
+
 ::-webkit-scrollbar {
   width: 10px;
   height: 5px;
 }
 
 ::-webkit-scrollbar-thumb{
-  background-color: #f07c3a;
+  background-color: var(--primary);
   border-radius: 4px;
 }
 
@@ -18,10 +39,10 @@
 .tooltip-container .tooltip-component {
   display: none;
   width: 120px;
-  background-color: whitesmoke;
-  border: 1px solid #ccc;
+  background-color: var(--white);
+  border: 1px solid var(--grey);
   font-size: 15px;
-  color: #f07c3a;
+  color: var(--primary);
   text-align: center;
   border-radius: 5px;
   position: absolute;
@@ -59,7 +80,7 @@
 /* Sweet Alert custom classes */
 
 .sw__container {
-  background-color: #1e4377;
+  background-color: var(--contrast);
 }
 .sw__popup {
 
@@ -71,8 +92,8 @@
 
 }
 .sw__close-button {
-  border: 1px solid #1e4377;
-  background-color: #fff;
+  border: 1px solid var(--contrast);
+  background-color: var(--white);
 }
 .sw__icon {
 
@@ -81,7 +102,7 @@
 
 }
 .sw__html-container {
-  color: black !important;
+  color: var(--dark) !important;
 }
 .sw__input {
 
@@ -96,28 +117,28 @@
 
 }
 .sw__confirm-button {
-  border: 1px solid #f07c3a;
+  border: 1px solid var(--primary);
   border-radius: 5px;
-  background-color: #fff;
-  color: #f07c3a;
+  background-color: var(--white);
+  color: var(--primary);
   font-weight: bold;
   padding: 5px 10px;
   margin: 0 10px;
 }
 .sw__confirm-button:hover {
-  background-color: #f07d3a48;
+  background-color: var(--primary-light);
 }
 .sw__deny-button, .sw__cancel-button {
-  border: 1px solid #1e4377;
+  border: 1px solid var(--contrast);
   border-radius: 5px;
-  background-color: #fff;
-  color: #1e4377;
+  background-color: var(--white);
+  color: var(--contrast);
   font-weight: bold;
   padding: 5px 10px;
   margin: 0 10px;
 }
 .sw__deny-button:hover, .sw__cancel-button:hover {
-  background-color: #1e437718;
+  background-color: var(--contrast-bg);
 }
 .sw__loader {
 

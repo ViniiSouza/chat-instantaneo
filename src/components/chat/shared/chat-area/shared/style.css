@@ -9,7 +9,7 @@
 }
 
 .chat__empty__container {
-  background-color: #FFE2C3;
+  background-color: var(--secondary);
   height: 100%;
   width: 100%;
   text-align: center;
@@ -26,7 +26,7 @@
 }
 
 .chat__empty__container__button {
-  border: 2px solid #f07c3a;
+  border: 2px solid var(--primary);
   border-radius: 5px;
   font-size: 24px;
   padding: 5px 20px;
@@ -34,11 +34,11 @@
 }
 
 .chat__empty__container__button:hover {
-  background: #f07c3a;
+  background: var(--primary);
 }
 
 .chat__messages__header {
-  background-color: #f07c3a;
+  background-color: var(--primary);
   padding-left: 20px;
   height: 3.5rem;
   border-radius: 0 0 0 5px;
@@ -70,13 +70,13 @@
 }
 
 .chat__messages__message {
-  border: 1px solid white;
+  border: 1px solid var(--white);
   max-width: 25vw;
   min-width: 5vw;
   word-wrap: break-word;
   margin: 10px;
   padding: 5px 10px;
-  background-color: whitesmoke;
+  background-color: var(--white);
 }
 
 .chat__messages__message--normal {
@@ -113,14 +113,14 @@
   flex: 1;
   width: max-content;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--grey);
   border-radius: 4px 0 0 4px;
 }
 
 .chat__messages__input button {
   padding: 10px 20px;
-  background-color: #4caf50;
+  background-color: var(--success);
   width: 6%;
   border: none;
-  color: white;
+  color: var(--white);
 }

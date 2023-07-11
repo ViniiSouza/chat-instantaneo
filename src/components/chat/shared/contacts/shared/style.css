@@ -4,7 +4,7 @@
 
 .contacts__search {
   width: 100%;
-  border: 1px solid #f07c3a;
+  border: 1px solid var(--primary);
 }
 
 .contacts__list {
@@ -14,10 +14,9 @@
 .contacts__item {
   display: flex;
   align-items: center;
-  
-  background-color: #fff;
+  background-color: var(--white);
   border-radius: 5px;
-  border: 1px solid #f07c3a;
+  border: 1px solid var(--primary);
   margin: 10px 0; 
 }
 
@@ -42,9 +41,9 @@
 }
 
 .contacts__icon--send {
-  color: #f07c3a;
+  color: var(--primary);
 }
 
 .contacts__icon--remove {
-  color: #1e4377;
+  color: var(--contrast);
 }
