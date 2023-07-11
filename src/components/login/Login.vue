@@ -42,13 +42,14 @@
 <script setup>
 import './shared/style.css'
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import FormComponent from '../shared/form-section/FormComponent.vue'
 import api from './shared/api.js'
 import { useToast } from 'vue-toastification'
 
 const toast = useToast()
 const router = useRouter()
+const route = useRoute()
 
 const user = ref({
   userName: '',
@@ -108,7 +109,8 @@ const signIn = () => {
       .then((response) => {
         if (response.status == 200) {
           localStorage.setItem('token', response.data)
-          router.push({ name: 'chat' })
+          const redirectRoute = route.query.redirect || '/chat'
+          router.push(redirectRoute)
         }
       })
       .catch((err) => {
