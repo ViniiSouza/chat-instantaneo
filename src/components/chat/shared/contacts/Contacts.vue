@@ -5,7 +5,8 @@
       type="search"
       placeholder="Search for a contact name"
     />
-    <div class="contacts__list">
+    <hr />
+    <div v-if="contacts && contacts.length > 0" class="contacts__list">
       <div
         class="contacts__item"
         v-for="(contact, index) in contacts"
@@ -32,6 +33,7 @@
         </div>
       </div>
     </div>
+    <div style="text-align: center" v-else>You have no contacts</div>
   </div>
 </template>
 <script setup>

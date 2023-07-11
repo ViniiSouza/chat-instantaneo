@@ -29,7 +29,7 @@
       <h2>Conversations</h2>
       <input type="search" v-model="searchValue" placeholder="Search" />
     </div>
-    <ul class="chat__conversations__list">
+    <ul v-if="conversations && conversations.length > 0" class="chat__conversations__list">
       <li
         v-for="conversation in conversations"
         :key="conversation.id"
@@ -55,6 +55,7 @@
         </span>
       </li>
     </ul>
+    <div style="text-align: center" v-else>You have no chats</div>
   </div>
 </template>
 <script setup>
