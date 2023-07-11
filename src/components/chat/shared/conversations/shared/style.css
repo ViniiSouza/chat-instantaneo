@@ -92,3 +92,26 @@
   right: 10px;
   font-size: small;
 }
+
+.chat__config__container {
+  position: absolute;
+  right: 5px;
+  transform: translateY(5px);
+  background-color: #f9f9f9;
+  min-width: 120px;
+  border-radius: 5px;
+  z-index: 1050;
+}
+
+.chat__config__item {
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: #333;
+  display: block;
+  padding: 5px 12px;
+  cursor: pointer;
+}
+
+.chat__config__item:hover {
+  background-color: #aaa;
+}

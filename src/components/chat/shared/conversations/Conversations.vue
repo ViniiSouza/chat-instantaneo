@@ -17,12 +17,14 @@
           <span class="tooltip-component tooltip--bottom">Invite user</span>
         </span>
         <span
-          class="chat__conversations__header__icon tooltip-container"
-          @click="selectOption(3)"
+          class="chat__conversations__header__icon"
+          @click="showConfig = !showConfig"
         >
           <font-awesome-icon icon="fa-solid fa-gear" />
-          <span class="tooltip-component tooltip--bottom">Configurations</span>
         </span>
+        <div v-if="showConfig" class="chat__config__container">
+          <p class="chat__config__item" @click="logout">Logout</p>
+        </div>
       </div>
       <h2>Conversations</h2>
       <input type="search" v-model="searchValue" placeholder="Search" />
@@ -59,7 +61,7 @@
 import './shared/style.css'
 import { ref } from 'vue'
 
-const emit = defineEmits(['conversationSelected', 'menuOption'])
+const emit = defineEmits(['conversationSelected', 'menuOption', 'logout'])
 
 const props = defineProps({
   conversations: {
@@ -73,6 +75,11 @@ const props = defineProps({
 })
 
 const searchValue = ref('')
+const showConfig = ref(false)
+
+const logout = () => {
+  emit('logout')
+}
 
 const selectOption = (optionNumber) => {
   emit('menuOption', optionNumber)

@@ -5,6 +5,7 @@
       :selected-conversation="selectedConversation"
       @conversation-selected="loadConversation"
       @menu-option="openMenuOption"
+      @logout="logout"
     />
     <ChatArea :chat-info="currentChat" />
     <modal v-if="showModal" :title="modalTitle" @close="showModal = false">
@@ -27,6 +28,7 @@
 <script setup>
 import './shared/style.css'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import Conversations from './shared/conversations/Conversations.vue'
 import ChatArea from './shared/chat-area/ChatArea.vue'
 import Modal from '../shared/modal/Modal.vue'
@@ -34,6 +36,8 @@ import Contacts from './shared/contacts/Contacts.vue'
 import Invite from './shared/invite/Invite.vue'
 import api from './shared/api'
 import { useToast } from 'vue-toastification'
+
+const router = useRouter()
 
 const toast = useToast()
 
@@ -174,5 +178,9 @@ const openPrivateChat = (targetUserName) => {
         toast.error(errorMsg)
       }
     })
+}
+
+const logout = () => {
+  router.push({ name: 'login' })
 }
 </script>
