@@ -45,7 +45,7 @@
           <div
             v-else-if="searchedUser.type == 4"
             class="invite__action-button"
-            @click="openPrivateChat(searchedUser.userName)"
+            @click="openPrivateChat(searchedUser)"
           >
             Open chat &nbsp;
             <font-awesome-icon icon="fa-solid fa-arrow-up-right-from-square" />
@@ -151,8 +151,8 @@ const sendInvite = () => {
     })
 }
 
-const openPrivateChat = (userName) => {
-  emit('openPrivateChat', userName)
+const openPrivateChat = (user) => {
+  emit('openPrivateChat', user)
 }
 
 const validateUsername = () => {

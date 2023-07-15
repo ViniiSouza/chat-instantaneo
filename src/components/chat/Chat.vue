@@ -7,7 +7,11 @@
       @menu-option="openMenuOption"
       @logout="logout"
     />
-    <ChatArea :chat-info="currentChat" />
+    <ChatArea
+      :chat-info="currentChat"
+      @invite-user="openMenuOption(2)"
+      @send-message="sendMessageFromChat"
+    />
     <modal v-if="showModal" :title="modalTitle" @close="showModal = false">
       <template #body>
         <div v-if="currentModal == 1">
@@ -103,6 +107,7 @@ const createTempChat = (user) => {
     title: user.name,
     type: 1,
     draft: true,
+    receiver: user.userName,
   }
   conversations.value.unshift(tempChat)
   loadConversation(conversations.value[0])
@@ -125,6 +130,8 @@ const loadConversation = (conversation) => {
       messages: [],
       title: conversation.title,
       type: 1,
+      draft: true,
+      receiver: conversation.receiver,
     }
   } else {
     api
@@ -145,25 +152,9 @@ const loadConversation = (conversation) => {
   }
 }
 
-const sendMessageToContact = target => {
-  api.findPrivateConversation(target.userName).then(payload => {
-    if (payload.status == 200) {
-      loadConversation(payload.data)
-        showModal.value = false
-    }
-  }).catch(err => {
-    if (err.response.status == 404) {
-      createTempChat(target)
-    } else {
-      const errorMsg = 'Something went wrong. Try again later.'
-      toast.error(errorMsg)
-    }
-  })
-}
-
-const openPrivateChat = (targetUserName) => {
+const sendMessageToContact = (target) => {
   api
-    .findPrivateConversation(targetUserName)
+    .findPrivateConversation(target.userName)
     .then((payload) => {
       if (payload.status == 200) {
         loadConversation(payload.data)
@@ -171,7 +162,68 @@ const openPrivateChat = (targetUserName) => {
       }
     })
     .catch((err) => {
-      if (err.response && err.response.data) {
+      if (err.response.status == 404) {
+        createTempChat(target)
+      } else {
+        const errorMsg = 'Something went wrong. Try again later.'
+        toast.error(errorMsg)
+      }
+    })
+}
+
+// this will be handled with the hub instead HTTP request
+const sendMessageFromChat = (message) => {
+  if (currentChat.value.draft) {
+    const conversationObj = {
+      receiver: currentChat.value.receiver,
+      firstMessage: message,
+      type: 1, // only private for now
+    }
+    api.createConversation(conversationObj).then((payload) => {
+      if (payload.status == 201) {
+        loadConversation(payload.data)
+        conversations.value.unshift(payload.data)
+      }
+    })
+  } else {
+    const handlerId = Date.now()
+    const messageObj = {
+      id: handlerId,
+      ownMessage: true,
+      sendingTime: new Date(),
+      content: message,
+      action: 1,
+      conversationId: currentChat.value.id,
+    }
+    currentChat.value.messages.push(messageObj)
+    messageObj.sendingTime = messageObj.sendingTime.toJSON()
+    api.sendMessage(messageObj).then((payload) => {
+      if (payload.status == 201) {
+        let index = currentChat.value.messages.findIndex(
+          (where) => where.id == handlerId
+        )
+        if (index >= 0) {
+          currentChat.value.messages[index] = payload.data
+        }
+      }
+    })
+  }
+}
+
+const openPrivateChat = (target) => {
+  api
+    .findPrivateConversation(target.userName)
+    .then((payload) => {
+      if (payload.status == 200) {
+        loadConversation(payload.data)
+        showModal.value = false
+      }
+    })
+    .catch((err) => {
+      if (err.response.status == 404) {
+        createTempChat(target)
+      }
+      else if (err.response && err.response.data) {
         toast.error(err.response.data)
       } else {
         const errorMsg = 'Unable to find this conversation. Try again later.'

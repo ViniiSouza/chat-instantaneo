@@ -8,7 +8,12 @@
         />
         <p>Select a conversation</p>
         <p>or</p>
-        <button class="chat__empty__container__button">Start a new</button>
+        <button
+          class="chat__empty__container__button"
+          @click="emit('inviteUser')"
+        >
+          Start a new
+        </button>
       </div>
     </div>
     <div v-else class="chat__messages__container__chat">
@@ -38,13 +43,13 @@
           </div>
         </div>
       </div>
-      <div class="chat__messages__input" @submit.prevent="sendMessage">
+      <div class="chat__messages__input">
         <input
           type="text"
           v-model="newMessage"
           placeholder="Write your message"
         />
-        <button>Send</button>
+        <button @click="sendMessage">Send</button>
       </div>
     </div>
   </div>
@@ -52,6 +57,8 @@
 <script setup>
 import './shared/style.css'
 import { ref } from 'vue'
+
+const emit = defineEmits(['inviteUser', 'sendMessage'])
 
 const props = defineProps({
   chatInfo: {
@@ -82,6 +89,8 @@ const getFirstName = (name) => {
 }
 
 const sendMessage = () => {
-  // doNothing
+  if (newMessage.value) {
+    emit('sendMessage', newMessage.value)
+  }
 }
 </script>

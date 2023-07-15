@@ -24,5 +24,11 @@ export default {
   },
   sendMessageRequest(messageInfo) {
     return axios.post(`${USER_BASE_ROUTE}request`, messageInfo)
+  },
+  sendMessage(message) {
+    return axios.post(`${CHAT_BASE_ROUTE}message`, message)
+  },
+  createConversation(dto) {
+    return axios.post(`${CHAT_BASE_ROUTE}create`, dto)
   }
 }
