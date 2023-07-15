@@ -1,4 +1,5 @@
 import axios from 'axios'
+import router from '@/router/index.js'
 
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:5180',
@@ -21,6 +22,7 @@ axiosInstance.interceptors.response.use(
         config.headers.Authorization = ''
         return config
       })
+      router.push('/login')
     }
 
     return Promise.reject(error)
