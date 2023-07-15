@@ -31,7 +31,7 @@
 
 <script setup>
 import './shared/style.css'
-import { ref } from 'vue'
+import { onBeforeUnmount, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import Conversations from './shared/conversations/Conversations.vue'
 import ChatArea from './shared/chat-area/ChatArea.vue'
@@ -40,6 +40,10 @@ import Contacts from './shared/contacts/Contacts.vue'
 import Invite from './shared/invite/Invite.vue'
 import api from './shared/api'
 import { useToast } from 'vue-toastification'
+
+import chatHub from '@/hubs/chatHub.js'
+
+const hub = chatHub()
 
 const router = useRouter()
 
@@ -179,11 +183,9 @@ const sendMessageFromChat = (message) => {
       firstMessage: message,
       type: 1, // only private for now
     }
-    api.createConversation(conversationObj).then((payload) => {
-      if (payload.status == 201) {
-        loadConversation(payload.data)
-        conversations.value.unshift(payload.data)
-      }
+    hub.invoke('CreateConversation', conversationObj).then((result) => {
+      loadConversation(result)
+      conversations.value.unshift(result)
     })
   } else {
     const handlerId = Date.now()
@@ -197,14 +199,12 @@ const sendMessageFromChat = (message) => {
     }
     currentChat.value.messages.push(messageObj)
     messageObj.sendingTime = messageObj.sendingTime.toJSON()
-    api.sendMessage(messageObj).then((payload) => {
-      if (payload.status == 201) {
-        let index = currentChat.value.messages.findIndex(
-          (where) => where.id == handlerId
-        )
-        if (index >= 0) {
-          currentChat.value.messages[index] = payload.data
-        }
+    hub.invoke('SendMessage', messageObj).then((result) => {
+      let index = currentChat.value.messages.findIndex(
+        (where) => where.id == handlerId
+      )
+      if (index >= 0) {
+        currentChat.value.messages[index] = result
       }
     })
   }
@@ -222,8 +222,7 @@ const openPrivateChat = (target) => {
     .catch((err) => {
       if (err.response.status == 404) {
         createTempChat(target)
-      }
-      else if (err.response && err.response.data) {
+      } else if (err.response && err.response.data) {
         toast.error(err.response.data)
       } else {
         const errorMsg = 'Unable to find this conversation. Try again later.'
@@ -235,4 +234,9 @@ const openPrivateChat = (target) => {
 const logout = () => {
   router.push({ name: 'login' })
 }
+
+// before unmount, close the connection...
+onBeforeUnmount(() => {
+  hub.stop()
+})
 </script>
