@@ -17,6 +17,17 @@ export default function useChat(
 
   const hub = chatHub()
 
+  hub.on('MessageReceived', response => {
+    let index = conversations.value.findIndex(find => find.id == response.conversationId)
+    if (index >= 0) {
+      conversations.value[index].lastMessage = response
+    }
+
+    if (currentChat.value && currentChat.value.id == response.conversationId) {
+      currentChat.value.messages.push(response)
+    }
+  })
+
   // before unmount, close the connection...
   onBeforeUnmount(() => {
     hub.stop()
