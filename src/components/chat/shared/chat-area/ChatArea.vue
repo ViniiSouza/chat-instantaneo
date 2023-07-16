@@ -22,24 +22,34 @@
         <div class="chat__messages__info">Available</div>
       </div>
       <div class="chat__messages__area">
-        <div
-          class="chat__messages__message chat__messages__message--normal"
-          v-for="message in chatInfo.messages"
-          :key="message.id"
-          :class="
-            message.ownMessage
-              ? 'chat__messages__message--sent'
-              : 'chat__messages__message--received'
-          "
-        >
-          <div class="chat__messages__message__time">
-            {{ getTime(message.sendingTime) }}
+        <div class="chat__messages__wrapper" v-for="(message, index) in chatInfo.messages" :key="message.id">
+          <div
+            v-if="message.action == 1"
+            class="chat__message--text"
+            :class="message.ownMessage
+                ? 'chat__message--sent'
+                : 'chat__message--received'
+            "
+          >
+            <div
+              v-if="
+                !message.ownMessage &&
+                (index == 0 ||
+                  chatInfo.messages[index - 1].ownMessage != message.ownMessage)
+              "
+              class="chat__message__name"
+            >
+              {{ getFirstName(message.senderName) }}
+            </div>
+            <div class="chat__message__content">
+              {{ message.content }}
+            </div>
+            <div class="chat__message__time">
+              {{ getTime(message.sendingTime) }}
+            </div>
           </div>
-          <div class="chat__messages__message__name">
-            {{ message.ownMessage ? 'You' : getFirstName(message.senderName) }}
-          </div>
-          <div class="chat__messages__message--content">
-            {{ message.content }}
+          <div v-else-if="message.action == 2" class="chat__message--info">
+            <b>{{ message.senderName}}</b> created the chat
           </div>
         </div>
       </div>

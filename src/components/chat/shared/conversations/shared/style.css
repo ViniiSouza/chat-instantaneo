@@ -65,6 +65,8 @@
   overflow: hidden;
   transition: 0.1s;
   cursor: pointer;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .chat__conversations__item:hover {
