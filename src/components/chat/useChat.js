@@ -146,7 +146,6 @@ export default function useChat(
       })
   }
 
-  // this will be handled with the hub instead HTTP request
   const sendMessageFromChat = (message) => {
     if (currentChat.value.draft) {
       const conversationObj = {
@@ -176,6 +175,10 @@ export default function useChat(
         )
         if (index >= 0) {
           currentChat.value.messages[index] = result
+        }
+        let chatIndex = conversations.value.findIndex(find => find.id == result.conversationId)
+        if (chatIndex >= 0) {
+          conversations.value[chatIndex].lastMessage = result
         }
       })
     }
