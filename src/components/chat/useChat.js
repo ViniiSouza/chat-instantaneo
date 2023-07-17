@@ -5,20 +5,22 @@ export default function useChat(
   router,
   toast,
   currentChat,
-  selectedConversation,
   hasDraft,
   conversations,
   modalTitle,
   showModal,
   currentModal,
-  onBeforeUnmount
+  onBeforeUnmount,
+  ChatAreaCp
 ) {
   // hub
 
   const hub = chatHub()
 
-  hub.on('MessageReceived', response => {
-    let index = conversations.value.findIndex(find => find.id == response.conversationId)
+  hub.on('MessageReceived', (response) => {
+    let index = conversations.value.findIndex(
+      (find) => find.id == response.conversationId
+    )
     if (index >= 0) {
       conversations.value[index].lastMessage = response
     }
@@ -46,12 +48,6 @@ export default function useChat(
     }
   }
 
-  const conversationSelected = (conversation) => {
-    if (selectedConversation.value != conversation.id) {
-      selectedConversation.value = conversation.id
-    }
-  }
-
   const loadAllConversations = () => {
     api
       .loadAll()
@@ -71,33 +67,35 @@ export default function useChat(
   }
 
   const loadConversation = (conversation) => {
-    conversationSelected(conversation)
-    removeDraft()
-    if (conversation.draft) {
-      currentChat.value = {
-        messages: [],
-        title: conversation.title,
-        type: 1,
-        draft: true,
-        receiver: conversation.receiver,
+    if (!currentChat.value || currentChat.value.id != conversation.id) {
+      removeDraft()
+      if (conversation.draft) {
+        currentChat.value = {
+          messages: [],
+          title: conversation.title,
+          type: 1,
+          draft: true,
+          receiver: conversation.receiver,
+        }
+      } else {
+        api
+          .getConversation(conversation.id)
+          .then((payload) => {
+            let result = payload.data
+            if (!result.title) result.title = conversation.title
+            currentChat.value = result
+            ChatAreaCp.value.scrollToBottom()
+          })
+          .catch((err) => {
+            if (err.response && err.response.data) {
+              toast.error(err.response.data)
+            } else {
+              const errorMsg =
+                'Unable to load this conversation. Try again later.'
+              toast.error(errorMsg)
+            }
+          })
       }
-    } else {
-      api
-        .getConversation(conversation.id)
-        .then((payload) => {
-          let result = payload.data
-          if (!result.title) result.title = conversation.title
-          currentChat.value = result
-        })
-        .catch((err) => {
-          if (err.response && err.response.data) {
-            toast.error(err.response.data)
-          } else {
-            const errorMsg =
-              'Unable to load this conversation. Try again later.'
-            toast.error(errorMsg)
-          }
-        })
     }
   }
 
@@ -176,7 +174,9 @@ export default function useChat(
         if (index >= 0) {
           currentChat.value.messages[index] = result
         }
-        let chatIndex = conversations.value.findIndex(find => find.id == result.conversationId)
+        let chatIndex = conversations.value.findIndex(
+          (find) => find.id == result.conversationId
+        )
         if (chatIndex >= 0) {
           conversations.value[chatIndex].lastMessage = result
         }

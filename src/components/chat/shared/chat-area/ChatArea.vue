@@ -21,7 +21,7 @@
         <div class="chat__messages__name">{{ chatInfo.title }}</div>
         <div class="chat__messages__info">Available</div>
       </div>
-      <div class="chat__messages__area">
+      <div class="chat__messages__area" ref="messageArea">
         <div class="chat__messages__wrapper" v-for="(message, index) in chatInfo.messages" :key="message.id">
           <div
             v-if="message.action == 1"
@@ -66,7 +66,7 @@
 </template>
 <script setup>
 import './shared/style.css'
-import { ref } from 'vue'
+import { nextTick, ref } from 'vue'
 
 const emit = defineEmits(['inviteUser', 'sendMessage'])
 
@@ -76,6 +76,7 @@ const props = defineProps({
   },
 })
 
+const messageArea = ref(null)
 const newMessage = ref('')
 
 const formatDate = (date) => {
@@ -103,4 +104,15 @@ const sendMessage = () => {
     emit('sendMessage', newMessage.value)
   }
 }
+
+const scrollToBottom = () => {
+  nextTick(() => {
+    console.log(messageArea.value)
+    messageArea.value.scrollTop = messageArea.value.scrollHeight
+  })
+}
+
+defineExpose({
+  scrollToBottom
+})
 </script>

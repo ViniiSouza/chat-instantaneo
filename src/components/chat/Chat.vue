@@ -2,12 +2,13 @@
   <div class="chat__container">
     <Conversations
       :conversations="conversations"
-      :selected-conversation="selectedConversation"
+      :selected-conversation="currentChat ? currentChat.id : null"
       @conversation-selected="loadConversation"
       @menu-option="openMenuOption"
       @logout="logout"
     />
     <ChatArea
+      ref="ChatAreaCp"
       :chat-info="currentChat"
       @invite-user="openMenuOption(2)"
       @send-message="sendMessageFromChat"
@@ -46,8 +47,9 @@ import Invite from './shared/invite/Invite.vue'
 const router = useRouter()
 const toast = useToast()
 
+const ChatAreaCp = ref(null)
+
 const currentChat = ref(null)
-const selectedConversation = ref(null)
 const hasDraft = ref(false)
 const conversations = ref([])
 const modalTitle = ref('')
@@ -67,12 +69,12 @@ const {
   router,
   toast,
   currentChat,
-  selectedConversation,
   hasDraft,
   conversations,
   modalTitle,
   showModal,
   currentModal,
-  onBeforeUnmount
+  onBeforeUnmount,
+  ChatAreaCp
 )
 </script>
