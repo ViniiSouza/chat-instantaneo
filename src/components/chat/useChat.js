@@ -18,6 +18,8 @@ export default function useChat(
   const hub = chatHub()
 
   hub.on('MessageReceived', (response) => {
+    let scrollOnReceive = ChatAreaCp.value.userInBottom
+    
     let index = conversations.value.findIndex(
       (find) => find.id == response.conversationId
     )
@@ -27,6 +29,8 @@ export default function useChat(
 
     if (currentChat.value && currentChat.value.id == response.conversationId) {
       currentChat.value.messages.push(response)
+      if (scrollOnReceive)
+        ChatAreaCp.value.scrollToBottom()
     }
   })
 
@@ -173,6 +177,7 @@ export default function useChat(
         )
         if (index >= 0) {
           currentChat.value.messages[index] = result
+          ChatAreaCp.value.scrollToBottom()
         }
         let chatIndex = conversations.value.findIndex(
           (find) => find.id == result.conversationId

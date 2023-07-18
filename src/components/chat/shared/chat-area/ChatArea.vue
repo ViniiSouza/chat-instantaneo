@@ -22,11 +22,16 @@
         <div class="chat__messages__info">Available</div>
       </div>
       <div class="chat__messages__area" ref="messageArea">
-        <div class="chat__messages__wrapper" v-for="(message, index) in chatInfo.messages" :key="message.id">
+        <div
+          class="chat__messages__wrapper"
+          v-for="(message, index) in chatInfo.messages"
+          :key="message.id"
+        >
           <div
             v-if="message.action == 1"
             class="chat__message--text"
-            :class="message.ownMessage
+            :class="
+              message.ownMessage
                 ? 'chat__message--sent'
                 : 'chat__message--received'
             "
@@ -49,7 +54,7 @@
             </div>
           </div>
           <div v-else-if="message.action == 2" class="chat__message--info">
-            <b>{{ message.senderName}}</b> created the chat
+            <b>{{ message.senderName }}</b> created the chat
           </div>
         </div>
       </div>
@@ -66,7 +71,7 @@
 </template>
 <script setup>
 import './shared/style.css'
-import { nextTick, ref } from 'vue'
+import { computed, nextTick, ref } from 'vue'
 
 const emit = defineEmits(['inviteUser', 'sendMessage'])
 
@@ -102,17 +107,24 @@ const getFirstName = (name) => {
 const sendMessage = () => {
   if (newMessage.value) {
     emit('sendMessage', newMessage.value)
+    newMessage.value = ''
   }
 }
 
+const userInBottom = computed(
+  () =>
+    messageArea.value.scrollTop >=
+    messageArea.value.scrollHeight - messageArea.value.offsetHeight
+)
+
 const scrollToBottom = () => {
   nextTick(() => {
-    console.log(messageArea.value)
     messageArea.value.scrollTop = messageArea.value.scrollHeight
   })
 }
 
 defineExpose({
-  scrollToBottom
+  userInBottom,
+  scrollToBottom,
 })
 </script>
