@@ -34,6 +34,10 @@ export default function useChat(
     }
   })
 
+  hub.on('UserStatusChange', response => {
+    updateConversationStatus(response, currentChat.value.status?.userName == response.userName)
+  })
+
   // before unmount, close the connection...
   onBeforeUnmount(() => {
     hub.stop()
@@ -70,6 +74,12 @@ export default function useChat(
       })
   }
 
+  const updateConversationStatus = (statusInfo, isCurrentChat = false) => {
+    if (isCurrentChat || currentChat.value.receiver == statusInfo.userName) {
+      currentChat.value.status = statusInfo
+    }
+  }
+
   const loadConversation = (conversation) => {
     if (!currentChat.value || currentChat.value.id != conversation.id) {
       removeDraft()
@@ -81,6 +91,9 @@ export default function useChat(
           draft: true,
           receiver: conversation.receiver,
         }
+        hub.invoke('ListenToUserStatus', conversation.receiver).then((result) => {
+          updateConversationStatus(result, true)
+        })
       } else {
         api
           .getConversation(conversation.id)
@@ -89,6 +102,11 @@ export default function useChat(
             if (!result.title) result.title = conversation.title
             currentChat.value = result
             ChatAreaCp.value.scrollToBottom()
+            if (result.type == 1) {
+              hub.invoke('ListenToUserStatusByPrivateChat', conversation.id).then((result) => {
+                updateConversationStatus(result, true)
+              })
+            }
           })
           .catch((err) => {
             if (err.response && err.response.data) {

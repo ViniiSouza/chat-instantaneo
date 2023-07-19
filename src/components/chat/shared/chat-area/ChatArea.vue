@@ -19,7 +19,7 @@
     <div v-else class="chat__messages__container__chat">
       <div class="chat__messages__header">
         <div class="chat__messages__name">{{ chatInfo.title }}</div>
-        <div class="chat__messages__info">Available</div>
+        <div class="chat__messages__info">{{ chatInfo.type == 1 ? getUserStatus : 'Not private' }}</div>
       </div>
       <div class="chat__messages__area" ref="messageArea">
         <div
@@ -50,7 +50,7 @@
               {{ message.content }}
             </div>
             <div class="chat__message__time">
-              {{ getTime(message.sendingTime) }}
+              {{ dateHandler.getStringTime(message.sendingTime) }}
             </div>
           </div>
           <div v-else-if="message.action == 2" class="chat__message--info">
@@ -72,6 +72,7 @@
 <script setup>
 import './shared/style.css'
 import { computed, nextTick, ref } from 'vue'
+import dateHandler from '@/utils/dateHandler.js'
 
 const emit = defineEmits(['inviteUser', 'sendMessage'])
 
@@ -84,17 +85,6 @@ const props = defineProps({
 const messageArea = ref(null)
 const newMessage = ref('')
 
-const formatDate = (date) => {
-  return date.toString().padStart(2, '0')
-}
-
-const getTime = (time) => {
-  if (time == null) return ''
-  const date = new Date(time)
-  const today = new Date()
-  return `${formatDate(date.getHours())}:${formatDate(date.getMinutes())}`
-}
-
 const getFirstName = (name) => {
   let splitted = name.trim().split(' ')
   let firstName = splitted[0]
@@ -103,6 +93,19 @@ const getFirstName = (name) => {
   }
   return firstName
 }
+
+const getUserStatus = computed(() => {
+  if (props.chatInfo.status) {
+    if (props.chatInfo.status.status == 1)
+      return 'On-line'
+    if (dateHandler.dateIsToday(props.chatInfo.status.lastSeen))
+      return `Last seen today at ${dateHandler.getStringTime(props.chatInfo.status.lastSeen)}`
+    if (dateHandler.dateIsYesterday(props.chatInfo.status.lastSeen))
+      return `Last seen yesterday at ${dateHandler.getStringTime(props.chatInfo.status.lastSeen)}`
+    
+    return `Last seen ${dateHandler.getStringDate(props.chatInfo.status.lastSeen)}`
+  }
+})
 
 const sendMessage = () => {
   if (newMessage.value) {
