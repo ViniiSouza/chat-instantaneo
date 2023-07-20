@@ -4,11 +4,9 @@
   align-items: center;
   height: 100vh;
   background: rgb(255, 210, 175);
-  background: linear-gradient(
-    90deg,
-    rgba(255, 210, 175, 1) 0%,
-    rgba(255, 141, 65, 1) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(255, 210, 175, 1) 0%,
+      rgba(255, 141, 65, 1) 100%);
   z-index: 0;
 }
 
@@ -47,4 +45,27 @@
   object-fit: cover;
   object-position: center right;
   z-index: -1;
+}
+
+/* Mobile L */
+@media screen and (max-width: 425px) {
+  .form__speech-icon--first, .form__speech-icon--second {
+    display: none;
+  }
+
+  .form__card {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .form__card {
+    width: 75%;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .form__card {
+    width: 85%;
+  }
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="chat__messages__container">
     <div v-if="!chatInfo" class="chat__empty__container">
-      <div>
+      <div class="chat__empty__container__wrapper">
         <img
           class="chat__empty__container__image"
           src="https://i.imgur.com/zBJnlSa.png"

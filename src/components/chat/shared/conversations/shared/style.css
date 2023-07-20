@@ -19,18 +19,19 @@
 }
 
 .chat__conversations__header__icon {
-  margin: 0 5px;
+  margin: 0 4px;
   cursor: pointer;
   padding: 1px 3px;
   border-radius: 20px;
 }
 
-.chat__conversations__header h2 {
+.chat__header__title {
   margin: 0 20px 40px 20px;
   width: fit-content;
+  font-size: 1.7rem;
 }
 
-.chat__conversations__header input {
+.chat__header__input {
   width: 85%;
   margin: 20px auto;
   display: block;
@@ -51,16 +52,7 @@
   background-color: var(--white);
   border-radius: 7px;
   padding: 5px 20px;
-  margin: 5px 20px;
-  height: 4.5rem;
-  overflow: hidden;
-}
-
-.chat__conversations__item {
-  background-color: var(--white);
-  border-radius: 7px;
-  padding: 5px 20px;
-  margin: 5px 20px;
+  margin: 5px 15px;
   height: 4.5rem;
   overflow: hidden;
   transition: 0.1s;
@@ -117,3 +109,69 @@
 .chat__config__item:hover {
   background-color: var(--grey);
 }
+
+/* Laptop L */
+@media screen and (max-width: 1440px) {
+  .chat__conversations__container {
+    max-width: 30%;
+  }
+
+  .chat__header__title {
+    font-size: 1.5rem;
+  }
+
+  .chat__conversations__header__options {
+    font-size: 1.1rem;
+  }
+
+  .chat__conversations__header__icon {
+    margin: 0 2px;
+  }
+
+  .chat__conversations__item {
+    margin: 5px;
+  }
+
+  .chat__header__input {
+    width: 95%;
+  }
+}
+
+/* Laptop */
+@media screen and (max-width: 1024px) {
+  .chat__header__title {
+    font-size: 1.1rem;
+    margin: 0 20px 40px 5px;
+  }
+
+  .chat__conversations__header__options {
+    font-size: 1rem;
+  }
+
+  .chat__conversations__header__icon {
+    margin: 0;
+  }
+
+  .chat__conversations__item {
+    margin: 5px;
+  }
+
+  .chat__header__input {
+    width: 95%;
+  }
+
+  .chat__conversations__item__name {}
+}
+
+/* From here down, going to work with different component behavior */
+/* Tablet */
+@media screen and (max-width: 768px) {}
+
+/* Mobile L */
+@media screen and (max-width: 425px) {}
+
+/* Mobile M */
+@media screen and (max-width: 375px) {}
+
+/* Mobile S */
+@media screen and (max-width: 320px) {}

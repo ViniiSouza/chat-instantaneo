@@ -26,10 +26,18 @@
           <p class="chat__config__item" @click="logout">Logout</p>
         </div>
       </div>
-      <h2>Conversations</h2>
-      <input type="search" v-model="searchValue" placeholder="Search" />
+      <h2 class="chat__header__title">Conversations</h2>
+      <input
+        class="chat__header__input"
+        type="search"
+        v-model="searchValue"
+        placeholder="Search"
+      />
     </div>
-    <ul v-if="conversations && conversations.length > 0" class="chat__conversations__list">
+    <ul
+      v-if="conversations && conversations.length > 0"
+      class="chat__conversations__list"
+    >
       <li
         v-for="conversation in conversations"
         :key="conversation.id"
