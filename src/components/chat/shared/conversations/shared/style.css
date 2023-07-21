@@ -1,6 +1,7 @@
 .chat__conversations__container {
   flex: 1;
   max-width: 25%;
+  height: var(--app-height);
 }
 
 .chat__conversations__header {
@@ -45,7 +46,8 @@
   list-style: none;
   padding-left: 0;
   overflow-y: scroll;
-  height: 85vh;
+  height: 85%;
+  background-color: var(--pure-white);
 }
 
 .chat__conversations__item {

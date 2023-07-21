@@ -11,10 +11,16 @@
   --grey-hover: #cecece;
   --darker-grey: #afafaf;
   --dark: #333;
+  --black: #000;
   --white: whitesmoke;
+  --pure-white: white;
   --success: #4caf50;
   --success-hover: #388a3a;
   --info: #2196f3;
+}
+
+* {
+  color: var(--black);
 }
 
 /* scrollbar */

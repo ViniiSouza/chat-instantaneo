@@ -6,7 +6,7 @@
 .chat__messages__container__chat {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: var(--app-height);
 }
 
 .chat__messages__header {
@@ -136,7 +136,7 @@
 /* Empty Container */
 .chat__empty__container {
   background-color: var(--secondary);
-  height: 100%;
+  height: var(--app-height);
   width: 100%;
   text-align: center;
   position: relative;
