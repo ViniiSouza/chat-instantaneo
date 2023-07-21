@@ -1,5 +1,8 @@
 <template>
-  <div v-if="!isMobile || isMobile && !selectedConversation" class="chat__conversations__container">
+  <div
+    v-if="!isMobile || (isMobile && !selectedConversation)"
+    class="chat__conversations__container"
+  >
     <div class="chat__conversations__header">
       <div class="chat__conversations__header__options">
         <span
@@ -69,6 +72,7 @@
 <script setup>
 import './shared/style.css'
 import { ref } from 'vue'
+import dateHandler from '@/utils/dateHandler.js'
 
 const emit = defineEmits(['conversationSelected', 'menuOption', 'logout'])
 
@@ -83,7 +87,7 @@ const props = defineProps({
   },
   isMobile: {
     type: Boolean,
-  }
+  },
 })
 
 const searchValue = ref('')
@@ -97,20 +101,12 @@ const selectOption = (optionNumber) => {
   emit('menuOption', optionNumber)
 }
 
-const formatDate = (date) => {
-  return date.toString().padStart(2, '0')
-}
-
 const getTime = (time) => {
   if (time == null) return ''
-  const date = new Date(time)
-  const today = new Date()
-  if (date.toDateString() == today.toDateString()) {
-    return `${formatDate(date.getHours())}:${formatDate(date.getMinutes())}`
+  if (dateHandler.dateIsToday(time)) {
+    return dateHandler.getStringTime(time)
   }
-  return `${formatDate(date.getDate())}/${formatDate(
-    date.getMonth()
-  )}/${date.getFullYear()}`
+  return dateHandler.getStringDate(time)
 }
 
 const selectConversation = (conversation) => {

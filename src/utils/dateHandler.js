@@ -43,5 +43,6 @@ export default {
     return compareDates(getDate(dateString), getYesterdayDate())
   },
   getStringDate,
-  getStringTime
+  getStringTime,
+  padString
 }
