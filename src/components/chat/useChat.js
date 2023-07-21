@@ -228,6 +228,10 @@ export default function useChat(
       })
   }
 
+  const clearCurrentChat = () => {
+    currentChat.value = null
+  }
+
   const logout = () => {
     router.push({ name: 'login' })
   }
@@ -243,5 +247,6 @@ export default function useChat(
     sendMessageFromChat,
     openPrivateChat,
     logout,
+    clearCurrentChat,
   }
 }

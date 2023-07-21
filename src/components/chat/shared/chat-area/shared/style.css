@@ -11,9 +11,17 @@
 
 .chat__messages__header {
   background-color: var(--primary);
-  padding-left: 20px;
   height: 3.5rem;
   border-radius: 0 0 0 5px;
+  display: flex;
+}
+
+.chat__back-button {
+  display: none;
+}
+
+.chat__user-info {
+  margin-left: 10px;
 }
 
 .chat__messages__name {
@@ -107,6 +115,7 @@
 
 .chat__messages__input {
   display: flex;
+  width: 100%;
 }
 
 .chat__messages__input input {
@@ -120,7 +129,6 @@
 .chat__messages__input button {
   padding: 10px 20px;
   background-color: var(--success);
-  width: 6%;
   border: none;
   color: var(--white);
 }
@@ -177,15 +185,59 @@
   }
 }
 
-/* From here down, going to work with different component behavior */
 /* Tablet */
-@media screen and (max-width: 768px) {}
+@media screen and (max-width: 768px) {
+  .chat__messages__container {
+    max-width: 100%;
+  }
+
+  .chat__back-button {
+    margin: auto 0;
+    padding: 10px 20px;
+    border-right: 1px solid var(--dark);
+    cursor: pointer;
+    display: block;
+  }
+  
+  .chat__user-info {
+    margin-left: 10px;
+  }
+  
+  .chat__messages__name {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  .chat__message--text {
+    border-color: var(--grey);
+    max-width: 35vw;
+    min-width: 15vw;
+    margin: 3px 10px;
+  }
+
+  .chat__message--sent {
+    border-radius: 5px 5px 15px 5px;
+  }
+
+  .chat__message--received {
+    border-radius: 5px 5px 5px 15px;
+  }
+}
 
 /* Mobile L */
-@media screen and (max-width: 425px) {}
+@media screen and (max-width: 425px) {
+  .chat__message--text {
+    min-width: 20vw;
+  }
+}
 
 /* Mobile M */
-@media screen and (max-width: 375px) {}
+@media screen and (max-width: 375px) {
+  .chat__message--text {
+    max-width: 40vw;
+    min-width: 25vw;
+  }
+}
 
 /* Mobile S */
 @media screen and (max-width: 320px) {}

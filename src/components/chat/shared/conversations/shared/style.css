@@ -163,15 +163,61 @@
   .chat__conversations__item__name {}
 }
 
-/* From here down, going to work with different component behavior */
 /* Tablet */
-@media screen and (max-width: 768px) {}
+@media screen and (max-width: 768px) {
+  .chat__conversations__container {
+    max-width: 100%;
+  }
+
+  .chat__conversations__header__options {
+    font-size: 1.5rem;
+    right: 25px;
+  }
+
+  .chat__conversations__header__icon {
+    margin: 0 5px;
+    padding: 1px 5px;
+  }
+
+  .chat__header__title {
+    margin: 0 20px 30px 20px;
+    width: fit-content;
+    font-size: 2rem;
+  }
+}
 
 /* Mobile L */
-@media screen and (max-width: 425px) {}
+@media screen and (max-width: 425px) {
+  .chat__conversations__header__options {
+    font-size: 1.2rem;
+  }
+
+  .chat__conversations__header__icon {
+    margin: 0 2px;
+    padding: 3px 5px;
+  }
+
+  .chat__header__title {
+    font-size: 1.8rem;
+  }
+}
 
 /* Mobile M */
-@media screen and (max-width: 375px) {}
+@media screen and (max-width: 375px) {
+  .chat__conversations__header__options {
+    font-size: 1rem;
+    right: 20px;
+  }
+
+  .chat__conversations__header__icon {
+    padding: 3px 3px;
+  }
+
+  .chat__header__title {
+    margin: 0 20px 30px 10px;
+    font-size: 1.5rem;
+  }
+}
 
 /* Mobile S */
 @media screen and (max-width: 320px) {}

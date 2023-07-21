@@ -1,5 +1,5 @@
 <template>
-  <div class="chat__conversations__container">
+  <div v-if="!isMobile || isMobile && !selectedConversation" class="chat__conversations__container">
     <div class="chat__conversations__header">
       <div class="chat__conversations__header__options">
         <span
@@ -81,6 +81,9 @@ const props = defineProps({
     type: Number,
     default: null,
   },
+  isMobile: {
+    type: Boolean,
+  }
 })
 
 const searchValue = ref('')

@@ -3,6 +3,7 @@
     <Conversations
       :conversations="conversations"
       :selected-conversation="currentChat ? currentChat.id : null"
+      :is-mobile="isMobile"
       @conversation-selected="loadConversation"
       @menu-option="openMenuOption"
       @logout="logout"
@@ -10,8 +11,10 @@
     <ChatArea
       ref="ChatAreaCp"
       :chat-info="currentChat"
+      :is-mobile="isMobile"
       @invite-user="openMenuOption(2)"
       @send-message="sendMessageFromChat"
+      @backToMenu="clearCurrentChat"
     />
     <modal v-if="showModal" :title="modalTitle" @close="showModal = false">
       <template #body>
@@ -32,7 +35,7 @@
 
 <script setup>
 import './shared/style.css'
-import { onBeforeUnmount, ref } from 'vue'
+import { computed, onBeforeUnmount, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useToast } from 'vue-toastification'
 import useChat from './useChat'
@@ -56,6 +59,8 @@ const modalTitle = ref('')
 const showModal = ref(false)
 const currentModal = ref(0)
 
+const isMobile = computed(() => window.innerWidth <= 768)
+
 const {
   openMenuOption,
   createTempChat,
@@ -65,6 +70,7 @@ const {
   openPrivateChat,
   logout,
   hub,
+  clearCurrentChat
 } = useChat(
   router,
   toast,
