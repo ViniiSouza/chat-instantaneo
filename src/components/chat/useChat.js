@@ -90,6 +90,7 @@ export default function useChat(
           type: 1,
           draft: true,
           receiver: conversation.receiver,
+          id: conversation.id
         }
         hub.invoke('ListenToUserStatus', conversation.receiver).then((result) => {
           updateConversationStatus(result, true)

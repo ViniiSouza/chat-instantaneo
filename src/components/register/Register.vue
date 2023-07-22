@@ -68,13 +68,21 @@
       <label>Public profile&nbsp;</label>
       <Tooltip>
         <template v-slot:component>
-           <font-awesome-icon icon="fa-regular fa-circle-question" />
+          <font-awesome-icon icon="fa-regular fa-circle-question" />
         </template>
         <template v-slot:content>
-          <p style="font-weight: 500; margin: 0;">When this option is on, any user can send you messages. If not, they will have to send you a request.</p>
+          <p style="font-weight: 500; margin: 0">
+            When this option is on, any user can send you messages. If not, they
+            will have to send you a request.
+          </p>
         </template>
       </Tooltip>
-      <ToogleButton style="position: absolute; right: 0; display: absolute" v-model="user.isPublicProfile" :value="user.isPublicProfile" @setCheckboxVal="setPublicProfileVal"/>
+      <ToogleButton
+        style="position: absolute; right: 0; display: absolute"
+        v-model="user.isPublicProfile"
+        :value="user.isPublicProfile"
+        @set-checkbox-val="setPublicProfileVal"
+      />
     </div>
     <button id="register__form--sign-in" @click="signUp">Sign up</button>
     <p>
@@ -101,7 +109,7 @@ const user = ref({
   name: '',
   password: '',
   passwordConfirm: '',
-  isPublicProfile: true
+  isPublicProfile: true,
 })
 
 const validator = ref({
@@ -206,8 +214,7 @@ const signUp = () => {
         if (err.response && err.response.data) {
           toast.error(err.response.data)
           validator.value.passwordConfirm.message = err.response.data
-        }
-        else {
+        } else {
           const errorMsg = 'Something went wrong. Try again later.'
           toast.error(errorMsg)
           validator.value.passwordConfirm.message = errorMsg
@@ -221,4 +228,8 @@ const signUp = () => {
 }
 
 const toSignIn = () => router.push({ name: 'login' })
+
+const setPublicProfileVal = (value) => {
+  user.value.isPublicProfile = value
+}
 </script>

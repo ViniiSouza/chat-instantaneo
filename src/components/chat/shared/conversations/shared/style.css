@@ -116,6 +116,7 @@
 @media screen and (max-width: 1440px) {
   .chat__conversations__container {
     max-width: 30%;
+    background-color: var(--pure-white);
   }
 
   .chat__header__title {
@@ -182,7 +183,7 @@
   }
 
   .chat__header__title {
-    margin: 0 20px 30px 20px;
+    margin: 0 20px 20px 20px;
     width: fit-content;
     font-size: 2rem;
   }

@@ -139,6 +139,7 @@ const sendInvite = () => {
     .then((payload) => {
       if (payload.status == 201) {
         toast.success('Message request sent!')
+        showMessageBox.value = false
       }
     })
     .catch((err) => {
