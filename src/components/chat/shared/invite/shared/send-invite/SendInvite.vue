@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h5 class="invite__title">Received invites</h5>
+    <h5 class="invite__title">Send invite</h5>
     <hr />
     <div class="invite__search">
       <input
