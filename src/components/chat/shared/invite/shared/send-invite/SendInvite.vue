@@ -1,5 +1,7 @@
 <template>
   <div>
+    <h5 class="invite__title">Received invites</h5>
+    <hr />
     <div class="invite__search">
       <input
         class="invite__search__input"
