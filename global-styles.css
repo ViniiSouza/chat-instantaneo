@@ -6,6 +6,7 @@
   --primary-hover: #c05e26;
   --secondary: #ffe2C3;
   --contrast: #1e4377;
+  --contrast-hover: #112746;
   --contrast-bg: #19345a18;
   --grey: #ccc;
   --grey-hover: #cecece;
@@ -19,7 +20,7 @@
   --info: #2196f3;
 }
 
-* {
+body {
   color: var(--black);
 }
 

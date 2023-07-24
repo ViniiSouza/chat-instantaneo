@@ -30,5 +30,8 @@ export default {
   },
   createConversation(dto) {
     return axios.post(`${CHAT_BASE_ROUTE}create`, dto)
+  },
+  getRequestsFromUser() {
+    return axios.get(`${USER_BASE_ROUTE}request/all`)
   }
 }

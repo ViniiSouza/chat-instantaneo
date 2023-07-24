@@ -17,7 +17,7 @@
           @click="selectOption(2)"
         >
           <font-awesome-icon icon="fa-solid fa-user-plus" />
-          <span class="tooltip-component tooltip--bottom">Invite user</span>
+          <span class="tooltip-component tooltip--bottom">Invite/Requests</span>
         </span>
         <span
           class="chat__conversations__header__icon"
