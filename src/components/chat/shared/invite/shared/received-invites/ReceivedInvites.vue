@@ -1,7 +1,7 @@
 <template>
   <h5 class="invite__title">Received invites</h5>
   <hr />
-  <ul class="invite__list">
+  <ul v-if="requests && requests.length > 0" class="invite__list">
     <li
       v-for="request in requests"
       :key="request.requester?.id"
@@ -28,6 +28,7 @@
       </div>
     </li>
   </ul>
+  <div class="text-center">You don't have any requests</div>
 </template>
 <script setup>
 import { ref } from 'vue'
