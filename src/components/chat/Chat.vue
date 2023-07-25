@@ -33,6 +33,7 @@
         <div v-else-if="currentModal == 3">Configurations</div>
       </template>
     </modal>
+    <audio style="display: none" ref="NotificationSoundEl" src="src/assets/audio/message_notification.wav" ></audio>
   </div>
 </template>
 
@@ -52,6 +53,8 @@ import Invite from './shared/invite/Invite.vue'
 
 const router = useRouter()
 const toast = useToast()
+
+const NotificationSoundEl = ref()
 
 const ChatAreaCp = ref(null)
 const InviteCp = ref(null)
@@ -88,6 +91,7 @@ const {
   currentModal,
   onBeforeUnmount,
   ChatAreaCp,
-  InviteCp
+  InviteCp,
+  NotificationSoundEl
 )
 </script>

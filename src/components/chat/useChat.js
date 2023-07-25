@@ -12,13 +12,15 @@ export default function useChat(
   currentModal,
   onBeforeUnmount,
   ChatAreaCp,
-  InviteCp
+  InviteCp,
+  NotificationSoundEl,
 ) {
   // hub
 
   const hub = chatHub()
 
   hub.on('MessageReceived', (response) => {
+    NotificationSoundEl.value.play()
     let scrollOnReceive = ChatAreaCp.value.userInBottom
 
     let index = conversations.value.findIndex(
