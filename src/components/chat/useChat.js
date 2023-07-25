@@ -237,6 +237,14 @@ export default function useChat(
     router.push({ name: 'login' })
   }
 
+  const acceptRequest = (requestId) => {
+    api.acceptRequest(requestId).then(payload => {
+      loadConversation(payload.data)
+      showModal.value = false
+      conversations.value.unshift(payload.data)
+    })
+  }
+
   // on each first load
   loadAllConversations()
 
@@ -249,5 +257,6 @@ export default function useChat(
     openPrivateChat,
     logout,
     clearCurrentChat,
+    acceptRequest
   }
 }

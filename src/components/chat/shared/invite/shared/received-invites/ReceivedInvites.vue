@@ -13,7 +13,10 @@
       </p>
       <p class="invite__user-message">"{{ request.message }}"</p>
       <div class="invite__actions__container">
-        <button class="invite__action--accept">
+        <button
+          class="invite__action--accept"
+          @click="acceptRequest(request.id)"
+        >
           <font-awesome-icon icon="fa-solid fa-check" />Accept
         </button>
         <button class="invite__action--refuse">
@@ -27,9 +30,18 @@
 import { ref } from 'vue'
 import api from '../../../api'
 
+const emit = defineEmits(['acceptRequest'])
 const requests = ref([])
 
-api.getRequestsFromUser().then((payload) => {
-  requests.value = payload.data
-})
+const loadRequests = () => {
+  api.getRequestsFromUser().then((payload) => {
+    requests.value = payload.data
+  })
+}
+
+loadRequests()
+
+const acceptRequest = (requestId) => {
+  emit('acceptRequest', requestId)
+}
 </script>

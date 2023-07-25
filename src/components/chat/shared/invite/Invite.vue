@@ -13,7 +13,7 @@
       @create-temp-chat="sendMessage"
       @open-private-chat="openPrivateChat"
     />
-    <ReceivedInvites v-else />
+    <ReceivedInvites v-else @accept-request="acceptRequest" />
   </div>
 </template>
 <script setup>
@@ -22,7 +22,7 @@ import SendInvite from './shared/send-invite/SendInvite.vue'
 import ReceivedInvites from './shared/received-invites/ReceivedInvites.vue'
 import { ref } from 'vue'
 
-const emit = defineEmits(['openPrivateChat', 'createTempChat'])
+const emit = defineEmits(['openPrivateChat', 'createTempChat', 'acceptRequest'])
 
 const showSendInvite = ref(false)
 
@@ -32,5 +32,9 @@ const sendMessage = (user) => {
 
 const openPrivateChat = (user) => {
   emit('openPrivateChat', user)
+}
+
+const acceptRequest = (requestId) => {
+  emit('acceptRequest', requestId)
 }
 </script>

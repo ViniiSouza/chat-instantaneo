@@ -25,6 +25,7 @@
           <Invite
             @open-private-chat="openPrivateChat"
             @create-temp-chat="createTempChat"
+            @accept-request="acceptRequest"
           />
         </div>
         <div v-else-if="currentModal == 3">Configurations</div>
@@ -70,7 +71,8 @@ const {
   openPrivateChat,
   logout,
   hub,
-  clearCurrentChat
+  clearCurrentChat,
+  acceptRequest,
 } = useChat(
   router,
   toast,

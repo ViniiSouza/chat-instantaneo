@@ -33,5 +33,8 @@ export default {
   },
   getRequestsFromUser() {
     return axios.get(`${USER_BASE_ROUTE}request/all`)
+  },
+  acceptRequest(requestId) {
+    return axios.post(`${CHAT_BASE_ROUTE}accept-request?requestId=${requestId}`)
   }
 }
