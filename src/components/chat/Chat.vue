@@ -23,9 +23,11 @@
         </div>
         <div v-else-if="currentModal == 2">
           <Invite
+            ref="InviteCp"
             @open-private-chat="openPrivateChat"
             @create-temp-chat="createTempChat"
             @accept-request="acceptRequest"
+            @refuse-request="refuseRequest"
           />
         </div>
         <div v-else-if="currentModal == 3">Configurations</div>
@@ -52,6 +54,7 @@ const router = useRouter()
 const toast = useToast()
 
 const ChatAreaCp = ref(null)
+const InviteCp = ref(null)
 
 const currentChat = ref(null)
 const hasDraft = ref(false)
@@ -73,6 +76,7 @@ const {
   hub,
   clearCurrentChat,
   acceptRequest,
+  refuseRequest,
 } = useChat(
   router,
   toast,
@@ -83,6 +87,7 @@ const {
   showModal,
   currentModal,
   onBeforeUnmount,
-  ChatAreaCp
+  ChatAreaCp,
+  InviteCp
 )
 </script>

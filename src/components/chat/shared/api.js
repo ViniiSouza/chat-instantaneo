@@ -36,5 +36,8 @@ export default {
   },
   acceptRequest(requestId) {
     return axios.post(`${CHAT_BASE_ROUTE}accept-request?requestId=${requestId}`)
+  },
+  refuseRequest(requestId) {
+    return axios.delete(`${USER_BASE_ROUTE}request?requestId=${requestId}`)
   }
 }

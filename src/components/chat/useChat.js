@@ -11,7 +11,8 @@ export default function useChat(
   showModal,
   currentModal,
   onBeforeUnmount,
-  ChatAreaCp
+  ChatAreaCp,
+  InviteCp
 ) {
   // hub
 
@@ -19,7 +20,7 @@ export default function useChat(
 
   hub.on('MessageReceived', (response) => {
     let scrollOnReceive = ChatAreaCp.value.userInBottom
-    
+
     let index = conversations.value.findIndex(
       (find) => find.id == response.conversationId
     )
@@ -29,13 +30,15 @@ export default function useChat(
 
     if (currentChat.value && currentChat.value.id == response.conversationId) {
       currentChat.value.messages.push(response)
-      if (scrollOnReceive)
-        ChatAreaCp.value.scrollToBottom()
+      if (scrollOnReceive) ChatAreaCp.value.scrollToBottom()
     }
   })
 
-  hub.on('UserStatusChange', response => {
-    updateConversationStatus(response, currentChat.value.status?.userName == response.userName)
+  hub.on('UserStatusChange', (response) => {
+    updateConversationStatus(
+      response,
+      currentChat.value.status?.userName == response.userName
+    )
   })
 
   // before unmount, close the connection...
@@ -90,11 +93,13 @@ export default function useChat(
           type: 1,
           draft: true,
           receiver: conversation.receiver,
-          id: conversation.id
+          id: conversation.id,
         }
-        hub.invoke('ListenToUserStatus', conversation.receiver).then((result) => {
-          updateConversationStatus(result, true)
-        })
+        hub
+          .invoke('ListenToUserStatus', conversation.receiver)
+          .then((result) => {
+            updateConversationStatus(result, true)
+          })
       } else {
         api
           .getConversation(conversation.id)
@@ -104,9 +109,11 @@ export default function useChat(
             currentChat.value = result
             ChatAreaCp.value.scrollToBottom()
             if (result.type == 1) {
-              hub.invoke('ListenToUserStatusByPrivateChat', conversation.id).then((result) => {
-                updateConversationStatus(result, true)
-              })
+              hub
+                .invoke('ListenToUserStatusByPrivateChat', conversation.id)
+                .then((result) => {
+                  updateConversationStatus(result, true)
+                })
             }
           })
           .catch((err) => {
@@ -238,10 +245,17 @@ export default function useChat(
   }
 
   const acceptRequest = (requestId) => {
-    api.acceptRequest(requestId).then(payload => {
+    api.acceptRequest(requestId).then((payload) => {
       loadConversation(payload.data)
       showModal.value = false
       conversations.value.unshift(payload.data)
+    })
+  }
+
+  const refuseRequest = (requestId) => {
+    api.refuseRequest(requestId).then(() => {
+      InviteCp.value.reloadRequests()
+      toast.success('The request was deleted!')
     })
   }
 
@@ -257,6 +271,7 @@ export default function useChat(
     openPrivateChat,
     logout,
     clearCurrentChat,
-    acceptRequest
+    acceptRequest,
+    refuseRequest,
   }
 }

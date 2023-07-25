@@ -19,7 +19,10 @@
         >
           <font-awesome-icon icon="fa-solid fa-check" />Accept
         </button>
-        <button class="invite__action--refuse">
+        <button
+          class="invite__action--refuse"
+          @click="refuseRequest(request.id)"
+        >
           <font-awesome-icon icon="fa-solid fa-xmark" />Refuse
         </button>
       </div>
@@ -30,7 +33,7 @@
 import { ref } from 'vue'
 import api from '../../../api'
 
-const emit = defineEmits(['acceptRequest'])
+const emit = defineEmits(['acceptRequest', 'refuseRequest'])
 const requests = ref([])
 
 const loadRequests = () => {
@@ -41,7 +44,19 @@ const loadRequests = () => {
 
 loadRequests()
 
+const reloadRequests = () => {
+  loadRequests()
+}
+
 const acceptRequest = (requestId) => {
   emit('acceptRequest', requestId)
 }
+
+const refuseRequest = (requestId) => {
+  emit('refuseRequest', requestId)
+}
+
+defineExpose({
+  reloadRequests,
+})
 </script>
