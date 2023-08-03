@@ -42,7 +42,7 @@
       class="chat__conversations__list"
     >
       <li
-        v-for="conversation in conversations"
+        v-for="conversation in orderedConversations"
         :key="conversation.id"
         class="chat__conversations__item"
         :class="
@@ -71,7 +71,7 @@
 </template>
 <script setup>
 import './shared/style.css'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import dateHandler from '@/utils/dateHandler.js'
 
 const emit = defineEmits(['conversationSelected', 'menuOption', 'logout'])
@@ -88,6 +88,21 @@ const props = defineProps({
   isMobile: {
     type: Boolean,
   },
+})
+
+const orderByDateTime = (a, b) => {
+  if (!a.lastMessage || a.lastMessage?.sendingTime < b.lastMessage?.sendingTime) {
+    return 1
+  }
+  if (!b.lastMessage || a.lastMessage?.sendingTime > b.lastMessage?.sendingTime) {
+    return -1
+  }
+  return 0
+}
+
+const orderedConversations = computed(() => {
+  props.conversations.sort(orderByDateTime)
+  return props.conversations
 })
 
 const searchValue = ref('')
