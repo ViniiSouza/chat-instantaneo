@@ -36,6 +36,10 @@ export default function useChat(
     }
   })
 
+  hub.on('RequestReceived', () => {
+    toast.info('You received a new message request')
+  })
+
   hub.on('UserStatusChange', (response) => {
     updateConversationStatus(
       response,
