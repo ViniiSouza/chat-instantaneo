@@ -15,12 +15,16 @@ export default function useChat(
   InviteCp,
   NotificationSoundEl,
 ) {
+
+  const notifyMessage = () => {
+    NotificationSoundEl.value.play()
+  }
   // hub
 
   const hub = chatHub()
 
   hub.on('MessageReceived', (response) => {
-    NotificationSoundEl.value.play()
+    notifyMessage()
     let scrollOnReceive = ChatAreaCp.value.userInBottom
 
     let index = conversations.value.findIndex(
@@ -34,6 +38,11 @@ export default function useChat(
       currentChat.value.messages.push(response)
       if (scrollOnReceive) ChatAreaCp.value.scrollToBottom()
     }
+  })
+
+  hub.on('NewConversation', (response) => {
+    notifyMessage()
+    conversations.value.unshift(response) // check whether this should be changed in the future
   })
 
   hub.on('RequestReceived', () => {
