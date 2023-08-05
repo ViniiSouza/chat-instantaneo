@@ -3,6 +3,8 @@
     <div class="register__form-group">
       <label class="register__form--label" for="username">Username:</label>
       <input
+        style="text-transform: lowercase"
+        autocomplete="one-time-code"
         class="register__form--input"
         :class="!validator.userName.valid ? 'invalid-input' : ''"
         type="text"
@@ -19,6 +21,7 @@
     <div class="register__form-group">
       <label class="register__form--label" for="username">Name:</label>
       <input
+        autocomplete="one-time-code"
         class="register__form--input"
         :class="!validator.name.valid ? 'invalid-input' : ''"
         type="text"
@@ -35,6 +38,7 @@
     <div class="register__form-group">
       <label class="register__form--label" for="password">Password:</label>
       <input
+        autocomplete="one-time-code"
         class="register__form--input"
         :class="!validator.password.valid ? 'invalid-input' : ''"
         type="password"
@@ -52,6 +56,7 @@
         >Confirm Password:</label
       >
       <input
+        autocomplete="one-time-code"
         class="register__form--input"
         :class="!validator.passwordConfirm.valid ? 'invalid-input' : ''"
         type="password"

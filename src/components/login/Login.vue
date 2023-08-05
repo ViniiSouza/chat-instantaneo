@@ -3,6 +3,7 @@
     <div class="login__form-group">
       <label class="login__form--label" for="username">Username:</label>
       <input
+        style="text-transform: lowercase"
         class="login__form--input"
         :class="!validator.userName.valid ? 'invalid-input' : ''"
         type="text"
@@ -118,8 +119,7 @@ const signIn = () => {
         if (err.response && err.response.data) {
           toast.error(err.response.data)
           validator.value.password.message = err.response.data
-        }
-        else {
+        } else {
           const errorMsg = 'Something went wrong. Try again later.'
           toast.error(errorMsg)
           validator.value.password.message = errorMsg
