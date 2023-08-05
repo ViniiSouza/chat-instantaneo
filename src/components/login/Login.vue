@@ -26,6 +26,7 @@
         placeholder="Enter your password"
         @blur="validatePassword"
         @input="validatePassword"
+        @keyup.enter="signIn"
       />
       <span v-if="!validator.password.valid" class="invalid-message">{{
         validator.password.message

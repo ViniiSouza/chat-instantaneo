@@ -9,6 +9,7 @@
         placeholder="Search for a user"
         v-model="userName"
         @input="validateUsername"
+        @keyup.enter="findUser"
       />
       <font-awesome-icon
         class="invite__search__button"
