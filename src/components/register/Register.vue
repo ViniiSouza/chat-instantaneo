@@ -3,7 +3,6 @@
     <div class="register__form-group">
       <label class="register__form--label" for="username">Username:</label>
       <input
-        style="text-transform: lowercase"
         autocomplete="one-time-code"
         class="register__form--input"
         :class="!validator.userName.valid ? 'invalid-input' : ''"
@@ -12,6 +11,7 @@
         placeholder="Enter your unique username"
         maxlength="15"
         @blur="validateUsername"
+        @keypress="handleUsername"
         @input="validateUsername"
       />
       <span v-if="!validator.userName.valid" class="invalid-message">{{
@@ -136,8 +136,16 @@ const validator = ref({
   },
 })
 
+const handleUsername = (event) => {
+  const char = event.key.toLowerCase();
+    if (!/^[a-z]$/.test(char)) {
+      event.preventDefault();
+    }
+}
+
 const validateUsername = () => {
   let valid = true
+  user.value.userName = user.value.userName.replace(/\s/g, '')
   if (!user.value.userName || user.value.userName.length == 0) {
     validator.value.userName.valid = false
     validator.value.userName.message = 'Invalid username'

@@ -6,10 +6,12 @@
       <input
         class="invite__search__input"
         type="search"
+        maxlength="15"
         placeholder="Search for a user"
         v-model="userName"
         @input="validateUsername"
         @keyup.enter="findUser"
+        @keypress="handleUsername"
       />
       <font-awesome-icon
         class="invite__search__button"
@@ -157,6 +159,7 @@ const openPrivateChat = (user) => {
 }
 
 const validateUsername = () => {
+  userName.value = userName.value.replace(/\s/g, '')
   if (userName.value) {
     invalidMessage.value = ''
     return true
@@ -182,6 +185,13 @@ const findUser = () => {
           toast.error(errorMsg)
         }
       })
+  }
+}
+
+const handleUsername = (event) => {
+  const char = event.key.toLowerCase()
+  if (!/^[a-z]$/.test(char)) {
+    event.preventDefault()
   }
 }
 </script>

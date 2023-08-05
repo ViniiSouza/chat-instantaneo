@@ -3,7 +3,6 @@
     <div class="login__form-group">
       <label class="login__form--label" for="username">Username:</label>
       <input
-        style="text-transform: lowercase"
         class="login__form--input"
         :class="!validator.userName.valid ? 'invalid-input' : ''"
         type="text"
@@ -12,6 +11,7 @@
         placeholder="Enter your username"
         @blur="validateUser"
         @input="validateUser"
+        @keypress="handleUsername"
       />
       <span v-if="!validator.userName.valid" class="invalid-message">{{
         validator.userName.message
@@ -69,8 +69,16 @@ const validator = ref({
   },
 })
 
+const handleUsername = (event) => {
+  const char = event.key.toLowerCase();
+    if (!/^[a-z]$/.test(char)) {
+      event.preventDefault();
+    }
+}
+
 const validateUser = () => {
   let valid = true
+  user.value.userName = user.value.userName.replace(/\s/g, '')
   if (!user.value.userName || user.value.userName.length == 0) {
     validator.value.userName.valid = false
     validator.value.userName.message = 'Invalid username'
