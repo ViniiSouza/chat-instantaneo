@@ -5,13 +5,8 @@
   left: 0;
   width: 100%;
   height: var(--app-height);
+  overflow: auto;
   background-color: rgba(0, 0, 0, 0.2);
-  display: table;
-}
-
-.modal__wrapper {
-  display: table-cell;
-  vertical-align: middle;
 }
 
 .modal__container {
@@ -21,6 +16,10 @@
   background-color: var(--white);
   border-radius: 5px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
 }
 
 .modal__header h3 {
@@ -52,4 +51,29 @@
 
 .modal__default-button:hover {
   background-color: var(--primary-light);
+}
+
+/* Laptop L */
+@media screen and (max-width: 1440px) {
+}
+
+/* Laptop */
+@media screen and (max-width: 1024px) {}
+
+/* Tablet */
+@media screen and (max-width: 768px) {}
+
+/* Mobile L */
+@media screen and (max-width: 425px) {
+  .modal__container {
+    width: 300px;
+  }
+}
+
+/* Mobile M */
+@media screen and (max-width: 375px) {}
+
+/* Mobile S */
+@media screen and (max-width: 320px) {
+  
 }
