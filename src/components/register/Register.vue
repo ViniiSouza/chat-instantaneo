@@ -69,14 +69,14 @@
         validator.passwordConfirm.message
       }}</span>
     </div>
-    <div class="register__form-group">
+    <div style="color: var(--dark)" class="register__form-group">
       <label>Public profile&nbsp;</label>
       <Tooltip>
         <template v-slot:component>
           <font-awesome-icon icon="fa-regular fa-circle-question" />
         </template>
         <template v-slot:content>
-          <p style="font-weight: 500; margin: 0">
+          <p style="font-weight: 500; margin: 0;">
             When this option is on, any user can send you messages. If not, they
             will have to send you a request.
           </p>
@@ -90,7 +90,7 @@
       />
     </div>
     <button id="register__form--sign-in" @click="signUp">Sign up</button>
-    <p>
+    <p style="color: var(--dark)">
       Already have an account?
       <a href="#" class="register__form--sign-up" @click="toSignIn">Sign in</a>
     </p>

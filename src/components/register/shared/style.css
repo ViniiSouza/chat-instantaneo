@@ -5,6 +5,7 @@
 .register__form--label {
   display: block;
   font-weight: bold;
+  color: var(--dark);
 }
 
 .register__form--input {

@@ -5,6 +5,7 @@
 .login__form--label {
   display: block;
   font-weight: bold;
+  color: var(--dark);
 }
 
 .login__form--input {

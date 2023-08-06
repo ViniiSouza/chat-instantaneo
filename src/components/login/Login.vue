@@ -34,7 +34,7 @@
       }}</span>
     </div>
     <button id="login__form--sign-in" @click="signIn">Sign in</button>
-    <p>
+    <p style="color: var(--dark)">
       Don't have an account?
       <a href="#" class="login__form--sign-up" @click="toSignUp">Sign up</a>
     </p>
