@@ -42,7 +42,7 @@ export default function useChat(
 
   hub.on('NewConversation', (response) => {
     notifyMessage()
-    conversations.value.unshift(response) // check whether this should be changed in the future
+    conversations.value.push(response) // check whether this should be changed in the future
   })
 
   hub.on('RequestReceived', () => {
