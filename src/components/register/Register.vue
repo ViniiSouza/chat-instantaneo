@@ -4,6 +4,7 @@
       <label class="register__form--label" for="username">Username:</label>
       <input
         autocomplete="one-time-code"
+        autocapitalize="none"
         class="register__form--input"
         :class="!validator.userName.valid ? 'invalid-input' : ''"
         type="text"
@@ -145,7 +146,7 @@ const handleUsername = (event) => {
 
 const validateUsername = () => {
   let valid = true
-  user.value.userName = user.value.userName.replace(/\s/g, '')
+  user.value.userName = user.value.userName.replace(/\s/g, '').toLowerCase()
   if (!user.value.userName || user.value.userName.length == 0) {
     validator.value.userName.valid = false
     validator.value.userName.message = 'Invalid username'

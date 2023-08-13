@@ -4,6 +4,7 @@
       <label class="login__form--label" for="username">Username:</label>
       <input
         class="login__form--input"
+        autocapitalize="none"
         :class="!validator.userName.valid ? 'invalid-input' : ''"
         type="text"
         maxlength="15"
@@ -78,7 +79,7 @@ const handleUsername = (event) => {
 
 const validateUser = () => {
   let valid = true
-  user.value.userName = user.value.userName.replace(/\s/g, '')
+  user.value.userName = user.value.userName.replace(/\s/g, '').toLowerCase()
   if (!user.value.userName || user.value.userName.length == 0) {
     validator.value.userName.valid = false
     validator.value.userName.message = 'Invalid username'
