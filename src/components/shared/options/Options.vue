@@ -1,5 +1,5 @@
 <template>
-  <div v-if="showConfig" class="options__container">
+  <div v-if="showOptions" class="options__container">
     <p class="options__item" v-for="item in items" :key="item.name" @click="item.event">{{ item.name }}</p>
   </div>
 </template>
@@ -9,7 +9,7 @@ const props = defineProps({
     type: Array,
     default: []
   },
-  showConfig: {
+  showOptions: {
     type: Boolean,
     default: false
   }

@@ -25,7 +25,7 @@
         >
           <font-awesome-icon icon="fa-solid fa-gear" />
         </span>
-        <Options :show-config="showConfig" :items="[{ name: 'Logout', event: logout}]"/>
+        <Options :show-options="showConfig" :items="[{ name: 'Logout', event: logout}]"/>
       </div>
       <h2 class="chat__header__title">Conversations</h2>
       <input
