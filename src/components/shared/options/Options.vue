@@ -1,5 +1,5 @@
 <template>
-  <div v-if="showOptions" class="options__container">
+  <div v-if="showOptions" class="options__container" :style="`transform: translateY(${distanceFromTop}px);`">
     <p class="options__item" v-for="item in items" :key="item.name" @click="item.event">{{ item.name }}</p>
   </div>
 </template>
@@ -12,6 +12,10 @@ const props = defineProps({
   showOptions: {
     type: Boolean,
     default: false
+  },
+  distanceFromTop: {
+    type: Number,
+    default: 5
   }
 })
 </script>
@@ -19,7 +23,6 @@ const props = defineProps({
 .options__container {
   position: absolute;
   right: 5px;
-  transform: translateY(5px);
   background-color: var(--white);
   min-width: 120px;
   border-radius: 5px;
