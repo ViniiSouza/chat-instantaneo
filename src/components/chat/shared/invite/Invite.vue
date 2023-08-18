@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="invite__container">
     <div class="invite__change-option__wrapper">
       <button
         class="invite__change-option"

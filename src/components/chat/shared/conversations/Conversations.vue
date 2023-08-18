@@ -25,9 +25,7 @@
         >
           <font-awesome-icon icon="fa-solid fa-gear" />
         </span>
-        <div v-if="showConfig" class="chat__config__container">
-          <p class="chat__config__item" @click="logout">Logout</p>
-        </div>
+        <Options :show-config="showConfig" :items="[{ name: 'Logout', event: logout}]"/>
       </div>
       <h2 class="chat__header__title">Conversations</h2>
       <input
@@ -73,6 +71,7 @@
 import './shared/style.css'
 import { computed, ref } from 'vue'
 import dateHandler from '@/utils/dateHandler.js'
+import Options from '../../../shared/options/Options.vue';
 
 const emit = defineEmits(['conversationSelected', 'menuOption', 'logout'])
 
