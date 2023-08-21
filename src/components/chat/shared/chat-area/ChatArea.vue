@@ -7,7 +7,7 @@
       <div class="chat__empty__container__wrapper">
         <img
           class="chat__empty__container__image"
-          src="https://i.imgur.com/zBJnlSa.png"
+          src="https://i.imgur.com/EuPx9ng.png"
         />
         <p>Select a conversation</p>
         <p>or</p>
@@ -30,6 +30,10 @@
             {{ chatInfo.type == 1 ? getUserStatus : 'Not private' }}
           </div>
         </div>
+        <div class="chat__options">
+          <font-awesome-icon class="chat__options__item" icon="fa-solid fa-bars" @click="showOptions = !showOptions"/>
+        </div>
+        <Options :show-options="showOptions" :items="[{ name: 'Add to contacts', event: () => emit('addContact', chatInfo.receiverId), show: chatInfo.type == 1 && !chatInfo.isContact }]" distance-from-top="50"/>
       </div>
       <div class="chat__messages__area" ref="messageArea">
         <div
@@ -81,10 +85,11 @@
 </template>
 <script setup>
 import './shared/style.css'
-import { computed, nextTick, ref } from 'vue'
+import { computed, nextTick, ref, watch } from 'vue'
 import dateHandler from '@/utils/dateHandler.js'
+import Options from '../../../shared/options/Options.vue';
 
-const emit = defineEmits(['inviteUser', 'sendMessage', 'backToMenu'])
+const emit = defineEmits(['inviteUser', 'sendMessage', 'backToMenu', 'addContact'])
 
 const props = defineProps({
   chatInfo: {
@@ -97,6 +102,12 @@ const props = defineProps({
 
 const messageArea = ref(null)
 const newMessage = ref('')
+const showOptions = ref(false)
+
+// on chat change
+watch(() => props.chatInfo, () => {
+  showOptions.value = false
+})
 
 const getFirstName = (name) => {
   let splitted = name.trim().split(' ')

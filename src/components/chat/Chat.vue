@@ -14,7 +14,8 @@
       :is-mobile="isMobile"
       @invite-user="openMenuOption(2)"
       @send-message="sendMessageFromChat"
-      @backToMenu="clearCurrentChat"
+      @back-to-menu="clearCurrentChat"
+      @add-contact="addContact"
     />
     <modal v-if="showModal" :title="modalTitle" @close="showModal = false">
       <template #body>
@@ -80,6 +81,7 @@ const {
   clearCurrentChat,
   acceptRequest,
   refuseRequest,
+  addContact,
 } = useChat(
   router,
   toast,

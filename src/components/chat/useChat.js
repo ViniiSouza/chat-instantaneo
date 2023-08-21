@@ -274,6 +274,12 @@ export default function useChat(
     })
   }
 
+  const addContact = (targetId) => {
+    api.addContact(targetId).then(() => {
+      // do something here
+    })
+  }
+
   // on each first load
   loadAllConversations()
 
@@ -288,5 +294,6 @@ export default function useChat(
     clearCurrentChat,
     acceptRequest,
     refuseRequest,
+    addContact,
   }
 }

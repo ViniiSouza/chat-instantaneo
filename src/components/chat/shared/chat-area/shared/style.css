@@ -22,6 +22,17 @@
 
 .chat__user-info {
   margin-left: 10px;
+  flex: 1;
+}
+
+.chat__options {
+  flex-shrink: 0;
+  padding: 0.5rem 1.5rem;
+  font-size: 1.5rem;
+}
+
+.chat__options__item {
+  cursor: pointer;
 }
 
 .chat__messages__name {

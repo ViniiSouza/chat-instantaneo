@@ -13,6 +13,9 @@ export default {
   getContacts() {
     return axios.get(`${USER_BASE_ROUTE}contacts`)
   },
+  addContact(targetId) {
+    return axios.post(`${USER_BASE_ROUTE}contacts/${targetId}`)
+  },
   removeContact(targetId) {
     return axios.delete(`${USER_BASE_ROUTE}contacts/${targetId}`)
   },
