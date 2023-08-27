@@ -276,9 +276,17 @@ export default function useChat(
 
   const addContact = (targetId) => {
     api.addContact(targetId).then(() => {
-      // do something here
+      currentChat.value.isContact = true
+      toast.success('Contact added!')
     })
   }
+  
+  const removeContact = (targetId) => [
+    api.removeContact(targetId).then(() => {
+      currentChat.value.isContact = false
+      toast.success('Contact removed!')
+    })
+  ]
 
   // on each first load
   loadAllConversations()
@@ -295,5 +303,6 @@ export default function useChat(
     acceptRequest,
     refuseRequest,
     addContact,
+    removeContact,
   }
 }

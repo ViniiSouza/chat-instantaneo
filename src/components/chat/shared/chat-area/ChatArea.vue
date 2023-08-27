@@ -31,9 +31,17 @@
           </div>
         </div>
         <div class="chat__options">
-          <font-awesome-icon class="chat__options__item" icon="fa-solid fa-bars" @click="showOptions = !showOptions"/>
+          <font-awesome-icon
+            class="chat__options__item"
+            icon="fa-solid fa-bars"
+            @click="showOptions = !showOptions"
+          />
         </div>
-        <Options :show-options="showOptions" :items="[{ name: 'Add to contacts', event: () => emit('addContact', chatInfo.receiverId), show: chatInfo.type == 1 && !chatInfo.isContact }]" distance-from-top="50"/>
+        <Options
+          :show-options="showOptions"
+          :items="options"
+          distance-from-top="50"
+        />
       </div>
       <div class="chat__messages__area" ref="messageArea">
         <div
@@ -87,9 +95,15 @@
 import './shared/style.css'
 import { computed, nextTick, ref, watch } from 'vue'
 import dateHandler from '@/utils/dateHandler.js'
-import Options from '../../../shared/options/Options.vue';
+import Options from '../../../shared/options/Options.vue'
 
-const emit = defineEmits(['inviteUser', 'sendMessage', 'backToMenu', 'addContact'])
+const emit = defineEmits([
+  'inviteUser',
+  'sendMessage',
+  'backToMenu',
+  'addContact',
+  'removeContact',
+])
 
 const props = defineProps({
   chatInfo: {
@@ -105,9 +119,12 @@ const newMessage = ref('')
 const showOptions = ref(false)
 
 // on chat change
-watch(() => props.chatInfo, () => {
-  showOptions.value = false
-})
+watch(
+  () => props.chatInfo,
+  () => {
+    showOptions.value = false
+  }
+)
 
 const getFirstName = (name) => {
   let splitted = name.trim().split(' ')
@@ -134,6 +151,23 @@ const getUserStatus = computed(() => {
       props.chatInfo.status.lastSeen
     )}`
   }
+})
+
+const options = computed(() => {
+  let opt = []
+  if (props.chatInfo.type == 1 && !props.chatInfo.isContact)
+    opt.push({
+      name: 'Add to contacts',
+      event: () => emit('addContact', props.chatInfo.receiverId),
+      show: true,
+    })
+  if (props.chatInfo.type == 1 && props.chatInfo.isContact)
+    opt.push({
+      name: 'Remove from contacts',
+      event: () => emit('removeContact', props.chatInfo.receiverId),
+      show: true,
+    })
+  return opt
 })
 
 const sendMessage = () => {
