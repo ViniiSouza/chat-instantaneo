@@ -276,14 +276,16 @@ export default function useChat(
 
   const addContact = (targetId) => {
     api.addContact(targetId).then(() => {
-      currentChat.value.isContact = true
+      if (currentChat.value.targetId == targetId)
+        currentChat.value.isContact = true
       toast.success('Contact added!')
     })
   }
   
   const removeContact = (targetId) => [
     api.removeContact(targetId).then(() => {
-      currentChat.value.isContact = false
+      if (currentChat.value.targetId == targetId)
+        currentChat.value.isContact = false
       toast.success('Contact removed!')
     })
   ]
