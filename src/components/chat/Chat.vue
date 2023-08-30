@@ -17,6 +17,7 @@
       @back-to-menu="clearCurrentChat"
       @add-contact="addContact"
       @remove-contact="removeContact"
+      @load-messages="loadMessages"
     />
     <modal v-if="showModal" :title="modalTitle" @close="showModal = false">
       <template #body>
@@ -84,6 +85,7 @@ const {
   refuseRequest,
   addContact,
   removeContact,
+  loadMessages
 } = useChat(
   router,
   toast,

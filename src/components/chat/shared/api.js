@@ -42,5 +42,8 @@ export default {
   },
   refuseRequest(requestId) {
     return axios.delete(`${USER_BASE_ROUTE}request?requestId=${requestId}`)
+  },
+  loadMessages(conversationId, messageId) {
+    return axios.get(`${CHAT_BASE_ROUTE}${conversationId}/messages?messageId=${messageId}`)
   }
 }

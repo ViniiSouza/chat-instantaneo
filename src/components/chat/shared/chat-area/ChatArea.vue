@@ -44,6 +44,13 @@
         />
       </div>
       <div class="chat__messages__area" ref="messageArea">
+        <button
+          v-if="chatInfo.hasPreviousMessages"
+          class="chat__load-more-button"
+          @click="loadMessages"
+        >
+          Load more
+        </button>
         <div
           class="chat__messages__wrapper"
           v-for="(message, index) in chatInfo.messages"
@@ -103,6 +110,7 @@ const emit = defineEmits([
   'backToMenu',
   'addContact',
   'removeContact',
+  'loadMessages',
 ])
 
 const props = defineProps({
@@ -191,6 +199,10 @@ const scrollToBottom = () => {
   nextTick(() => {
     messageArea.value.scrollTop = messageArea.value.scrollHeight
   })
+}
+
+const loadMessages = () => {
+  emit('loadMessages')
 }
 
 defineExpose({

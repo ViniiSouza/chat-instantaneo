@@ -86,7 +86,8 @@
   margin: 10px auto;
   padding: 5px;
   border-radius: 5px;
-  color: var(--white);
+  color: var(--pure-white);
+  font-weight: 500;
 }
 
 .chat__message--sent {

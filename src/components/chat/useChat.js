@@ -290,6 +290,16 @@ export default function useChat(
     })
   ]
 
+  const loadMessages = () => {
+    api.loadMessages(currentChat.value.id, currentChat.value.messages[0].id).then((payload) => {
+      const conversation = payload.data
+      if (conversation) {
+        currentChat.value.messages = conversation.messages.concat(currentChat.value.messages)
+        currentChat.value.hasPreviousMessages = conversation.hasPreviousMessages
+      }
+    })
+  }
+
   // on each first load
   loadAllConversations()
 
@@ -306,5 +316,6 @@ export default function useChat(
     refuseRequest,
     addContact,
     removeContact,
+    loadMessages,
   }
 }
