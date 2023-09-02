@@ -138,6 +138,10 @@
   border-radius: 4px 0 0 4px;
 }
 
+.chat__messages__input input:focus {
+  outline: none
+}
+
 .chat__messages__input button {
   padding: 10px 20px;
   background-color: var(--success);

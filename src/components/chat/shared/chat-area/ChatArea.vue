@@ -90,8 +90,10 @@
       <div class="chat__messages__input">
         <input
           type="text"
+          ref="chatInput"
           v-model="newMessage"
           placeholder="Write your message"
+          v-on:keyup.enter="sendMessage"
         />
         <button @click="sendMessage">Send</button>
       </div>
@@ -125,12 +127,14 @@ const props = defineProps({
 const messageArea = ref(null)
 const newMessage = ref('')
 const showOptions = ref(false)
+const chatInput = ref(null)
 
 // on chat change
 watch(
   () => props.chatInfo,
   () => {
     showOptions.value = false
+    focusInput()
   }
 )
 
@@ -198,6 +202,12 @@ const userInBottom = computed(
 const scrollToBottom = () => {
   nextTick(() => {
     messageArea.value.scrollTop = messageArea.value.scrollHeight
+  })
+}
+
+const focusInput = () => {
+  nextTick(() => {
+    chatInput.value.focus()
   })
 }
 
