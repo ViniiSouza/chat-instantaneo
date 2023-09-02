@@ -186,6 +186,7 @@ const sendMessage = () => {
   if (newMessage.value) {
     emit('sendMessage', newMessage.value)
     newMessage.value = ''
+    focusInput()
   }
 }
 
