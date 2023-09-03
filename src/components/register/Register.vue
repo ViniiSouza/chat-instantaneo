@@ -226,7 +226,7 @@ const signUp = () => {
       })
       .catch((err) => {
         if (err.response && err.response.data) {
-          toast.error(err.response.data)
+          toast.error(err.response.data.message)
           validator.value.passwordConfirm.message = err.response.data
         } else {
           const errorMsg = 'Something went wrong. Try again later.'

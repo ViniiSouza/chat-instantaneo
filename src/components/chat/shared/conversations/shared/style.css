@@ -2,6 +2,7 @@
   flex: 1;
   max-width: 25%;
   height: var(--app-height);
+  background-color: var(--white)
 }
 
 .chat__conversations__header {

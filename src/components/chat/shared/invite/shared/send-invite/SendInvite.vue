@@ -146,7 +146,7 @@ const sendInvite = () => {
     })
     .catch((err) => {
       if (err.response && err.response.data) {
-        toast.error(err.response.data)
+        toast.error(err.response.data.message)
       } else {
         const errorMsg = 'Something went wrong. Try again later.'
         toast.error(errorMsg)
@@ -179,7 +179,7 @@ const findUser = () => {
       })
       .catch((err) => {
         if (err.response && err.response.data) {
-          invalidMessage.value = err.response.data
+          invalidMessage.value = err.response.data.message
         } else {
           const errorMsg = 'Something went wrong. Try again later.'
           toast.error(errorMsg)

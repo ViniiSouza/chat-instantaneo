@@ -84,7 +84,7 @@ export default function useChat(
       })
       .catch((err) => {
         if (err.response && err.response.data) {
-          toast.error(err.response.data)
+          toast.error(err.response.data.message)
         } else {
           const errorMsg = 'Unable to load your conversations. Try again later.'
           toast.error(errorMsg)
@@ -133,7 +133,7 @@ export default function useChat(
           })
           .catch((err) => {
             if (err.response && err.response.data) {
-              toast.error(err.response.data)
+              toast.error(err.response.data.message)
             } else {
               const errorMsg =
                 'Unable to load this conversation. Try again later.'
@@ -243,7 +243,7 @@ export default function useChat(
         if (err.response.status == 404) {
           createTempChat(target)
         } else if (err.response && err.response.data) {
-          toast.error(err.response.data)
+          toast.error(err.response.data.message)
         } else {
           const errorMsg = 'Unable to find this conversation. Try again later.'
           toast.error(errorMsg)

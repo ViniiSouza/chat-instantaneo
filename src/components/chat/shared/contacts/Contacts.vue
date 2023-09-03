@@ -65,7 +65,7 @@ const getContacts = () => {
     })
     .catch((err) => {
       if (err.response && err.response.data) {
-        toast.error(err.response.data)
+        toast.error(err.response.data.message)
       } else {
         const errorMsg = 'Unable to load your contacts. Try again later.'
         toast.error(errorMsg)
@@ -96,7 +96,7 @@ const removeContact = (contact, index) => {
     })
     .catch((err) => {
       if (err.response && err.response.data) {
-        toast.error(err.response.data)
+        toast.error(err.response.data.message)
       } else {
         const errorMsg = 'Unable to load your contacts. Try again later.'
         toast.error(errorMsg)
