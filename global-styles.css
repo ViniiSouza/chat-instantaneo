@@ -1,0 +1,158 @@
+/* color variables */
+
+:root {
+  --primary: #f07c3a;
+  --primary-light: #fad5c0;
+  --primary-hover: #c05e26;
+  --secondary: #ffe2C3;
+  --contrast: #1e4377;
+  --contrast-hover: #112746;
+  --contrast-bg: #19345a18;
+  --grey: #ccc;
+  --grey-hover: #cecece;
+  --darker-grey: #afafaf;
+  --dark: #333;
+  --black: #000;
+  --white: whitesmoke;
+  --pure-white: white;
+  --success: #4caf50;
+  --success-hover: #388a3a;
+  --info: #2196f3;
+}
+
+body {
+  color: var(--black);
+}
+
+/* scrollbar */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-thumb{
+  background-color: var(--primary);
+  border-radius: 4px;
+}
+
+/* tooltip */
+
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-container .tooltip-component {
+  display: none;
+  width: 120px;
+  background-color: var(--white);
+  border: 1px solid var(--grey);
+  font-size: 15px;
+  color: var(--primary);
+  text-align: center;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 2000;
+}
+
+.tooltip--top {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tooltip--bottom {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tooltip--left {
+  top: 50%;
+  right: 100%;
+  transform: translateY(-50%);
+}
+
+.tooltip--right {
+  top: 50%;
+  left: 100%;
+  transform: translateY(-50%);
+}
+
+.tooltip-container:hover .tooltip-component {
+  display: block;
+}
+
+/* Sweet Alert custom classes */
+
+.sw__container {
+  background-color: var(--contrast);
+}
+.sw__popup {
+
+}
+.sw__header {
+
+}
+.sw__title {
+
+}
+.sw__close-button {
+  border: 1px solid var(--contrast);
+  background-color: var(--white);
+}
+.sw__icon {
+
+}
+.sw__image {
+
+}
+.sw__html-container {
+  color: var(--dark) !important;
+}
+.sw__input {
+
+}
+.sw__input-label {
+
+}
+.sw__validation-message {
+
+}
+.sw__actions {
+
+}
+.sw__confirm-button {
+  border: 1px solid var(--primary);
+  border-radius: 5px;
+  background-color: var(--white);
+  color: var(--primary);
+  font-weight: bold;
+  padding: 5px 10px;
+  margin: 0 10px;
+}
+.sw__confirm-button:hover {
+  background-color: var(--primary-light);
+}
+.sw__deny-button, .sw__cancel-button {
+  border: 1px solid var(--contrast);
+  border-radius: 5px;
+  background-color: var(--white);
+  color: var(--contrast);
+  font-weight: bold;
+  padding: 5px 10px;
+  margin: 0 10px;
+}
+.sw__deny-button:hover, .sw__cancel-button:hover {
+  background-color: var(--contrast-bg);
+}
+.sw__loader {
+
+}
+.sw__footer {
+
+}
+.sw__timer-progress-bar {
+
+}

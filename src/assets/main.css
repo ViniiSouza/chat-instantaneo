@@ -1,0 +1,10 @@
+@import "./base.css";
+
+.invalid-input {
+  border-color: red;
+}
+
+.invalid-message {
+  font-size: small;
+  color: red;
+}

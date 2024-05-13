@@ -1,0 +1,79 @@
+.modal__mask {
+  position: fixed;
+  z-index: 1050;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--app-height);
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.modal__container {
+  width: 400px; /* control width */
+  margin: 0px auto;
+  padding: 20px 30px;
+  background-color: var(--white);
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.modal__header h3 {
+  margin-top: 0;
+  color: var(--primary);
+}
+
+.modal__body {
+  margin: 20px 0;
+}
+
+.modal__footer {
+  display:flex;
+  justify-content: flex-end;
+}
+
+.modal__footer_buttons-container {
+  display: flex;
+}
+
+.modal__default-button {
+  border: 2px solid var(--primary);
+  border-radius: 5px;
+  background-color: var(--white);
+  font-weight: bold;
+  padding: 5x 10px;
+  margin: 0 5px;
+}
+
+.modal__default-button:hover {
+  background-color: var(--primary-light);
+}
+
+/* Laptop L */
+@media screen and (max-width: 1440px) {
+}
+
+/* Laptop */
+@media screen and (max-width: 1024px) {}
+
+/* Tablet */
+@media screen and (max-width: 768px) {}
+
+/* Mobile L */
+@media screen and (max-width: 425px) {
+  .modal__container {
+    width: 300px;
+  }
+}
+
+/* Mobile M */
+@media screen and (max-width: 375px) {}
+
+/* Mobile S */
+@media screen and (max-width: 320px) {
+  
+}

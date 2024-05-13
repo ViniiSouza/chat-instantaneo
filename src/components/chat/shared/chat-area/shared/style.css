@@ -1,0 +1,259 @@
+.chat__messages__container {
+  flex: 2;
+  max-width: 75%;
+}
+
+.chat__messages__container__chat {
+  display: flex;
+  flex-direction: column;
+  height: var(--app-height);
+}
+
+.chat__messages__header {
+  background-color: var(--primary);
+  height: 3.5rem;
+  border-radius: 0 0 0 5px;
+  display: flex;
+}
+
+.chat__back-button {
+  display: none;
+}
+
+.chat__user-info {
+  margin-left: 10px;
+  flex: 1;
+}
+
+.chat__options {
+  flex-shrink: 0;
+  padding: 0.5rem 1.5rem;
+  font-size: 1.5rem;
+}
+
+.chat__options__item {
+  cursor: pointer;
+}
+
+.chat__messages__name {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.chat__messages__info {
+  font-size: small;
+}
+
+.chat__messages__area {
+  flex: 1;
+  overflow-y: scroll;
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: rgb(255, 226, 195);
+}
+
+.chat__messages__wrapper {
+  width: 100%;
+}
+
+.chat__message--text {
+  border: 1px solid var(--white);
+  max-width: 25vw;
+  min-width: 5vw;
+  word-wrap: break-word;
+  margin: 3px 20px;
+  padding: 5px 10px 15px 10px;
+  background-color: var(--white);
+}
+
+.chat__message--info {
+  width: fit-content;
+  text-align: center;
+  border: 1px solid var(--grey);
+  margin: 10px auto;
+  padding: 5px;
+  border-radius: 5px;
+  color: var(--dark);
+}
+
+.chat__load-more-button {
+  align-self: center;
+  width: fit-content;
+  text-align: center;
+  background-color: var(--darker-grey);
+  margin: 10px auto;
+  padding: 5px;
+  border-radius: 5px;
+  color: var(--pure-white);
+  font-weight: 500;
+}
+
+.chat__message--sent {
+  float: right;
+  border-radius: 5px 5px 20px 5px;
+  align-self: flex-end;
+}
+
+.chat__message--received {
+  float: left;
+  border-radius: 5px 5px 5px 20px;
+  align-self: flex-start;
+}
+
+.chat__message__content {
+  font-weight: normal;
+}
+
+.chat__message__name {
+  font-weight: bold;
+}
+
+.chat__message__time {
+  font-size: 11px;
+  position: absolute;
+  bottom: 0;
+  text-align: end;
+}
+
+.chat__message--sent .chat__message__time {
+  right: 10px;
+}
+
+.chat__message--received .chat__message__time {
+  right: 5px;
+}
+
+.chat__messages__input {
+  display: flex;
+  width: 100%;
+}
+
+.chat__messages__input input {
+  flex: 1;
+  width: max-content;
+  padding: 10px;
+  border: 1px solid var(--grey);
+  border-radius: 4px 0 0 4px;
+}
+
+.chat__messages__input input:focus {
+  outline: none
+}
+
+.chat__messages__input button {
+  padding: 10px 20px;
+  background-color: var(--success);
+  border: none;
+  color: var(--white);
+}
+
+/* Empty Container */
+.chat__empty__container {
+  background-color: var(--secondary);
+  height: var(--app-height);
+  width: 100%;
+  text-align: center;
+  position: relative;
+  font-size: 20px;
+}
+
+.chat__empty__container__wrapper>p {
+  margin: 0;
+}
+
+.chat__empty__container>div {
+  top: 30%
+}
+
+.chat__empty__container__image {
+  width: 250px;
+}
+
+.chat__empty__container__button {
+  border: 2px solid var(--primary);
+  border-radius: 5px;
+  font-size: 24px;
+  padding: 5px 20px;
+  transition: 0.1s;
+}
+
+.chat__empty__container__button:hover {
+  background: var(--primary);
+}
+
+/* Laptop L */
+@media screen and (max-width: 1440px) {
+  .chat__messages__container {
+    max-width: 70%;
+  }
+}
+
+/* Laptop */
+@media screen and (max-width: 1024px) {
+  .chat__empty__container__image {
+    width: 200px;
+  }
+
+  .chat__empty__container__button {
+    font-size: 20px;
+  }
+}
+
+/* Tablet */
+@media screen and (max-width: 768px) {
+  .chat__messages__container {
+    max-width: 100%;
+  }
+
+  .chat__back-button {
+    margin: auto 0;
+    padding: 10px 20px;
+    border-right: 1px solid var(--dark);
+    cursor: pointer;
+    display: block;
+  }
+  
+  .chat__user-info {
+    margin-left: 10px;
+  }
+  
+  .chat__messages__name {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  .chat__message--text {
+    border-color: var(--grey);
+    max-width: 35vw;
+    min-width: 15vw;
+    margin: 3px 10px;
+  }
+
+  .chat__message--sent {
+    border-radius: 5px 5px 15px 5px;
+  }
+
+  .chat__message--received {
+    border-radius: 5px 5px 5px 15px;
+  }
+}
+
+/* Mobile L */
+@media screen and (max-width: 425px) {
+  .chat__message--text {
+    min-width: 20vw;
+  }
+}
+
+/* Mobile M */
+@media screen and (max-width: 375px) {
+  .chat__message--text {
+    max-width: 40vw;
+    min-width: 25vw;
+  }
+}
+
+/* Mobile S */
+@media screen and (max-width: 320px) {}

@@ -1,0 +1,32 @@
+{
+  "name": "live-chat",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173",
+    "postinstall": "npm run build",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@aspnet/signalr": "^1.0.27",
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
+    "@fortawesome/free-regular-svg-icons": "^6.4.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@fortawesome/vue-fontawesome": "^3.0.3",
+    "@popperjs/core": "^2.11.6",
+    "axios": "^1.4.0",
+    "bootstrap": "^5.2.3",
+    "express": "^4.18.2",
+    "save": "^2.9.0",
+    "serve-static": "^1.15.0",
+    "sweetalert2": "^11.7.12",
+    "vue": "^3.2.45",
+    "vue-router": "^4.1.5",
+    "vue-toastification": "^2.0.0-rc.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^3.0.3",
+    "vite": "^3.0.9"
+  }
+}

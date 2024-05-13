@@ -1,0 +1,6 @@
+.chat__container {
+  display: flex;
+  height: var(--app-height);
+  color: rgb(0, 0, 0);
+  width: 100%;
+}

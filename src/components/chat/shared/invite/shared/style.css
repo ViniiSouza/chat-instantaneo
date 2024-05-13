@@ -1,0 +1,177 @@
+.invite__container {}
+
+.invite__search {
+  display: flex;
+  align-items: center;
+}
+
+.invite__search__input {
+  flex: 1;
+  width: max-content;
+  padding: 5px;
+  border: 1px solid var(--grey);
+  border-radius: 4px 0 0 4px;
+}
+
+.invite__search__button {
+  color: var(--white);
+  background-color: var(--success);
+  border: 1px solid var(--success);
+  padding: 10px 5px;
+  border-radius: 0 5px 5px 0;
+  width: 10%;
+  cursor: pointer;
+}
+
+.invite__user__container {
+  margin: 10px 0;
+}
+
+.invite__user__status {
+  margin: 0;
+  text-align: start;
+  font-size: 14px;
+}
+
+.invite__user__card {
+  border: 1px solid var(--grey);
+  border-radius: 10px;
+  display: flex;
+  padding: 20px 10px;
+}
+
+.invite__user__name {
+  text-align: start;
+  margin: 0;
+  font-weight: bold;
+  flex: 1;
+}
+
+.invite__action-button {
+  background-color: var(--success);
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: var(--white);
+  cursor: pointer;
+}
+
+
+.invite-message__box {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 10px;
+  bottom: 0;
+  margin: auto;
+  border-radius: 10px;
+  border: 2px solid var(--primary);
+  background-color: var(--secondary);
+  padding: 30px 10px;
+  height: fit-content;
+  z-index: 1055;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4);
+}
+
+.invite-message__message__container {
+  display: flex;
+}
+
+.invite-message__message__close-button {
+  float: right;
+  color: var(--primary);
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.invite-message__box__input {
+  display: block;
+  height: 100px;
+  width: 80%;
+  border-radius: 5px 0 0 5px;
+  border: 1px solid var(--primary);
+  resize: none;
+}
+
+.invite-message__send-button {
+  background-color: var(--success);
+  border: 1px solid var(--grey);
+  border-radius: 0 5px 5px 0;
+  width: 20%;
+  color: var(--white);
+}
+
+
+.invite__search__button:hover, .invite__action-button:hover, .invite-message__send-button:hover {
+  background-color: var(--success-hover);
+}
+
+.invite__change-option__wrapper {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.invite__change-option {
+  border: 1px solid var(--grey);
+  border-radius: 5px;
+  background-color: var(--primary);
+  color: var(--pure-white);
+  font-weight: 500;
+  margin: 0 auto;
+}
+
+.invite__title {
+  text-align: center;
+}
+
+.invite__list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.invite__list__item {
+  border: 1px solid var(--grey);
+  border-radius: 5px;
+  padding: 10px 5px;
+  margin: 5px 0;
+}
+
+.invite__user-info {
+  
+}
+
+.invite__user-message {
+
+}
+
+.invite__actions__container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.invite__actions__container > button {
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-weight: bold;
+}
+
+.invite__action--accept {
+  border: 1px solid var(--primary);
+  color: var(--primary);
+}
+
+.invite__action--accept:hover {
+  color: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+.invite__action--refuse {
+  border: 1px solid var(--contrast);
+  color: var(--contrast);
+}
+
+.invite__action--refuse:hover {
+  color: var(--contrast-hover);
+  border-color: var(--contrast-hover);
+}
