@@ -1,4 +1,4 @@
-import { HubConnectionBuilder, LogLevel, HttpTransportType } from '@aspnet/signalr'
+import { HubConnectionBuilder, LogLevel, HttpTransportType } from '@microsoft/signalr'
 
 export default (() => {
     const accessToken = localStorage.getItem('token')
